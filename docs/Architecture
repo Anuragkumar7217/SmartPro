@@ -1,0 +1,11 @@
+Architecture:
+Monolithic
+
+Frontend:
+React + Zustand
+
+Backend:
+Node + Express
+
+Database:
+MongoDB
