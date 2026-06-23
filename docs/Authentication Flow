@@ -7,16 +7,8 @@ SmartPro Authentication Flow
         "password": "admin123",
         "role": "ADMIN"
         }
-
-    Only once. After That:
-        Admin Login
-            ↓
-        Manage Users
-            ↓
-        Promote Users
-            ↓
-        Deactivate Users
-
+    Only once.
+        
     User Journey:
         Employee
             Register
@@ -55,24 +47,24 @@ SmartPro Authentication Flow
     
     How I Would Build SmartPro:
         Phase 1
-        ✓ MongoDB
-        ✓ User Model
+            ✓ MongoDB
+            ✓ User Model
         Phase 2
-        ✓ Register
-        ✓ Login
-        ✓ JWT
-        ✓ Auth Middleware
+            ✓ Register
+            ✓ Login
+            ✓ JWT
+            ✓ Auth Middleware
         Phase 3
-        ✓ Role Middleware
-        ✓ Protected APIs
+            ✓ Role Middleware
+            ✓ Protected APIs
         Phase 4
-        ✓ Admin User Management
+            ✓ Admin User Management
         Phase 5
-        ✓ Purchase Request Module
+            ✓ Purchase Request Module
         Phase 6
-        ✓ Approval Module
+            ✓ Approval Module
         Phase 7
-        ✓ Vendor
-        ✓ RFQ
-        ✓ Quotations
-        ✓ PO
+            ✓ Vendor
+            ✓ RFQ
+            ✓ Quotations
+            ✓ PO

@@ -1,3 +1,6 @@
+// Verify JWT
+// Attach req.user
+
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (req, res, next) => {
