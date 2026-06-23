@@ -1,5 +1,5 @@
 Architecture:
-Monolithic
+Monolithic || Layer-Based Architecture
 
 Frontend:
 React + Zustand

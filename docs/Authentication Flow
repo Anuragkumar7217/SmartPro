@@ -1,0 +1,78 @@
+SmartPro Authentication Flow
+    First User
+    Initially we seed an Admin manually.
+        Example:
+        {
+        "email": "admin@smartpro.com",
+        "password": "admin123",
+        "role": "ADMIN"
+        }
+
+    Only once. After That:
+        Admin Login
+            ↓
+        Manage Users
+            ↓
+        Promote Users
+            ↓
+        Deactivate Users
+
+    User Journey:
+        Employee
+            Register
+            ↓
+            Login
+            ↓
+            Create PR
+            ↓
+            Track PR Status
+        Manager
+            Login
+            ↓
+            See Pending Approvals
+            ↓
+            Approve / Reject
+        Purchase Team
+            Login
+            ↓
+            See Approved PRs
+            ↓
+            Create RFQ
+            ↓
+            Add Quotations
+            ↓
+            Select Vendor
+            ↓
+            Generate PO
+        Admin
+            Login
+            ↓
+            Manage Users
+            ↓
+            Activate / Deactivate
+            ↓
+            Change Roles
+    
+    How I Would Build SmartPro:
+        Phase 1
+        ✓ MongoDB
+        ✓ User Model
+        Phase 2
+        ✓ Register
+        ✓ Login
+        ✓ JWT
+        ✓ Auth Middleware
+        Phase 3
+        ✓ Role Middleware
+        ✓ Protected APIs
+        Phase 4
+        ✓ Admin User Management
+        Phase 5
+        ✓ Purchase Request Module
+        Phase 6
+        ✓ Approval Module
+        Phase 7
+        ✓ Vendor
+        ✓ RFQ
+        ✓ Quotations
+        ✓ PO
