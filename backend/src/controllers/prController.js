@@ -67,8 +67,83 @@ const getPurchaseRequestById = async (req, res) => {
   }
 };
 
+const getPendingPurchaseRequests = async (
+  req,
+  res
+) => {
+  try {
+    const purchaseRequests =
+      await prService.getPendingPurchaseRequests();
+
+    res.status(200).json({
+      success: true,
+      data: purchaseRequests,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const approvePurchaseRequest = async (
+  req,
+  res
+) => {
+  try {
+    const purchaseRequest =
+      await prService.approvePurchaseRequest(
+        req.params.id,
+        req.user.id,
+        req.body.managerComment
+      );
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Purchase Request approved successfully",
+      data: purchaseRequest,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const rejectPurchaseRequest = async (
+  req,
+  res
+) => {
+  try {
+    const purchaseRequest =
+      await prService.rejectPurchaseRequest(
+        req.params.id,
+        req.user.id,
+        req.body.managerComment
+      );
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Purchase Request rejected successfully",
+      data: purchaseRequest,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createPurchaseRequest,
   getMyPurchaseRequests,
   getPurchaseRequestById,
+  getPendingPurchaseRequests,
+  approvePurchaseRequest,
+  rejectPurchaseRequest,
 };

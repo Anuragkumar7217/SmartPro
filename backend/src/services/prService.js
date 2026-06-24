@@ -45,8 +45,86 @@ const getPurchaseRequestById = async (
     .populate("approvedBy", "firstName lastName email");
 };
 
+const getPendingPurchaseRequests = async () => {
+  return PurchaseRequest.find({
+    status: "SUBMITTED",
+  })
+    .populate(
+      "createdBy",
+      "firstName lastName email"
+    )
+    .sort({ createdAt: -1 });
+};
+
+const approvePurchaseRequest = async (
+  prId,
+  managerId,
+  managerComment
+) => {
+  const purchaseRequest =
+    await PurchaseRequest.findById(prId);
+
+  if (!purchaseRequest) {
+    throw new Error(
+      "Purchase Request not found"
+    );
+  }
+
+  if (purchaseRequest.status !== "SUBMITTED") {
+    throw new Error(
+      "Only submitted requests can be approved"
+    );
+  }
+
+  purchaseRequest.status = "APPROVED";
+
+  purchaseRequest.approvedBy = managerId;
+
+  purchaseRequest.managerComment =
+    managerComment || "";
+
+  await purchaseRequest.save();
+
+  return purchaseRequest;
+};
+
+const rejectPurchaseRequest = async (
+  prId,
+  managerId,
+  managerComment
+) => {
+  const purchaseRequest =
+    await PurchaseRequest.findById(prId);
+
+  if (!purchaseRequest) {
+    throw new Error(
+      "Purchase Request not found"
+    );
+  }
+
+  if (purchaseRequest.status !== "SUBMITTED") {
+    throw new Error(
+      "Only submitted requests can be rejected"
+    );
+  }
+
+  purchaseRequest.status = "REJECTED";
+
+  purchaseRequest.approvedBy = managerId;
+
+  purchaseRequest.managerComment =
+    managerComment || "";
+
+  await purchaseRequest.save();
+
+  return purchaseRequest;
+};
+
 module.exports = {
   createPurchaseRequest,
   getMyPurchaseRequests,
   getPurchaseRequestById,
+  getPendingPurchaseRequests,
+  approvePurchaseRequest,
+  rejectPurchaseRequest,
 };
