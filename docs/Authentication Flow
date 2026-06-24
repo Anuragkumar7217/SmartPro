@@ -64,16 +64,10 @@ SmartPro Authentication Flow
         Phase 6
             ✓ Approval Module
         Phase 7
-            ✓ Vendor
-            ✓ RFQ
-            ✓ Quotations
-            ✓ PO
-
-        Phase 7
-            → Vendor Management
+            ✓ Vendor Management
         Phase 8
-            → RFQ Management
+            ✓ RFQ Management
         Phase 9
-            → Quotation Management
+            ✓ Quotation Management
         Phase 10
-            → Purchase Order Management
+            ✓ Purchase Order Management
