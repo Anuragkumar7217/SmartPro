@@ -87,6 +87,24 @@ const getPendingPurchaseRequests = async (
   }
 };
 
+const getApprovedPurchaseRequests =
+  async (req, res) => {
+    try {
+      const purchaseRequests =
+        await prService.getApprovedPurchaseRequests();
+
+      res.status(200).json({
+        success: true,
+        data: purchaseRequests,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+};
+
 const approvePurchaseRequest = async (
   req,
   res
@@ -144,6 +162,7 @@ module.exports = {
   getMyPurchaseRequests,
   getPurchaseRequestById,
   getPendingPurchaseRequests,
+  getApprovedPurchaseRequests,
   approvePurchaseRequest,
   rejectPurchaseRequest,
 };

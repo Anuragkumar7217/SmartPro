@@ -32,6 +32,13 @@ router.get(
   prController.getPendingPurchaseRequests
 );
 
+router.get(
+  "/approved",
+  authMiddleware,
+  roleMiddleware("PURCHASE_TEAM"),
+  prController.getApprovedPurchaseRequests
+);
+
 router.patch(
   "/:id/approve",
   authMiddleware,

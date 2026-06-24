@@ -56,6 +56,22 @@ const getPendingPurchaseRequests = async () => {
     .sort({ createdAt: -1 });
 };
 
+const getApprovedPurchaseRequests =
+  async () => {
+    return PurchaseRequest.find({
+      status: "APPROVED",
+    })
+      .populate(
+        "createdBy",
+        "firstName lastName email"
+      )
+      .populate(
+        "approvedBy",
+        "firstName lastName email"
+      )
+      .sort({ createdAt: -1 });
+  };
+
 const approvePurchaseRequest = async (
   prId,
   managerId,
@@ -125,6 +141,7 @@ module.exports = {
   getMyPurchaseRequests,
   getPurchaseRequestById,
   getPendingPurchaseRequests,
+  getApprovedPurchaseRequests,
   approvePurchaseRequest,
   rejectPurchaseRequest,
 };
