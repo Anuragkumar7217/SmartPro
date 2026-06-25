@@ -57,8 +57,28 @@ const getQuotationById = async (req, res) => {
   }
 };
 
+const getQuotationComparison = async (req, res) => {
+  try {
+    const comparison =
+      await quotationService.getQuotationComparison(
+        req.params.rfqId
+      );
+
+    res.json({
+      success: true,
+      data: comparison,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createQuotation,
   getQuotationsByRFQ,
   getQuotationById,
+  getQuotationComparison,
 };

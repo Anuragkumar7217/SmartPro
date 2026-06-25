@@ -22,6 +22,12 @@ router.get(
 );
 
 router.get(
+  "/rfq/:rfqId/comparison",
+  roleMiddleware("PURCHASE_TEAM", "ADMIN"),
+  quotationController.getQuotationComparison
+);
+
+router.get(
   "/:id",
   roleMiddleware("PURCHASE_TEAM", "ADMIN"),
   quotationController.getQuotationById

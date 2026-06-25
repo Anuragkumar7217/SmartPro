@@ -101,8 +101,46 @@ const getQuotationById = async (id) => {
   return quotation;
 };
 
+const getQuotationComparison = async (rfqId) => {
+  const rfq = await RFQ.findById(rfqId);
+
+  if (!rfq) {
+    throw new Error("RFQ not found");
+  }
+
+  if (rfq.status === "DRAFT") {
+    throw new Error(
+      "Comparison is available only for ISSUED or CLOSED RFQs"
+    );
+  }
+
+  const quotations = await Quotation.find({
+    rfq: rfqId,
+  })
+    .populate("vendor")
+    .sort({ totalAmount: 1 });
+
+  const rankedQuotations = quotations.map(
+    (quotation, index) => ({
+      rank: index + 1,
+      quotationId: quotation._id,
+      quotationNumber: quotation.quotationNumber,
+      vendor: quotation.vendor.companyName,
+      totalAmount: quotation.totalAmount,
+      status: quotation.status,
+    })
+  );
+
+  return {
+    rfqId: rfq._id,
+    rfqNumber: rfq.rfqNumber,
+    quotations: rankedQuotations,
+  };
+};
+
 module.exports = {
   createQuotation,
   getQuotationsByRFQ,
   getQuotationById,
+  getQuotationComparison,
 };
