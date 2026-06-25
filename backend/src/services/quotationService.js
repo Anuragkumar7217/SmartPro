@@ -138,9 +138,58 @@ const getQuotationComparison = async (rfqId) => {
   };
 };
 
+const selectQuotation = async (quotationId) => {
+  const quotation = await Quotation.findById(quotationId);
+
+  if (!quotation) {
+    throw new Error("Quotation not found");
+  }
+
+  const rfq = await RFQ.findById(quotation.rfq);
+
+  if (!rfq) {
+    throw new Error("RFQ not found");
+  }
+
+  if (rfq.status !== "CLOSED") {
+    throw new Error(
+      "RFQ must be CLOSED before vendor selection"
+    );
+  }
+
+  const alreadySelectedQuotation =
+    await Quotation.findOne({
+      rfq: rfq._id,
+      status: "SELECTED",
+    });
+
+  if (alreadySelectedQuotation) {
+    throw new Error(
+      "Vendor has already been selected for this RFQ"
+    );
+  }
+
+  await Quotation.updateMany(
+    {
+      rfq: rfq._id,
+      _id: { $ne: quotationId },
+    },
+    {
+      status: "REJECTED",
+    }
+  );
+
+  quotation.status = "SELECTED";
+
+  await quotation.save();
+
+  return quotation;
+};
+
 module.exports = {
   createQuotation,
   getQuotationsByRFQ,
   getQuotationById,
   getQuotationComparison,
+  selectQuotation,
 };

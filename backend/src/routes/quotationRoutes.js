@@ -27,6 +27,12 @@ router.get(
   quotationController.getQuotationComparison
 );
 
+router.patch(
+  "/:quotationId/select",
+  roleMiddleware("PURCHASE_TEAM", "ADMIN"),
+  quotationController.selectQuotation
+);
+
 router.get(
   "/:id",
   roleMiddleware("PURCHASE_TEAM", "ADMIN"),
