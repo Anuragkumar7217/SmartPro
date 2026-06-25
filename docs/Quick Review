@@ -1,0 +1,303 @@
+# SMARTPRO - API TESTING & REVISION DOCUMENT
+
+## SECTION 1 - SYSTEM FLOW
+ADMIN > Create Users > Assign Roles > Activate Users
+EMPLOYEE > Create Purchase Request (PR)
+MANAGER > Approve / Reject PR
+PURCHASE TEAM > View Approved PRs > Create Vendors > Create RFQ > Issue RFQ > Add Quotations
+
+Current Flow:
+
+User Management > Purchase Request > Approval > Vendor > RFQ > Quotation
+
+## SECTION 2 - TEST USERS
+
+Role: ADMIN
+{
+  "email": "Anurag@gmail.com",
+  "password": "Password123"
+}
+
+Role: MANAGER
+{
+  "email": "Anup@gmail.com",
+  "password": "Anup123"
+}
+
+Role: PURCHASE_TEAM
+{
+  "email": "Aman@gmail.com",
+  "password": "Aman123"
+}
+
+Role: EMPLOYEE
+{
+  "email": "Somesh@gmail.com",
+  "password": "Somesh123"
+}
+
+## SECTION 3 - AUTH MODULE
+
+3.1 Register User
+    POST /api/auth/register
+    Authorization: No Token Required
+    Body:
+        {
+        "firstName": "Test",
+        "lastName": "User",
+        "email": "[test@example.com](mailto:test@example.com)",
+        "password": "password123"
+        }
+    Expected: ✓ User Created
+
+3.2 Login
+    POST /api/auth/login
+    Authorization: No Token Required
+    Body:
+        {
+        "email": "[aman@gmail.com](mailto:aman@gmail.com)",
+        "password": "password123"
+        }
+    Expected: ✓ JWT Token Returned
+    Save Token For Later APIs
+
+3.3 Profile
+    GET /api/auth/profile
+    Authorization: Bearer Token Required
+    Expected: ✓ Logged-in User Details
+
+## SECTION 4 - USER MANAGEMENT
+
+ADMIN ONLY
+    4.1 Get All Users
+    GET /api/users
+    Authorization: Bearer ADMIN Token
+    Expected: ✓ User List Returned
+
+    4.2 Change User Role
+    PATCH /api/users/:id/role
+    Authorization: Bearer ADMIN Token
+    Body:
+        {
+        "role": "MANAGER"
+        }
+    Expected: ✓ Role Updated
+
+    4.3 Activate User
+    PATCH /api/users/:id/activate
+    Authorization: Bearer ADMIN Token
+    Expected: ✓ User Activated
+
+    4.4 Deactivate User
+    PATCH /api/users/:id/deactivate
+    Authorization: Bearer ADMIN Token
+    Expected: ✓ User Deactivated
+
+## SECTION 5 - PURCHASE REQUEST MODULE
+
+EMPLOYEE ONLY
+5.1 Create Purchase Request
+    POST /api/pr
+    Authorization: Bearer EMPLOYEE Token
+    Body:
+        {
+        "title": "Developer Equipment",
+        "description": "Equipment for employees",
+        "reason": "Onboarding",
+        "items": [
+        {
+        "itemName": "Laptop",
+        "quantity": 2
+        },
+        {
+        "itemName": "Mouse",
+        "quantity": 5
+        }
+        ]
+        }
+    Expected:
+        ✓ PR Number Generated
+        ✓ Status = SUBMITTED
+
+5.2 Get My PRs
+    GET /api/pr/my
+    Authorization: Bearer EMPLOYEE Token
+    Expected: ✓ Own PR List Returned
+
+5.3 Get PR By Id
+    GET /api/pr/:id
+    Authorization: Bearer Token
+    Expected: ✓ PR Returned
+
+## SECTION 6 - APPROVAL MODULE
+
+MANAGER ONLY
+6.1 Get Pending PRs
+    GET /api/pr/pending
+    Authorization: Bearer MANAGER Token
+    Expected: ✓ Pending PRs Returned
+
+6.2 Approve PR
+    PATCH /api/pr/:id/approve
+    Authorization: Bearer MANAGER Token
+    Body:
+        {
+        "managerComment": "Budget Approved"
+        }
+    Expected: ✓ Status = APPROVED
+
+6.3 Reject PR
+    PATCH /api/pr/:id/reject
+    Authorization: Bearer MANAGER Token
+    Body:
+        {
+        "managerComment": "Budget Not Available"
+        }
+    Expected: ✓ Status = REJECTED
+
+## SECTION 7 - PURCHASE TEAM QUEUE
+
+PURCHASE_TEAM ONLY
+7.1 Get Approved PRs
+    GET /api/pr/approved
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ Approved PRs Returned
+
+## SECTION 8 - VENDOR MODULE
+
+PURCHASE_TEAM ONLY
+
+8.1 Create Vendor
+    POST /api/vendors
+    Authorization: Bearer PURCHASE_TEAM Token
+    Body:
+        {
+        "companyName": "Dell India",
+        "contactPerson": "Rahul Sharma",
+        "email": "[sales@dell.com](mailto:sales@dell.com)",
+        "phone": "9876543210",
+        "address": "Bangalore"
+        }
+    Expected:
+        ✓ Vendor Created
+        ✓ Vendor Code Generated
+
+8.2 Get Vendors
+    GET /api/vendors
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ Vendor List Returned
+
+## SECTION 9 - RFQ MODULE
+
+PURCHASE_TEAM ONLY
+9.1 Create RFQ
+    POST / api/rfqs
+    Authorization: Bearer PURCHASE_TEAM Token
+    Body:
+        {
+        "purchaseRequest": "PR_ID",
+        "vendors": [
+        "VENDOR_ID"
+        ],
+        "remarks": "RFQ for laptop procurement"
+        }
+    Expected:
+        ✓ RFQ Created
+        ✓ Status = DRAFT
+        ✓ RFQ Number Generated
+
+9.2 Get All RFQs
+    GET /api/rfqs
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ RFQ List Returned
+
+9.3 Get RFQ By Id
+    GET /api/rfqs/:id
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ RFQ Details Returned
+
+9.4 Issue RFQ
+    PATCH /api/rfqs/:id/issue
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ Status Changes To ISSUED
+
+9.5 Close RFQ
+    PATCH /api/rfqs/:id/close
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ Status Changes To CLOSED
+
+## SECTION 10 - QUOTATION MODULE
+
+PURCHASE_TEAM ONLY
+10.1 Create Quotation
+    POST /api/quotations
+    Authorization: 
+    Bearer PURCHASE_TEAM Token
+    Body:
+        {
+        "rfq": "RFQ_ID",
+        "vendor": "VENDOR_ID",
+        "items": [
+        {
+        "itemName": "Laptop",
+        "quantity": 2,
+        "unitPrice": 45000
+        },
+        {
+        "itemName": "Mouse",
+        "quantity": 5,
+        "unitPrice": 1000
+        }
+        ],
+        "remarks": "Delivery within 7 days"
+        }
+    Expected:
+        ✓ QT Number Generated
+        ✓ Status = SUBMITTED
+        ✓ totalAmount Auto Calculated
+
+10.2 Get Quotations By RFQ
+    GET /api/quotations/rfq/:rfqId
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ RFQ Quotations Returned
+
+10.3 Get Quotation By Id
+    GET /api/quotations/:id
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected: ✓ Quotation Details Returned
+
+## SECTION 11 - BUSINESS RULE VALIDATIONS
+
+RFQ
+    ✓ Only APPROVED PR can create RFQ
+    ✓ Only PURCHASE_TEAM can create RFQ
+
+QUOTATION
+    ✓ RFQ must be ISSUED
+    ✓ Vendor must belong to RFQ
+    ✓ One Vendor = One Quotation Per RFQ
+    ✓ totalAmount calculated automatically
+    ✓ totalPrice calculated automatically
+
+## SECTION 12 - CURRENT PROJECT STATUS
+
+✓ Authentication
+
+✓ User Management
+
+✓ Purchase Request
+
+✓ Approval Workflow
+
+✓ Purchase Team Queue
+
+✓ Vendor Management
+
+✓ RFQ Management
+
+✓ Quotation Management
+
+NEXT:
+
+Phase 10
+Quotation Comparison Module
