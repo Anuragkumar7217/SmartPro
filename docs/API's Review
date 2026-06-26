@@ -7,7 +7,6 @@ MANAGER > Approve / Reject PR
 PURCHASE TEAM > View Approved PRs > Create Vendors > Create RFQ > Issue RFQ > Add Quotations
 
 Current Flow:
-
 User Management > Purchase Request > Approval > Vendor > RFQ > Quotation
 
 ## SECTION 2 - TEST USERS
@@ -266,8 +265,6 @@ PURCHASE_TEAM ONLY
     Authorization: Bearer PURCHASE_TEAM Token
     Expected: ✓ Quotation Details Returned
 
-## SECTION 11 - BUSINESS RULE VALIDATIONS
-
 RFQ
     ✓ Only APPROVED PR can create RFQ
     ✓ Only PURCHASE_TEAM can create RFQ
@@ -279,25 +276,133 @@ QUOTATION
     ✓ totalAmount calculated automatically
     ✓ totalPrice calculated automatically
 
-## SECTION 12 - CURRENT PROJECT STATUS
+# SECTION 11 - QUOTATION COMPARISON
 
-✓ Authentication
+PURCHASE_TEAM ONLY
+11.1 Get Quotation Comparison
+    GET /api/quotations/rfq/:rfqId/comparison
+    Authorization: Bearer PURCHASE_TEAM Token
+    Expected:
+        ✓ RFQ Details Returned
+        ✓ Quotations Sorted By totalAmount (Ascending)
+        ✓ Rank Assigned Automatically
+        ✓ Lowest Quotation Appears At Rank 1
 
-✓ User Management
+    Example Response
+    json
+        {
+            "success": true,
+            "data": {
+                "rfqId": "RFQ_ID",
+                "rfqNumber": "RFQ-00001",
+                "quotations": [
+                    {
+                        "rank": 1,
+                        "quotationId": "QT_ID",
+                        "quotationNumber": "QT-00002",
+                        "vendor": "Dell India",
+                        "totalAmount": 90000,
+                        "status": "SUBMITTED"
+                    },
+                    {
+                        "rank": 2,
+                        "quotationId": "QT_ID",
+                        "quotationNumber": "QT-00001",
+                        "vendor": "HP India",
+                        "totalAmount": 95000,
+                        "status": "SUBMITTED"
+                    }
+                ]
+            }
+    }
 
-✓ Purchase Request
+    Expected Business Rules
+        ✓ RFQ must not be DRAFT
+        ✓ Comparison available for ISSUED and CLOSED RFQs
+        ✓ Quotations sorted by totalAmount
+        ✓ Rank generated automatically
 
-✓ Approval Workflow
+# SECTION 12 - VENDOR SELECTION
 
-✓ Purchase Team Queue
+PURCHASE_TEAM ONLY
+12.1 Select Vendor
+    PATCH /api/quotations/:id/select
+    Authorization: Bearer PURCHASE_TEAM Token
 
-✓ Vendor Management
+    Expected:
+        ✓ Selected quotation status becomes SELECTED
+        ✓ Remaining quotations become REJECTED
+        ✓ Only one quotation remains SELECTED
 
-✓ RFQ Management
+    Example Response
+    json
+        {
+            "success": true,
+            "message": "Vendor selected successfully",
+            "data": {
+                "quotationNumber": "QT-00002",
+                "status": "SELECTED"
+            }
+        }
 
-✓ Quotation Management
+    Business Rules
+        ✓ RFQ must be CLOSED
+        ✓ Only one quotation can be SELECTED
+        ✓ Other quotations automatically become REJECTED
+        ✓ Selected quotation will be used for Purchase Order generation
 
-NEXT:
+# SECTION 13 - PURCHASE ORDER MANAGEMENT
 
-Phase 10
-Quotation Comparison Module
+PURCHASE_TEAM ONLY
+13.1 Create Purchase Order
+    POST /api/purchase-orders
+    Authorization: Bearer PURCHASE_TEAM Token
+
+    Body
+        json
+        {
+            "quotationId": "QUOTATION_ID"
+        }
+
+    Expected
+        ✓ PO Number Generated
+        ✓ Status = DRAFT
+        ✓ Vendor Copied
+        ✓ Items Copied
+        ✓ Total Amount Copied
+
+13.2 Get All Purchase Orders
+    GET /api/purchase-orders
+    Authorization: Bearer PURCHASE_TEAM Token
+
+    Expected
+        ✓ Purchase Order List Returned
+
+13.3 Get Purchase Order By Id
+    GET /api/purchase-orders/:id
+    Authorization: Bearer PURCHASE_TEAM Token
+
+    Expected
+        ✓ Purchase Order Details Returned
+
+13.4 Issue Purchase Order
+    PATCH /api/purchase-orders/:id/issue
+    Authorization: Bearer PURCHASE_TEAM Token
+
+    Expected
+        ✓ Status Changes To ISSUED
+
+13.5 Cancel Purchase Order
+    PATCH /api/purchase-orders/:id/cancel
+    Authorization: Bearer PURCHASE_TEAM Token
+
+    Expected
+        ✓ Status Changes To CANCELLED
+
+    PURCHASE ORDER BUSINESS RULES
+        ✓ Only SELECTED quotation can create Purchase Order
+        ✓ One quotation = One Purchase Order
+        ✓ Duplicate Purchase Orders are not allowed
+        ✓ Purchase Order copies Vendor, Items and Total Amount from selected quotation
+        ✓ Only DRAFT Purchase Orders can be ISSUED
+        ✓ CANCELLED Purchase Orders cannot be cancelled again

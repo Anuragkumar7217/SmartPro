@@ -1,80 +1,515 @@
-SmartPro Authentication Flow
-    First User
-    Initially we seed an Admin manually.
-        Example:
-        {
-        "email": "admin@smartpro.com",
-        "password": "admin123",
-        "role": "ADMIN"
-        }
-    Only once.
-        
-    User Journey:
-        Employee
-            Register
-            ↓
-            Login
-            ↓
-            Create PR
-            ↓
-            Track PR Status
-        Manager
-            Login
-            ↓
-            See Pending Approvals
-            ↓
-            Approve / Reject
-        Purchase Team
-            Login
-            ↓
-            See Approved PRs
-            ↓
-            Create RFQ
-            ↓
-            Add Quotations
-            ↓
-            Select Vendor
-            ↓
-            Generate PO
-        Admin
-            Login
-            ↓
-            Manage Users
-            ↓
-            Activate / Deactivate
-            ↓
-            Change Roles
-    
-    How I Would Build SmartPro:
-        Phase 1
-            ✓ MongoDB
-            ✓ User Model
-        Phase 2
-            ✓ Register
-            ✓ Login
-            ✓ JWT
-            ✓ Auth Middleware
-        Phase 3
-            ✓ Role Middleware
-            ✓ Protected APIs
-        Phase 4
-            ✓ Admin User Management
-        Phase 5
-            ✓ Purchase Request Module
-        Phase 6
-            ✓ Approval Module
-        Phase 7
-            ✓ Vendor Management
-        Phase 8
-            ✓ RFQ
-        Phase 9
-            ✓ Quotation Module
-        Phase 10
-            ✓ Quotation Comparison
-        Phase 11
-            ✓ Vendor Selection
-        Phase 12
-            ✓ Purchase Order Management
+SMARTPRO BACKEND REVISION DOCUMENT (FINAL) 
 
+SmartPro is a Procurement Management System. 
 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhM2E2N2IyZjI0MTk4ZDY2ZGMwYzA5NyIsImVtYWlsIjoiYW1hbkBnbWFpbC5jb20iLCJyb2xlIjoiUFVSQ0hBU0VfVEVBTSIsImlhdCI6MTc4MjM2NjE5NSwiZXhwIjoxNzgyNDUyNTk1fQ.4epx6aW1T427OMWCV5OPI5HGkx56iL6kmkh_3fx6uMw
+Its purpose is to manage the complete procurement lifecycle from a purchase request to a purchase order. 
+
+Procurement Flow 
+
+ADMIN 
+    ↓ 
+Create Users & Assign Roles 
+ 
+EMPLOYEE 
+    ↓ 
+Create Purchase Request (PR) 
+ 
+MANAGER 
+    ↓ 
+Approve / Reject PR 
+ 
+PURCHASE_TEAM 
+    ↓ 
+Create Vendor 
+    ↓ 
+Create RFQ 
+    ↓ 
+Issue RFQ 
+    ↓ 
+Quotations Module 
+    ↓ 
+Quotations Comparison 
+    ↓ 
+Vendor Selection 
+    ↓ 
+Issue Purchase Order 
+  
+
+2. SYSTEM ROLES 
+
+ADMIN 
+
+Responsibilities: 
+
+Manage users 
+Assign roles 
+Activate users 
+Deactivate users 
+Full system access 
+  
+
+EMPLOYEE 
+
+Responsibilities: 
+
+Create Purchase Requests 
+View own Purchase Requests 
+  
+
+MANAGER 
+
+Responsibilities: 
+
+Review Purchase Requests 
+Approve Purchase Requests 
+Reject Purchase Requests 
+ 
+
+PURCHASE_TEAM 
+
+Responsibilities: 
+
+View approved PRs 
+Manage vendors 
+Create RFQs 
+Issue RFQs 
+Create quotations 
+Compare quotations 
+Select vendors 
+Generate Purchase Orders 
+Issue Purchase Orders 
+Cancel Purchase Orders 
+ 
+
+3. COMPLETE DATA FLOW 
+
+User Journey: 
+
+        Employee 
+
+            Register 
+
+            ↓ 
+
+            Login 
+
+            ↓ 
+
+            Create PR 
+
+            ↓ 
+
+            Track PR Status 
+
+ 
+
+        Manager 
+
+            Login 
+
+            ↓ 
+
+            See Pending Approvals 
+
+            ↓ 
+
+            Approve / Reject 
+
+        Purchase Team 
+
+            Login 
+
+            ↓ 
+
+            See Approved PRs 
+
+            ↓ 
+
+            Create RFQ 
+
+            ↓ 
+
+            Add Quotations 
+
+            ↓ 
+
+            Select Vendor 
+
+            ↓ 
+
+            Generate PO 
+
+ 
+
+        Admin 
+
+            Login 
+
+            ↓ 
+
+            Manage Users 
+
+            ↓ 
+
+            Activate / Deactivate 
+
+            ↓ 
+
+            Change Roles 
+
+ 
+
+Step 1 — Purchase Request 
+
+Created By: EMPLOYEE 
+  
+
+Status Flow: 
+
+SUBMITTED 
+    ↓ 
+APPROVED or REJECTED 
+  
+
+Purpose:Employee requests goods/services. 
+ Example: 
+
+2 Laptops 
+5 Mouse 
+  
+
+Step 2 — Approval 
+
+Performed By: MANAGER 
+  
+
+Actions: Approve or Reject 
+ Manager adds: managerComment 
+  
+
+Step 3 — Vendor Management 
+
+Performed By: PURCHASE_TEAM 
+  
+
+Vendor contains: 
+
+vendorCode 
+companyName 
+contactPerson 
+email 
+phone 
+address 
+ 
+
+Purpose: Maintain supplier database. 
+  
+
+Step 4 — RFQ (Request For Quotation) 
+
+Created By: PURCHASE_TEAM 
+  
+
+Created Against: APPROVED PR 
+  
+
+Business Rule: Only APPROVED PR can create RFQ. 
+  
+
+RFQ Status Flow: 
+
+DRAFT 
+   ↓ 
+ISSUED 
+   ↓ 
+CLOSED 
+  
+
+Meaning: 
+
+DRAFT 
+
+RFQ created but not sent. 
+
+ISSUED 
+
+RFQ sent to vendors. 
+
+CLOSED 
+
+Quotation collection completed. 
+
+ 
+
+Step 5 — Quotation 
+
+Created By: PURCHASE_TEAM 
+  
+
+(Manually enters vendor quotations received offline) 
+
+Contains: 
+
+Vendor 
+Items 
+Unit Price 
+Total Price 
+Total Amount 
+  
+
+Business Rules: 
+
+RFQ must be ISSUED 
+ 
+Vendor must belong to RFQ 
+ 
+One Vendor = One Quotation Per RFQ 
+ 
+totalPrice auto-calculated 
+ 
+totalAmount auto-calculated 
+  
+
+Quotation Status Flow: 
+
+SUBMITTED 
+      ↓ 
+SELECTED 
+or 
+REJECTED 
+  
+
+Meaning: 
+
+SUBMITTED 
+
+Quotation received. 
+
+SELECTED 
+
+Vendor won the RFQ. 
+
+REJECTED 
+
+Vendor lost the RFQ. 
+
+ 
+
+4. QUOTATION COMPARISON 
+
+Purpose: Compare quotations for same RFQ. 
+  
+
+System Behavior: Sort quotations by totalAmount ascending. 
+  
+
+Example: 
+
+Vendor A = 95,000 
+ 
+Vendor B = 90,000 
+ 
+Vendor C = 100,000 
+  
+
+Result: 
+
+Rank 1 → Vendor B 
+ 
+Rank 2 → Vendor A 
+ 
+Rank 3 → Vendor C 
+  
+
+Important: 
+
+System suggests lowest quotation. 
+ 
+Purchase Team can choose any vendor. 
+  
+
+ 
+
+5. VENDOR SELECTION 
+
+Performed By: PURCHASE_TEAM 
+  
+
+Rule: RFQ must be CLOSED 
+  
+
+Selection Flow: 
+
+Choose Quotation 
+      ↓ 
+Selected Quotation 
+      ↓ 
+Status = SELECTED 
+      ↓ 
+All Others = REJECTED 
+  
+
+Rule: 
+
+Only one quotation can be selected. 
+  
+
+6. PURCHASE ORDER 
+
+Created By: PURCHASE_TEAM 
+ Source: SELECTED QUOTATION 
+  
+
+Business Rules: 
+
+Quotation must be SELECTED 
+ 
+One quotation = One PO 
+ 
+Duplicate PO not allowed 
+  
+
+Data copied from quotation: 
+
+Vendor 
+ 
+Items 
+ 
+Unit Price 
+ 
+Total Amount 
+  
+
+Purpose: Official order sent to vendor. 
+  
+
+Purchase Order Status Flow 
+
+DRAFT 
+   ↓ 
+ISSUED 
+   ↓ 
+CANCELLED 
+  
+
+Meaning: 
+
+DRAFT 
+
+PO generated but not sent. 
+
+ISSUED 
+
+PO sent to vendor. 
+
+CANCELLED 
+
+PO cancelled. 
+
+7. ALL STATUS FLOWS IN ONE PLACE 
+
+Purchase Request 
+
+SUBMITTED 
+   ↓ 
+APPROVED 
+or 
+REJECTED 
+  
+
+RFQ 
+
+DRAFT 
+   ↓ 
+ISSUED 
+   ↓ 
+CLOSED 
+  
+
+Quotation 
+
+SUBMITTED 
+   ↓ 
+SELECTED 
+or 
+REJECTED 
+  
+
+Purchase Order 
+
+DRAFT 
+   ↓ 
+ISSUED 
+   ↓ 
+CANCELLED 
+  
+
+8. DATABASE COLLECTIONS 
+
+users 
+purchaseRequests 
+vendors 
+rfqs 
+quotations 
+purchaseOrders 
+counters 
+  
+
+9. NUMBER GENERATION 
+
+Auto-generated: 
+
+PR-00001 
+ 
+VEN-00001 
+ 
+RFQ-00001 
+ 
+QT-00001 
+ 
+PO-00001 
+  
+
+Generated using: 
+
+Counter Collection 
+  
+
+10. COMPLETED BACKEND MODULES 
+
+How I Would Build SmartPro: 
+
+Phase 1 
+✓ MongoDB 
+✓ User Model 
+Phase 2 
+✓ Authentication 
+✓ Register 
+✓ Login 
+✓ JWT 
+✓ Auth Middleware 
+Phase 3 
+✓ Authorization 
+✓ Role Middleware 
+✓ Protected APIs 
+Phase 4 
+✓ User Management 
+Phase 5 
+✓ Purchase Request 
+Phase 6 
+✓ Approval 
+Phase 7 
+✓ Vendor Management 
+Phase 8 
+✓ RFQ Management 
+Phase 9 
+✓ Quotation Module 
+Phase 10 
+✓ Quotation Comparison 
+Phase 11 
+✓ Vendor Selection 
+Phase 12 
+✓ Purchase Order Management 
+  
+
+ 

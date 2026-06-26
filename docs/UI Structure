@@ -1,22 +1,3 @@
-Roles:
-    Admin
-        Create Users
-        Manage Users
-        Manage Roles
-        Manage Vendors and data
-    Employee
-        Item: Laptop
-        Qty: 5
-        Reason: New developers joined
-    Manager
-        Approve
-        Reject
-    Purchase Team
-        Create RFQ
-        Add Quotations
-        Select Vendor
-        Generate PO
-
 ProcureFlow
 │
 ├── Authentication
@@ -55,25 +36,3 @@ ProcureFlow
 └── Profile
     │
     └── Profile Page
-
-
-Design:
-Login as Employee
-    ↓
-Create PR
-
-Logout
-
-Login as Manager
-    ↓
-Approve PR
-
-Logout
-
-Login as Purchase Team
-    ↓
-Add Vendor
-    ↓
-Add Quotations
-    ↓
-Generate PO
