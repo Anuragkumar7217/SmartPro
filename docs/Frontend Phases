@@ -1,0 +1,147 @@
+Phase 0 — Project Initialization ✅
+    React + Vite Setup
+    Dependencies Installation
+    Folder Structure
+    ESLint
+    Build Verification
+
+Phase 1 — Frontend Foundation
+    Environment Variables
+    Axios Configuration
+    Material UI Theme
+    Zustand Setup
+    Routing
+    Protected Routes
+    Layout
+    Global Snackbar
+    Loading Component
+    
+Phase 2 — Authentication Module
+    Register
+    Login
+    JWT Storage
+    Logout
+    Persist Login
+    Role Handling
+
+Phase 3 — Dashboard Module
+
+Status: ⬜ Not Started
+
+Includes
+
+Dashboard UI
+Welcome Card
+Summary Cards
+Quick Navigation
+Role-based Dashboard
+Phase 4 — Purchase Request Module
+
+Status: ⬜ Not Started
+
+Includes
+
+PR List
+Create PR
+View PR
+Edit PR
+Delete PR
+Phase 5 — Approval Module
+
+Status: ⬜ Not Started
+
+Includes
+
+Pending PR
+Approve PR
+Reject PR
+Comments
+History
+Phase 6 — Vendor Module
+
+Status: ⬜ Not Started
+
+Includes
+
+Vendor List
+Create Vendor
+Edit Vendor
+Delete Vendor
+Phase 7 — RFQ Module
+
+Status: ⬜ Not Started
+
+Includes
+
+RFQ List
+Create RFQ
+Issue RFQ
+Close RFQ
+Phase 8 — Quotation Module
+
+Status: ⬜ Not Started
+
+Includes
+
+Create Quotation
+View Quotations
+Edit Quotation
+Phase 9 — Quotation Comparison Module
+
+Status: ⬜ Not Started
+
+Includes
+
+Comparison Table
+Vendor Ranking
+Manual Selection
+Phase 10 — Purchase Order Module
+
+Status: ⬜ Not Started
+
+Includes
+
+PO List
+Generate PO
+View PO
+Issue PO
+Cancel PO
+Phase 11 — Profile Module
+
+Status: ⬜ Not Started
+
+Includes
+
+User Profile
+Account Information
+Phase 12 — UI Enhancement & Reusable Components
+
+Status: ⬜ Not Started
+
+Includes
+
+Tables
+Dialogs
+Forms
+Chips
+Pagination
+Empty State
+Error State
+Loading State
+Snackbar
+Confirm Dialog
+
+Although these reusable components are developed as needed during earlier phases, this final phase is where we'll review, polish, and standardize the entire UI for consistency.
+
+Phase 13 — Final Testing & Code Review
+
+Status: ⬜ Not Started
+
+Includes
+
+Full API Testing
+UI Testing
+Responsive Testing
+Code Cleanup
+Folder Review
+Performance Review
