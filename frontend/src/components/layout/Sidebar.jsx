@@ -121,19 +121,6 @@ function Sidebar() {
 
       <Divider sx={{ my: 2 }} />
 
-      {/* Bottom */}
-
-      <SidebarItem
-        icon={UserCircle}
-        label="Profile"
-        to="/profile"
-      />
-
-      <SidebarItem
-        icon={LogOut}
-        label="Logout"
-        to="/logout"
-      />
     </Box>
   );
 }
