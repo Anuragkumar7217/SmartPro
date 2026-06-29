@@ -79,10 +79,10 @@ export const useAuthStore = create((set) => ({
     try {
       const response = await authService.getProfile();
 
-      storage.setUser(response.data);
+      storage.setUser(response.data.user);
 
       set({
-        user: response.data,
+        user: response.data.user,
       });
     } catch (error) {
       storage.clearAuth();
@@ -91,6 +91,8 @@ export const useAuthStore = create((set) => ({
         user: null,
         token: null,
         isAuthenticated: false,
+        loading: false,
+        error: null,
       });
     }
   },

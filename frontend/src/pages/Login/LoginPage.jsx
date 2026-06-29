@@ -1,5 +1,45 @@
+import { Box } from "@mui/material";
+
+import LoginLeftPanel from "../../components/login/LoginLeftPanel";
+import LoginForm from "../../components/login/LoginForm";
+
 function LoginPage() {
-  return <h1>Login Page</h1>;
+  return (
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "grid",
+        gridTemplateColumns: {
+          xs: "1fr",
+          lg: "60% 40%",
+        },
+        background:
+          "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
+      }}
+    >
+      {/* Left Panel */}
+
+      <LoginLeftPanel />
+
+      {/* Right Panel */}
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          px: {
+            xs: 3,
+            sm: 4,
+            md: 6,
+          },
+          py: 1,
+        }}
+      >
+        <LoginForm />
+      </Box>
+    </Box>
+  );
 }
 
 export default LoginPage;
