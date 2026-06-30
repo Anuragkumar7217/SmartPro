@@ -18,7 +18,7 @@ const theme = createTheme({
       main: "#EF4444",
     },
     background: {
-      default: "#F8FAFC",
+      default: "#F3F6FC",
       paper: "#FFFFFF",
     },
     text: {
@@ -88,8 +88,10 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: 10,
-          boxShadow: "0 20px 60px rgba(0,0,0,.08)",
+          borderRadius: 16,
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #E5E7EB",
+          boxShadow: "0 2px 8px rgba(15,23,42,.05)",
         },
       },
     },

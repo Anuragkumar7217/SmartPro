@@ -9,7 +9,10 @@ function AppLayout({ children }) {
       sx={{
         display: "flex",
         minHeight: "100vh",
-        bgcolor: "#F8FAFC",
+
+        // Soft background similar to Login page
+        background:
+          "linear-gradient(180deg,#F8FAFC 0%,#F3F6FC 100%)",
       }}
     >
       {/* Sidebar */}
@@ -30,14 +33,17 @@ function AppLayout({ children }) {
 
         <Navbar />
 
-        {/* Page Content */}
+        {/* Main Content */}
 
         <Box
           component="main"
           sx={{
             flex: 1,
-            p: 4,
             overflow: "auto",
+
+            p: 4,
+
+            bgcolor: "transparent",
           }}
         >
           {children}

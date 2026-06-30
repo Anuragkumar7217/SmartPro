@@ -58,12 +58,18 @@ function Navbar() {
       sx={{
         height: 80,
         px: 4,
+
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        bgcolor: "rgba(255,255,255,.85)",
-        backdropFilter: "blur(18px)",
+
+        bgcolor: "rgba(255,255,255,.92)",
+        backdropFilter: "blur(12px)",
+
         borderBottom: "1px solid #E5E7EB",
+
+        boxShadow: "0 1px 4px rgba(15,23,42,.04)",
+
         position: "sticky",
         top: 0,
         zIndex: 100,
@@ -122,6 +128,15 @@ function Navbar() {
           onClick={handleMenuOpen}
           sx={{
             cursor: "pointer",
+            px: 1.5,
+            py: 0.8,
+            borderRadius: 3,
+
+            transition: ".2s",
+
+            "&:hover": {
+              bgcolor: "#F5F3FF",
+            },
           }}
         >
           <Avatar

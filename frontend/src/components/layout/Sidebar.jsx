@@ -13,8 +13,6 @@ import {
   ClipboardList,
   ReceiptText,
   ShoppingCart,
-  UserCircle,
-  LogOut,
 } from "lucide-react";
 
 import SidebarItem from "./SidebarItem";
@@ -58,12 +56,21 @@ function Sidebar() {
       sx={{
         width: 280,
         height: "100vh",
+
         bgcolor: "#FFFFFF",
+
         borderRight: "1px solid #E5E7EB",
+
         display: "flex",
         flexDirection: "column",
+
         px: 3,
         py: 4,
+
+        position: "sticky",
+        top: 0,
+
+        boxShadow: "2px 0 10px rgba(15,23,42,.03)",
       }}
     >
       {/* Logo */}
@@ -76,15 +83,21 @@ function Sidebar() {
         >
           <Box
             sx={{
-              width: 52,
-              height: 52,
+              width: 54,
+              height: 54,
               borderRadius: 3,
+
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              color: "#fff",
+
+              color: "#FFFFFF",
+
               background:
                 "linear-gradient(135deg,#2563EB,#7C3AED)",
+
+              boxShadow:
+                "0 8px 20px rgba(79,70,229,.25)",
             }}
           >
             <PackageCheck size={28} />
@@ -110,7 +123,10 @@ function Sidebar() {
 
       {/* Menu */}
 
-      <Stack flex={1}>
+      <Stack
+        flex={1}
+        spacing={0.5}
+      >
         {menuItems.map((item) => (
           <SidebarItem
             key={item.to}
@@ -119,8 +135,18 @@ function Sidebar() {
         ))}
       </Stack>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ mt: 3 }} />
 
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        textAlign="center"
+        sx={{
+          mt: 2,
+        }}
+      >
+        SmartPro v1.0
+      </Typography>
     </Box>
   );
 }
