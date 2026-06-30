@@ -135,18 +135,6 @@ function Sidebar() {
         ))}
       </Stack>
 
-      <Divider sx={{ mt: 3 }} />
-
-      <Typography
-        variant="caption"
-        color="text.secondary"
-        textAlign="center"
-        sx={{
-          mt: 2,
-        }}
-      >
-        SmartPro v1.0
-      </Typography>
     </Box>
   );
 }

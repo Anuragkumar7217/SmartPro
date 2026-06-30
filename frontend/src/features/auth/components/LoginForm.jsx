@@ -12,11 +12,11 @@ import {
   Checkbox,
 } from "@mui/material";
 
-import TextInput from "../forms/TextInput";
-import PasswordInput from "../forms/PasswordInput";
-import SubmitButton from "../forms/SubmitButton";
+import TextInput from "./forms/TextInput";
+import PasswordInput from "./forms/PasswordInput";
+import SubmitButton from "./forms/SubmitButton";
 
-import { useAuthStore } from "../../store/authStore";
+import { useAuthStore } from "../../../store/authStore";
 
 function LoginForm() {
   const navigate = useNavigate();

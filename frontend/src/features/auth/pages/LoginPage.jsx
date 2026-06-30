@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
-import LoginLeftPanel from "../../components/login/LoginLeftPanel";
-import LoginForm from "../../components/login/LoginForm";
+import LoginLeftPanel from "../components/LoginLeftPanel";
+import LoginForm from "../components/LoginForm";
 
 function LoginPage() {
   return (

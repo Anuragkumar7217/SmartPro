@@ -12,7 +12,7 @@ import {
   ClipboardList,
 } from "lucide-react";
 
-import illustration from "../../assets/procurement-illustration.png";
+import illustration from "../../../assets/procurement-illustration.png";
 
 const features = [
     {
