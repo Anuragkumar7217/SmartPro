@@ -17,11 +17,7 @@ function LoginPage() {
           "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
       }}
     >
-      {/* Left Panel */}
-
       <LoginLeftPanel />
-
-      {/* Right Panel */}
 
       <Box
         sx={{
@@ -33,7 +29,10 @@ function LoginPage() {
             sm: 4,
             md: 6,
           },
-          py: 1,
+          py: {
+            xs: 4,
+            lg: 1,
+          },
         }}
       >
         <LoginForm />

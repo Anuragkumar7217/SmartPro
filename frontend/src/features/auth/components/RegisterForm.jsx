@@ -8,33 +8,31 @@ import {
   Stack,
   Typography,
   Divider,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
 
 import TextInput from "./forms/TextInput";
 import PasswordInput from "./forms/PasswordInput";
 import SubmitButton from "./forms/SubmitButton";
 
-import { useAuthStore } from "../../../store/authStore";
+import { authService } from "../services/authService";
 
-function LoginForm() {
+function RegisterForm() {
   const navigate = useNavigate();
 
-  const {
-    login,
-    loading,
-    error,
-    clearError,
-  } = useAuthStore();
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
-    clearError();
+    setError("");
 
     setFormData((prev) => ({
       ...prev,
@@ -45,12 +43,29 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await login(formData);
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
 
-      navigate("/dashboard");
+    try {
+      setLoading(true);
+
+      await authService.register({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      navigate("/login");
     } catch (error) {
-      console.error(error);
+      setError(
+        error.response?.data?.message ||
+          "Registration failed."
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,18 +99,32 @@ function LoginForm() {
             variant="h4"
             fontWeight={700}
           >
-            Welcome Back 👋
+            Create Account 🚀
           </Typography>
 
           <Typography
             color="text.secondary"
             mt={1}
           >
-            Sign in to continue to SmartPro.
+            Register to start using SmartPro.
           </Typography>
         </Box>
 
         {/* Inputs */}
+
+        <TextInput
+          label="First Name"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+        />
+
+        <TextInput
+          label="Last Name"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+        />
 
         <TextInput
           label="Email Address"
@@ -112,30 +141,12 @@ function LoginForm() {
           onChange={handleChange}
         />
 
-        {/* Remember Me */}
-
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Remember me"
-          />
-{/* 
-          <Link
-            to="#"
-            style={{
-              textDecoration: "none",
-              color: "#4F46E5",
-              fontWeight: 600,
-              fontSize: "14px",
-            }}
-          >
-            Forgot Password?
-          </Link> */}
-        </Box>
+        <PasswordInput
+          label="Confirm Password"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+        />
 
         {/* Error */}
 
@@ -145,39 +156,37 @@ function LoginForm() {
           </Alert>
         )}
 
-        {/* Login Button */}
+        {/* Register Button */}
 
         <SubmitButton
           type="submit"
           loading={loading}
-          loadingText="Signing In..."
+          loadingText="Creating Account..."
         >
-          Sign In
+          Create Account
         </SubmitButton>
 
         <Divider />
 
-        {/* Register */}
+        {/* Login */}
 
         <Stack alignItems="center">
           <Typography
             variant="body2"
             color="text.secondary"
           >
-            Don't have an account?
+            Already have an account?
           </Typography>
 
           <Link
-            to="/register"
+            to="/login"
             style={{
               textDecoration: "none",
               width: "100%",
             }}
           >
-            <SubmitButton
-              variant="outlined"
-            >
-              Create Account
+            <SubmitButton variant="outlined">
+              Sign In
             </SubmitButton>
           </Link>
         </Stack>
@@ -186,4 +195,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;

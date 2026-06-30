@@ -15,7 +15,7 @@ import {
 import illustration from "../../../assets/procurement-illustration.png";
 
 const features = [
-    {
+  {
     icon: ShieldCheck,
     title: "Role Based Access",
     description: "Secure access with role-based permissions.",
@@ -41,17 +41,26 @@ function LoginLeftPanel() {
   return (
     <Box
       sx={{
-        display: {
-          xs: "none",
-          lg: "flex",
-        },
+        display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "100%",
-        pl: 10,
-        py: 7,
         position: "relative",
         overflow: "hidden",
+        height: "100%",
+        pl: {
+          xs: 3,
+          sm: 5,
+          lg: 10,
+        },
+        pr: {
+          xs: 3,
+          sm: 5,
+          lg: 0,
+        },
+        py: {
+          xs: 4,
+          lg: 7,
+        },
       }}
     >
       {/* Background Blur */}
@@ -80,57 +89,56 @@ function LoginLeftPanel() {
           height: "100%",
         }}
       >
-        
         {/* Logo */}
 
         <Box
-        sx={{
+          sx={{
             display: "flex",
             alignItems: "center",
             gap: 2,
             mb: 3,
-        }}
+          }}
         >
-        <Box
+          <Box
             sx={{
-            width: 54,
-            height: 54,
-            borderRadius: 3,
-            background:
+              width: 54,
+              height: 54,
+              borderRadius: 3,
+              background:
                 "linear-gradient(135deg,#2563EB,#7C3AED)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#fff",
-            boxShadow:
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+              boxShadow:
                 "0 12px 30px rgba(79,70,229,.25)",
             }}
-        >
+          >
             <PackageCheck size={28} />
-        </Box>
+          </Box>
 
-        <Box>
+          <Box>
             <Typography
-            sx={{
+              sx={{
                 fontSize: 28,
                 fontWeight: 800,
                 color: "#111827",
                 lineHeight: 1.1,
-            }}
+              }}
             >
-            SmartPro
+              SmartPro
             </Typography>
 
             <Typography
-            sx={{
+              sx={{
                 fontSize: 16,
                 color: "#6B7280",
                 fontWeight: 500,
-            }}
+              }}
             >
-            Enterprise Procurement Suite
+              Enterprise Procurement Suite
             </Typography>
-        </Box>
+          </Box>
         </Box>
 
         {/* Heading */}
@@ -138,6 +146,8 @@ function LoginLeftPanel() {
         <Typography
           sx={{
             fontSize: {
+              xs: 30,
+              sm: 34,
               lg: 38,
               xl: 48,
             },
@@ -152,13 +162,15 @@ function LoginLeftPanel() {
         <Typography
           sx={{
             fontSize: {
+              xs: 30,
+              sm: 34,
               lg: 38,
               xl: 48,
             },
             fontWeight: 800,
             lineHeight: 1.1,
             color: "#4F46E5",
-            mb: 1,
+            mb: 2,
           }}
         >
           Made Simple.
@@ -172,7 +184,10 @@ function LoginLeftPanel() {
             color: "#6B7280",
             fontSize: 16,
             lineHeight: 1.8,
-            mb: 1,
+            mb: {
+              xs: 3,
+              lg: 1,
+            },
           }}
         >
           Manage the complete procurement lifecycle from
@@ -180,12 +195,39 @@ function LoginLeftPanel() {
           intelligent enterprise platform.
         </Typography>
 
-        {/* Bottom Section */}
+        {/* Mobile Illustration */}
 
         <Box
           sx={{
+            display: {
+              xs: "flex",
+              lg: "none",
+            },
+            justifyContent: "center",
+            mb: 2,
+          }}
+        >
+          <Box
+            component="img"
+            src={illustration}
+            alt="Procurement Illustration"
+            sx={{
+              width: "100%",
+              maxWidth: 260,
+              objectFit: "contain",
+            }}
+          />
+        </Box>
+
+        {/* Desktop Bottom Section */}
+
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              lg: "grid",
+            },
             flex: 1,
-            display: "grid",
             gridTemplateColumns: "40% 60%",
             gap: 2,
             alignItems: "center",
@@ -221,21 +263,25 @@ function LoginLeftPanel() {
                   </Box>
 
                   <Box>
-                  <Typography
-                    sx={{
-                      fontWeight: 600,
-                      color: "#374151",
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-{/*                   
-                    <Typography fontSize="0.875rem" variant="body2" color="text.secondary" > 
-                    {item.description} 
-                    </Typography>  */}
-                    </Box>
+                    <Typography
+                      sx={{
+                        fontWeight: 600,
+                        color: "#374151",
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
 
-
+                    {/*
+                    <Typography
+                      fontSize="0.875rem"
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {item.description}
+                    </Typography>
+                    */}
+                  </Box>
                 </Stack>
               );
             })}
