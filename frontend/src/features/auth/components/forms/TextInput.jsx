@@ -13,8 +13,8 @@ function TextInput({
     <TextField
       fullWidth
       variant="outlined"
-      size="medium"
-      margin="normal"
+      size="small"
+      margin="none"
       label={label}
       name={name}
       value={value}

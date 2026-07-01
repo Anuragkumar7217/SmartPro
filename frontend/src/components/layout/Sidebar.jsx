@@ -49,44 +49,45 @@ function Sidebar({
           spacing={2}
           alignItems="center"
         >
-          <Box
+        <Box
+          sx={{
+            width: 52,
+            height: 52,
+            borderRadius: 4,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "#FFFFFF",
+            background: "linear-gradient(135deg,#4F46E5,#6366F1)",
+            boxShadow: "0 10px 24px rgba(79,70,229,.25)",
+          }}
+        >
+          <PackageCheck size={26} />
+        </Box>
+
+        <Box sx={{ lineHeight: 1.1 }}>
+          <Typography
             sx={{
-              width: 56,
-              height: 56,
-
-              borderRadius: 4,
-
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-
-              color: "#FFFFFF",
-
-              background:
-                "linear-gradient(135deg,#4F46E5,#6366F1)",
-
-              boxShadow:
-                "0 10px 24px rgba(79,70,229,.25)",
+              fontSize: 22,
+              fontWeight: 800,
+              letterSpacing: "-0.4px",
+              color: "#111827",
             }}
           >
-            <PackageCheck size={28} />
-          </Box>
+            SmartPro
+          </Typography>
 
-          <Box>
-            <Typography
-              fontSize={24}
-              fontWeight={800}
-            >
-              SmartPro
-            </Typography>
-
-            <Typography
-              variant="body2"
-              color="text.secondary"
-            >
-              Procurement Suite
-            </Typography>
-          </Box>
+          <Typography
+            sx={{
+              fontSize: 13,
+              fontWeight: 500,
+              color: "#6B7280",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Procurement Suite
+          </Typography>
+        </Box>
         </Stack>
       </Box>
 

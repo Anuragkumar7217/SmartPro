@@ -22,47 +22,51 @@ function SidebarItem({
         <Box
           onClick={onClick}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
+  display: "flex",
+  alignItems: "center",
+  gap: 2,
 
-            px: 2.5,
-            py: 1.7,
+  px: 2.5,
+  py: 1.7,
 
-            borderRadius: 4,
+  borderRadius: 4,
 
-            cursor: "pointer",
+  cursor: "pointer",
 
-            transition: "all .25s ease",
+  transition: "all .25s ease",
 
-            bgcolor: isActive
-              ? "#4F46E5"
-              : "transparent",
+  background: isActive
+    ? "linear-gradient(135deg,#4F46E5,#6366F1)"
+    : "transparent",
 
-            color: isActive
-              ? "#FFFFFF"
-              : "#4B5563",
+  color: isActive
+    ? "#FFFFFF"
+    : "#4B5563",
 
-            border: isActive
-              ? "none"
-              : "1px solid transparent",
+  border: isActive
+    ? "none"
+    : "1px solid transparent",
 
-            boxShadow: isActive
-              ? "0 10px 24px rgba(79,70,229,.25)"
-              : "none",
+  boxShadow: isActive
+    ? "0 10px 24px rgba(79,70,229,.25)"
+    : "none",
 
-            "&:hover": {
-              bgcolor: isActive
-                ? "#4338CA"
-                : "#F5F3FF",
+  "&:hover": {
+    background: isActive
+      ? "linear-gradient(135deg,#4F46E5,#6366F1)"
+      : "#F5F3FF",
 
-              color: isActive
-                ? "#FFFFFF"
-                : "#4F46E5",
+    color: isActive
+      ? "#FFFFFF"
+      : "#4F46E5",
 
-              transform: "translateX(4px)",
-            },
-          }}
+    transform: "translateX(4px)",
+
+    boxShadow: isActive
+      ? "0 12px 28px rgba(79,70,229,.30)"
+      : "none",
+  },
+}}
         >
           <Box
             sx={{

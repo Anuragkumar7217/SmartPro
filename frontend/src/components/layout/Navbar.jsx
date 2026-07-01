@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import {
   Avatar,
@@ -15,12 +15,11 @@ import {
 import { Menu as MenuIcon } from "lucide-react";
 
 import { useAuthStore } from "../../store/authStore";
+import { sidebarMenu } from "../../utils/sidebarMenu";
 
-function Navbar({
-  isMobile,
-  onMenuClick,
-}) {
+function Navbar({ isMobile, onMenuClick }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
@@ -34,13 +33,17 @@ function Navbar({
   const avatarLetter =
     user?.firstName?.charAt(0)?.toUpperCase() || "G";
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const menuItems = sidebarMenu[user?.role] || [];
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const activeItem = menuItems.find((item) =>
+    location.pathname.startsWith(item.to)
+  );
+
+  const pageTitle = activeItem?.label || "Dashboard";
+  const isDashboard = location.pathname === "/dashboard";
+
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
 
   const handleProfile = () => {
     handleMenuClose();
@@ -50,9 +53,7 @@ function Navbar({
   const handleLogout = () => {
     handleMenuClose();
     logout();
-    navigate("/login", {
-      replace: true,
-    });
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -60,41 +61,28 @@ function Navbar({
       <Box
         sx={{
           height: 72,
-
-          px: {
-            xs: 2,
-            sm: 3,
-            md: 4,
-          },
-
+          px: { xs: 2, sm: 3, md: 4 },
           borderRadius: 5,
-
           bgcolor: "#FFFFFF",
-
           border: "1px solid #E5E7EB",
-
-          boxShadow:
-            "0 8px 30px rgba(15,23,42,.06)",
-
+          boxShadow: "0 8px 30px rgba(15,23,42,.06)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-
           gap: 1,
           overflow: "hidden",
-
           flexShrink: 0,
         }}
       >
-        {/* Left */}
-
+        {/* LEFT */}
         <Stack
           direction="row"
           spacing={2}
           alignItems="center"
           sx={{
-            minWidth: 0,
             flex: 1,
+            minWidth: 0,
+            height: "100%",
           }}
         >
           {isMobile && (
@@ -112,135 +100,66 @@ function Navbar({
           <Box
             sx={{
               minWidth: 0,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              height: "100%",
             }}
           >
+            {/* TITLE */}
             <Typography
               sx={{
-                fontSize: {
-                  xs: 18,
-                  sm: 24,
-                  md: 30,
-                },
-
+                fontSize: { xs: 18, sm: 24, md: 30 },
                 fontWeight: 700,
-
-                color: "#111827",
-
+                color: "#443faa",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                lineHeight: 1.2,
               }}
             >
-              Dashboard
-            </Typography>
-
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: 12,
-                  sm: 14,
-                },
-
-                color: "#6B7280",
-
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              Welcome back 👋
+              {pageTitle}
             </Typography>
           </Box>
         </Stack>
 
-        {/* Right */}
-
+        {/* RIGHT */}
         <Stack
           direction="row"
-          spacing={{
-            xs: 0.5,
-            sm: 2,
-          }}
+          spacing={{ xs: 0.5, sm: 2 }}
           alignItems="center"
-          flexShrink={0}
         >
-
           <Stack
             direction="row"
-            spacing={{
-              xs: 1,
-              sm: 2,
-            }}
+            spacing={{ xs: 1, sm: 2 }}
             alignItems="center"
             onClick={handleMenuOpen}
             sx={{
               cursor: "pointer",
-
-              px: {
-                xs: 0,
-                sm: 1.5,
-              },
-
+              px: { xs: 0, sm: 1.5 },
               py: 1,
-
               borderRadius: 4,
-
-              flexShrink: 0,
-
               transition: ".25s",
-
-              "&:hover": {
-                bgcolor: "#F5F3FF",
-              },
+              "&:hover": { bgcolor: "#F5F3FF" },
             }}
           >
             <Avatar
               sx={{
                 bgcolor: "#4F46E5",
-
-                width: {
-                  xs: 40,
-                  sm: 46,
-                },
-
-                height: {
-                  xs: 40,
-                  sm: 46,
-                },
-
+                width: { xs: 40, sm: 46 },
+                height: { xs: 40, sm: 46 },
                 fontWeight: 700,
-
                 flexShrink: 0,
               }}
             >
               {avatarLetter}
             </Avatar>
 
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "block",
-                },
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  color: "#111827",
-                }}
-              >
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <Typography sx={{ fontSize: 15, fontWeight: 700 }}>
                 {fullName}
               </Typography>
-
-              <Typography
-                sx={{
-                  fontSize: 13,
-                  color: "#6B7280",
-                  textTransform: "capitalize",
-                }}
-              >
+              <Typography sx={{ fontSize: 13, color: "#6B7280" }}>
                 {user?.role}
               </Typography>
             </Box>
@@ -248,20 +167,11 @@ function Navbar({
         </Stack>
       </Box>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleProfile}>
-          Profile
-        </MenuItem>
-
+      {/* MENU */}
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <Divider />
-
-        <MenuItem onClick={handleLogout}>
-          Logout
-        </MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
   );

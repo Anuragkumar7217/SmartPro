@@ -22,8 +22,12 @@ function RequestInformation({
     >
       <Typography
         variant="h6"
-        fontWeight={700}
-        mb={3}
+        sx={{
+          fontWeight: 700,
+          fontSize: "1.5rem",
+          color: "#4b43e2",
+          mb: 3,
+        }}
       >
         Request Information
       </Typography>

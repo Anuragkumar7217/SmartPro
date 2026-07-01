@@ -37,19 +37,15 @@ function RequestItemsTable({
         mb={3}
       >
         <Typography
-          variant="h6"
-          fontWeight={700}
-        >
-          Request Items
-        </Typography>
-
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={addItem}
-        >
-          Add Item
-        </Button>
+        variant="h6"
+        sx={{
+          fontWeight: 700,
+          fontSize: "1.25rem",
+          color: "#4b43e2",
+        }}
+      >
+        Items
+      </Typography>
       </Box>
 
       <Table>
@@ -88,6 +84,21 @@ function RequestItemsTable({
           ))}
         </TableBody>
       </Table>
+            
+      <Button
+        variant="contained"
+        startIcon={<AddIcon />}
+        onClick={addItem}
+        sx={{
+          mt: 3,
+          background: "linear-gradient(135deg,#4F46E5,#6366F1)",
+          "&:hover": {
+            background: "linear-gradient(135deg,#4338CA,#4F46E5)",
+          },
+        }}
+      >
+        Add Item
+      </Button>
     </Paper>
   );
 }
