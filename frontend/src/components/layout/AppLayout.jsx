@@ -1,25 +1,35 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
-function AppLayout({ children }) {
+function AppLayout() {
+  const theme = useTheme();
+
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setMobileOpen((prev) => !prev);
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         minHeight: "100vh",
-
-        // Soft background similar to Login page
         background:
-          "linear-gradient(180deg,#F8FAFC 0%,#F3F6FC 100%)",
+          "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
       }}
     >
-      {/* Sidebar */}
-
-      <Sidebar />
-
-      {/* Right Section */}
+      <Sidebar
+        mobileOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+      />
 
       <Box
         sx={{
@@ -27,26 +37,35 @@ function AppLayout({ children }) {
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
+
+          px: {
+            xs: 2,
+            md: 3,
+          },
+
+          py: {
+            xs: 2,
+            md: 3,
+          },
+
+          gap: 3,
         }}
       >
-        {/* Navbar */}
-
-        <Navbar />
-
-        {/* Main Content */}
+        <Navbar
+          isMobile={isMobile}
+          onMenuClick={toggleDrawer}
+        />
 
         <Box
           component="main"
           sx={{
             flex: 1,
+            minHeight: 0,
             overflow: "auto",
-
-            p: 4,
-
-            bgcolor: "transparent",
+            borderRadius: 5,
           }}
         >
-          {children}
+          <Outlet />
         </Box>
       </Box>
     </Box>

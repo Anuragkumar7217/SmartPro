@@ -1,8 +1,9 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
+import AppLayout from "../components/layout/AppLayout";
 import { useAuthStore } from "../store/authStore";
 
-function ProtectedRoute({ children }) {
+function ProtectedRoute() {
   const isAuthenticated = useAuthStore(
     (state) => state.isAuthenticated
   );
@@ -16,7 +17,11 @@ function ProtectedRoute({ children }) {
     );
   }
 
-  return children;
+  return (
+    <AppLayout>
+      <Outlet />
+    </AppLayout>
+  );
 }
 
 export default ProtectedRoute;

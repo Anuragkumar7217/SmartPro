@@ -1,5 +1,12 @@
+import PageHeader from "../../../components/common/PageHeader";
+
 function DashboardPage() {
-  return <h1>Dashboard</h1>;
+  return (
+      <PageHeader
+        title="Dashboard"
+        subtitle="Welcome to SmartPro Procurement Management System."
+      />
+  );
 }
 
 export default DashboardPage;

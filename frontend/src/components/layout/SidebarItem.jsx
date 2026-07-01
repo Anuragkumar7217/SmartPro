@@ -9,6 +9,7 @@ function SidebarItem({
   icon: Icon,
   label,
   to,
+  onClick,
 }) {
   return (
     <NavLink
@@ -19,18 +20,20 @@ function SidebarItem({
     >
       {({ isActive }) => (
         <Box
+          onClick={onClick}
           sx={{
             display: "flex",
             alignItems: "center",
             gap: 2,
 
-            px: 2,
-            py: 1.6,
-            mb: 1,
+            px: 2.5,
+            py: 1.7,
 
-            borderRadius: 3,
+            borderRadius: 4,
 
-            transition: "all .2s ease",
+            cursor: "pointer",
+
+            transition: "all .25s ease",
 
             bgcolor: isActive
               ? "#4F46E5"
@@ -40,13 +43,17 @@ function SidebarItem({
               ? "#FFFFFF"
               : "#4B5563",
 
+            border: isActive
+              ? "none"
+              : "1px solid transparent",
+
             boxShadow: isActive
-              ? "0 8px 20px rgba(79,70,229,.22)"
+              ? "0 10px 24px rgba(79,70,229,.25)"
               : "none",
 
             "&:hover": {
               bgcolor: isActive
-                ? "#4F46E5"
+                ? "#4338CA"
                 : "#F5F3FF",
 
               color: isActive
@@ -62,14 +69,19 @@ function SidebarItem({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+
+              minWidth: 22,
             }}
           >
             <Icon size={20} />
           </Box>
 
           <Typography
-            fontWeight={600}
-            fontSize={15}
+            sx={{
+              fontSize: 15,
+              fontWeight: isActive ? 700 : 600,
+              whiteSpace: "nowrap",
+            }}
           >
             {label}
           </Typography>

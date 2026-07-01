@@ -1,61 +1,31 @@
 import {
   Box,
-  Divider,
+  Drawer,
   Stack,
   Typography,
 } from "@mui/material";
 
-import {
-  PackageCheck,
-  LayoutDashboard,
-  FileText,
-  Building2,
-  ClipboardList,
-  ReceiptText,
-  ShoppingCart,
-} from "lucide-react";
+import { PackageCheck } from "lucide-react";
 
 import SidebarItem from "./SidebarItem";
 
-const menuItems = [
-  {
-    label: "Dashboard",
-    to: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "Purchase Requests",
-    to: "/purchase-requests",
-    icon: FileText,
-  },
-  {
-    label: "Vendors",
-    to: "/vendors",
-    icon: Building2,
-  },
-  {
-    label: "RFQs",
-    to: "/rfqs",
-    icon: ClipboardList,
-  },
-  {
-    label: "Quotations",
-    to: "/quotations",
-    icon: ReceiptText,
-  },
-  {
-    label: "Purchase Orders",
-    to: "/purchase-orders",
-    icon: ShoppingCart,
-  },
-];
+import { useAuthStore } from "../../store/authStore";
+import { sidebarMenu } from "../../utils/sidebarMenu";
 
-function Sidebar() {
-  return (
+function Sidebar({
+  mobileOpen,
+  onClose,
+}) {
+  const user = useAuthStore((state) => state.user);
+
+  const menuItems =
+    sidebarMenu[user?.role] || [];
+
+  const sidebarContent = (
     <Box
       sx={{
-        width: 280,
-        height: "100vh",
+        width: 270,
+        height: "100%",
 
         bgcolor: "#FFFFFF",
 
@@ -63,19 +33,17 @@ function Sidebar() {
 
         display: "flex",
         flexDirection: "column",
-
-        px: 3,
-        py: 4,
-
-        position: "sticky",
-        top: 0,
-
-        boxShadow: "2px 0 10px rgba(15,23,42,.03)",
       }}
     >
       {/* Logo */}
 
-      <Box mb={5}>
+      <Box
+        sx={{
+          px: 2,
+          py: 3,
+          borderBottom: "1px solid #F1F5F9",
+        }}
+      >
         <Stack
           direction="row"
           spacing={2}
@@ -83,9 +51,10 @@ function Sidebar() {
         >
           <Box
             sx={{
-              width: 54,
-              height: 54,
-              borderRadius: 3,
+              width: 56,
+              height: 56,
+
+              borderRadius: 4,
 
               display: "flex",
               justifyContent: "center",
@@ -94,10 +63,10 @@ function Sidebar() {
               color: "#FFFFFF",
 
               background:
-                "linear-gradient(135deg,#2563EB,#7C3AED)",
+                "linear-gradient(135deg,#4F46E5,#6366F1)",
 
               boxShadow:
-                "0 8px 20px rgba(79,70,229,.25)",
+                "0 10px 24px rgba(79,70,229,.25)",
             }}
           >
             <PackageCheck size={28} />
@@ -105,8 +74,8 @@ function Sidebar() {
 
           <Box>
             <Typography
-              fontWeight={800}
               fontSize={24}
+              fontWeight={800}
             >
               SmartPro
             </Typography>
@@ -115,7 +84,7 @@ function Sidebar() {
               variant="body2"
               color="text.secondary"
             >
-              Enterprise Suite
+              Procurement Suite
             </Typography>
           </Box>
         </Stack>
@@ -124,18 +93,91 @@ function Sidebar() {
       {/* Menu */}
 
       <Stack
-        flex={1}
-        spacing={0.5}
+        spacing={1}
+        sx={{
+          flex: 1,
+          p: 2.5,
+          overflowY: "auto",
+        }}
       >
         {menuItems.map((item) => (
           <SidebarItem
             key={item.to}
             {...item}
+            onClick={onClose}
           />
         ))}
       </Stack>
-
     </Box>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+
+      <Box
+        sx={{
+          display: {
+            xs: "none",
+            lg: "block",
+          },
+
+          width: 270,
+
+          flexShrink: 0,
+
+          p: 3,
+        }}
+      >
+        <Box
+          sx={{
+            height: "calc(100vh - 48px)",
+
+            borderRadius: 6,
+
+            overflow: "hidden",
+
+            position: "sticky",
+            top: 24,
+
+            bgcolor: "#FFFFFF",
+
+            border: "1px solid #E5E7EB",
+
+            boxShadow:
+              "0 8px 30px rgba(15,23,42,.06)",
+          }}
+        >
+          {sidebarContent}
+        </Box>
+      </Box>
+
+      {/* Mobile Drawer */}
+
+      <Drawer
+        open={mobileOpen}
+        onClose={onClose}
+        variant="temporary"
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: {
+            xs: "block",
+            lg: "none",
+          },
+
+          "& .MuiDrawer-paper": {
+            width: 270,
+            border: "none",
+            boxShadow:
+              "0 20px 40px rgba(15,23,42,.18)",
+          },
+        }}
+      >
+        {sidebarContent}
+      </Drawer>
+    </>
   );
 }
 

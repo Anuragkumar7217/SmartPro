@@ -4,22 +4,22 @@ import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Box,
+  Divider,
   IconButton,
-  Stack,
-  Typography,
   Menu,
   MenuItem,
-  Divider,
+  Stack,
+  Typography,
 } from "@mui/material";
 
-import {
-  Bell,
-  Menu as MenuIcon,
-} from "lucide-react";
+import { Menu as MenuIcon } from "lucide-react";
 
 import { useAuthStore } from "../../store/authStore";
 
-function Navbar() {
+function Navbar({
+  isMobile,
+  onMenuClick,
+}) {
   const navigate = useNavigate();
 
   const user = useAuthStore((state) => state.user);
@@ -32,7 +32,7 @@ function Navbar() {
     : "Guest User";
 
   const avatarLetter =
-    user?.firstName?.charAt(0).toUpperCase() || "G";
+    user?.firstName?.charAt(0)?.toUpperCase() || "G";
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -50,140 +50,220 @@ function Navbar() {
   const handleLogout = () => {
     handleMenuClose();
     logout();
-    navigate("/login", { replace: true });
+    navigate("/login", {
+      replace: true,
+    });
   };
 
   return (
-    <Box
-      sx={{
-        height: 80,
-        px: 4,
+    <>
+      <Box
+        sx={{
+          height: 72,
 
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+          px: {
+            xs: 2,
+            sm: 3,
+            md: 4,
+          },
 
-        bgcolor: "rgba(255,255,255,.92)",
-        backdropFilter: "blur(12px)",
+          borderRadius: 5,
 
-        borderBottom: "1px solid #E5E7EB",
+          bgcolor: "#FFFFFF",
 
-        boxShadow: "0 1px 4px rgba(15,23,42,.04)",
+          border: "1px solid #E5E7EB",
 
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-      }}
-    >
-      {/* Left */}
+          boxShadow:
+            "0 8px 30px rgba(15,23,42,.06)",
 
-      <Stack
-        direction="row"
-        spacing={2}
-        alignItems="center"
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+
+          gap: 1,
+          overflow: "hidden",
+
+          flexShrink: 0,
+        }}
       >
-        <IconButton
-          sx={{
-            display: {
-              xs: "flex",
-              lg: "none",
-            },
-          }}
-        >
-          <MenuIcon size={22} />
-        </IconButton>
-
-        <Box>
-          <Typography
-            variant="h5"
-            fontWeight={700}
-          >
-            Dashboard
-          </Typography>
-
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            Welcome back 👋
-          </Typography>
-        </Box>
-      </Stack>
-
-      {/* Right */}
-
-      <Stack
-        direction="row"
-        spacing={3}
-        alignItems="center"
-      >
-        <IconButton>
-          <Bell size={20} />
-        </IconButton>
+        {/* Left */}
 
         <Stack
           direction="row"
           spacing={2}
           alignItems="center"
-          onClick={handleMenuOpen}
           sx={{
-            cursor: "pointer",
-            px: 1.5,
-            py: 0.8,
-            borderRadius: 3,
-
-            transition: ".2s",
-
-            "&:hover": {
-              bgcolor: "#F5F3FF",
-            },
+            minWidth: 0,
+            flex: 1,
           }}
         >
-          <Avatar
+          {isMobile && (
+            <IconButton
+              onClick={onMenuClick}
+              sx={{
+                color: "#4F46E5",
+                flexShrink: 0,
+              }}
+            >
+              <MenuIcon size={24} />
+            </IconButton>
+          )}
+
+          <Box
             sx={{
-              bgcolor: "#4F46E5",
-              width: 46,
-              height: 46,
-              fontWeight: 700,
+              minWidth: 0,
             }}
           >
-            {avatarLetter}
-          </Avatar>
-
-          <Box>
             <Typography
-              fontWeight={700}
-              fontSize={15}
+              sx={{
+                fontSize: {
+                  xs: 18,
+                  sm: 24,
+                  md: 30,
+                },
+
+                fontWeight: 700,
+
+                color: "#111827",
+
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
             >
-              {fullName}
+              Dashboard
             </Typography>
 
             <Typography
-              variant="body2"
-              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: 12,
+                  sm: 14,
+                },
+
+                color: "#6B7280",
+
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
             >
-              {user?.role || "User"}
+              Welcome back 👋
             </Typography>
           </Box>
         </Stack>
 
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
+        {/* Right */}
+
+        <Stack
+          direction="row"
+          spacing={{
+            xs: 0.5,
+            sm: 2,
+          }}
+          alignItems="center"
+          flexShrink={0}
         >
-          <MenuItem onClick={handleProfile}>
-            Profile
-          </MenuItem>
 
-          <Divider />
+          <Stack
+            direction="row"
+            spacing={{
+              xs: 1,
+              sm: 2,
+            }}
+            alignItems="center"
+            onClick={handleMenuOpen}
+            sx={{
+              cursor: "pointer",
 
-          <MenuItem onClick={handleLogout}>
-            Logout
-          </MenuItem>
-        </Menu>
-      </Stack>
-    </Box>
+              px: {
+                xs: 0,
+                sm: 1.5,
+              },
+
+              py: 1,
+
+              borderRadius: 4,
+
+              flexShrink: 0,
+
+              transition: ".25s",
+
+              "&:hover": {
+                bgcolor: "#F5F3FF",
+              },
+            }}
+          >
+            <Avatar
+              sx={{
+                bgcolor: "#4F46E5",
+
+                width: {
+                  xs: 40,
+                  sm: 46,
+                },
+
+                height: {
+                  xs: 40,
+                  sm: 46,
+                },
+
+                fontWeight: 700,
+
+                flexShrink: 0,
+              }}
+            >
+              {avatarLetter}
+            </Avatar>
+
+            <Box
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: "#111827",
+                }}
+              >
+                {fullName}
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontSize: 13,
+                  color: "#6B7280",
+                  textTransform: "capitalize",
+                }}
+              >
+                {user?.role}
+              </Typography>
+            </Box>
+          </Stack>
+        </Stack>
+      </Box>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleProfile}>
+          Profile
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem onClick={handleLogout}>
+          Logout
+        </MenuItem>
+      </Menu>
+    </>
   );
 }
 
