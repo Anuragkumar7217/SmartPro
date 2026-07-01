@@ -13,10 +13,17 @@ import {
 } from "@mui/material";
 
 function PendingRequestsTable({
-  requests,
+  requests = [],
   onReview,
+  title = "Pending Requests",
+  maxRows,
+  enableActions = true,
 }) {
-  if (!requests.length) {
+  const tableData = maxRows
+    ? requests.slice(0, maxRows)
+    : requests;
+
+  if (!tableData.length) {
     return (
       <Paper
         elevation={0}
@@ -28,7 +35,10 @@ function PendingRequestsTable({
           borderColor: "divider",
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography
+          variant="h6"
+          fontWeight={600}
+        >
           No Pending Requests
         </Typography>
 
@@ -44,118 +54,142 @@ function PendingRequestsTable({
   }
 
   return (
-    <TableContainer
-      component={Paper}
+    <Paper
       elevation={0}
       sx={{
         borderRadius: 5,
         border: "1px solid",
         borderColor: "divider",
+        overflow: "hidden",
       }}
     >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell sx={{ fontWeight: 700 }}>
-              PR Number
-            </TableCell>
+      <Box
+        sx={{
+          px: 3,
+          py: 2.5,
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        }}
+      >
+        <Typography
+          variant="h6"
+          fontWeight={700}
+        >
+          {title}
+        </Typography>
+      </Box>
 
-            <TableCell sx={{ fontWeight: 700 }}>
-              Title
-            </TableCell>
-
-            <TableCell sx={{ fontWeight: 700 }}>
-              Requested By
-            </TableCell>
-
-            <TableCell sx={{ fontWeight: 700 }}>
-              Submitted On
-            </TableCell>
-
-            <TableCell
-              align="center"
-              sx={{ fontWeight: 700 }}
-            >
-              Action
-            </TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {requests.map((request) => (
-            <TableRow
-              hover
-              key={request._id}
-            >
-              <TableCell>
-                <Chip
-                  label={request.prNumber}
-                  color="primary"
-                  variant="outlined"
-                  size="small"
-                />
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ fontWeight: 700 }}>
+                PR Number
               </TableCell>
 
-              <TableCell>
-                <Typography fontWeight={600}>
-                  {request.title}
-                </Typography>
+              <TableCell sx={{ fontWeight: 700 }}>
+                Title
               </TableCell>
 
-              <TableCell>
-                <Box>
-                  <Typography fontWeight={500}>
-                    {request.createdBy.firstName}{" "}
-                    {request.createdBy.lastName}
+              <TableCell sx={{ fontWeight: 700 }}>
+                Requested By
+              </TableCell>
+
+              <TableCell sx={{ fontWeight: 700 }}>
+                Submitted On
+              </TableCell>
+
+              {enableActions && (
+                <TableCell
+                  align="center"
+                  sx={{ fontWeight: 700 }}
+                >
+                  Action
+                </TableCell>
+              )}
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {tableData.map((request) => (
+              <TableRow
+                hover
+                key={request._id}
+              >
+                <TableCell>
+                  <Chip
+                    label={request.prNumber}
+                    color="primary"
+                    variant="outlined"
+                    size="small"
+                  />
+                </TableCell>
+
+                <TableCell>
+                  <Typography fontWeight={600}>
+                    {request.title}
+                  </Typography>
+                </TableCell>
+
+                <TableCell>
+                  <Box>
+                    <Typography fontWeight={500}>
+                      {request.createdBy.firstName}{" "}
+                      {request.createdBy.lastName}
+                    </Typography>
+
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                    >
+                      {request.createdBy.email}
+                    </Typography>
+                  </Box>
+                </TableCell>
+
+                <TableCell>
+                  <Typography>
+                    {new Date(
+                      request.createdAt
+                    ).toLocaleDateString()}
                   </Typography>
 
                   <Typography
                     variant="caption"
                     color="text.secondary"
                   >
-                    {request.createdBy.email}
+                    {new Date(
+                      request.createdAt
+                    ).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
                   </Typography>
-                </Box>
-              </TableCell>
+                </TableCell>
 
-              <TableCell>
-                <Typography>
-                  {new Date(
-                    request.createdAt
-                  ).toLocaleDateString()}
-                </Typography>
-
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                >
-                  {new Date(
-                    request.createdAt
-                  ).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </Typography>
-              </TableCell>
-
-              <TableCell align="center">
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={() => onReview(request)}
-                  sx={{
-                    textTransform: "none",
-                    borderRadius: 2,
-                  }}
-                >
-                  Review
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                {enableActions && (
+                  <TableCell align="center">
+                    <Button
+                      variant="contained"
+                      size="small"
+                      onClick={() =>
+                        onReview?.(request)
+                      }
+                      sx={{
+                        textTransform: "none",
+                        borderRadius: 2,
+                      }}
+                    >
+                      Review
+                    </Button>
+                  </TableCell>
+                )}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 }
 
