@@ -68,8 +68,8 @@ export const sidebarMenu = {
       icon: LayoutDashboard,
     },
     {
-      label: "Purchase Requests",
-      to: "/purchase-requests",
+      label: "Pending Requests",
+      to: "/purchase-requests/pending",
       icon: FileText,
     },
   ],

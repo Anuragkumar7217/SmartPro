@@ -1,94 +1,35 @@
-import {
-  Alert,
-  Box,
-  CircularProgress,
-  Grid,
-  Stack,
-} from "@mui/material";
+import { useMemo } from "react";
 
-import useDashboard from "../hooks/useDashboard";
+import { useAuthStore } from "../../../store/authStore";
+import { ROLES } from "../../../utils/roles";
 
-import WelcomeCard from "../components/WelcomeCard";
-import DashboardStats from "../components/DashboardStats";
-import RecentRequests from "../components/RecentRequests";
-import QuickActions from "../components/QuickActions";
-import RequestSummaryChart from "../components/RequestSummaryChart";
+import EmployeeDashboard from "./EmployeeDashboard";
+import ManagerDashboard from "./ManagerDashboard";
 
 function DashboardPage() {
-  const {
-    loading,
-    error,
-    stats,
-    recentRequests,
-  } = useDashboard();
+  const user = useAuthStore((state) => state.user);
 
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          height: "60vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
+  const dashboard = useMemo(() => {
+    switch (user?.role) {
+      case ROLES.EMPLOYEE:
+        return <EmployeeDashboard />;
 
-  return (
-    <Stack spacing={2}>
-      {error && (
-        <Alert severity="error">
-          {error}
-        </Alert>
-      )}
+      case ROLES.MANAGER:
+        return <ManagerDashboard />;
 
-      {/* Welcome */}
+      // Future Modules
+      // case ROLES.PURCHASE_TEAM:
+      //   return <PurchaseDashboard />;
 
-      <WelcomeCard />
+      // case ROLES.ADMIN:
+      //   return <AdminDashboard />;
 
-      {/* Stats */}
+      default:
+        return <EmployeeDashboard />;
+    }
+  }, [user]);
 
-      <DashboardStats
-        stats={stats}
-      />
-
-      {/* Bottom Section */}
-
-      <Grid
-        container
-        spacing={3}
-      >
-        <Grid
-          size={{
-            xs: 12,
-            lg: 8,
-          }}
-        >
-          <RecentRequests
-            requests={recentRequests}
-          />
-        </Grid>
-
-        <Grid
-          size={{
-            xs: 12,
-            lg: 4,
-          }}
-        >
-          <Stack spacing={3}>
-            <QuickActions />
-
-            <RequestSummaryChart
-              stats={stats}
-            />
-          </Stack>
-        </Grid>
-      </Grid>
-    </Stack>
-  );
+  return dashboard;
 }
 
 export default DashboardPage;

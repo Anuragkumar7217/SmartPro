@@ -4,7 +4,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useAuthStore } from "../../../store/authStore";
+import { useAuthStore } from "../../store/authStore";
+import { ROLES } from "../../utils/roles";
 
 function getGreeting() {
   const hour = new Date().getHours();
@@ -13,6 +14,23 @@ function getGreeting() {
   if (hour < 17) return "Good afternoon";
 
   return "Good evening";
+}
+
+function getWelcomeMessage(role) {
+  switch (role) {
+    case ROLES.MANAGER:
+      return "You have purchase requests waiting for your review and approval.";
+
+    case ROLES.PURCHASE_TEAM:
+      return "Manage approved requests, create RFQs, and track procurement activities.";
+
+    case ROLES.ADMIN:
+      return "Monitor users, departments, and overall procurement system activity.";
+
+    case ROLES.EMPLOYEE:
+    default:
+      return "Here's what's happening with your purchase requests today.";
+  }
 }
 
 function WelcomeCard() {
@@ -26,14 +44,10 @@ function WelcomeCard() {
           xs: 3,
           md: 4,
         },
-
         borderRadius: 5,
-
         border: "1px solid #E5E7EB",
-
         background:
           "linear-gradient(135deg,#FFFFFF 0%,#F8FAFC 100%)",
-
         boxShadow:
           "0 8px 30px rgba(15,23,42,.06)",
       }}
@@ -49,8 +63,7 @@ function WelcomeCard() {
             color: "#111827",
           }}
         >
-          {getGreeting()},{" "}
-          {user?.firstName}! 👋
+          {getGreeting()}, {user?.firstName}! 👋
         </Typography>
 
         <Typography
@@ -59,8 +72,7 @@ function WelcomeCard() {
             color: "#6B7280",
           }}
         >
-          Here's what's happening with your
-          purchase requests today.
+          {getWelcomeMessage(user?.role)}
         </Typography>
       </Stack>
     </Paper>

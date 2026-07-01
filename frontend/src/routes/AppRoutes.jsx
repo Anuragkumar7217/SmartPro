@@ -13,6 +13,8 @@ import DashboardPage from "../features/dashboard/pages/DashboardPage";
 import CreateRequestPage from "../features/purchase-request/pages/CreateRequestPage";
 import MyRequestsPage from "../features/purchase-request/pages/MyRequestsPage";
 
+import PendingRequestsPage from "../features/approval/pages/PendingRequestsPage";
+
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
 
@@ -70,6 +72,11 @@ function AppRoutes() {
           <Route
             path="/purchase-requests/my"
             element={<MyRequestsPage />}
+          />
+
+          <Route
+            path="/purchase-requests/pending"
+            element={<PendingRequestsPage />}
           />
         </Route>
 
