@@ -35,10 +35,13 @@ function QuickActions() {
         Quick Actions
       </Typography>
 
-      <Stack spacing={2}>
+      <Stack
+  direction="row"
+  spacing={2}
+>
         <Button
           fullWidth
-          variant="contained"
+          variant="outlined"
           startIcon={<FilePlus2 size={18} />}
           onClick={() =>
             navigate("/purchase-requests/create")
@@ -46,6 +49,13 @@ function QuickActions() {
           sx={{
             height: 50,
             borderRadius: 3,
+            color: "#625BEC",
+            borderColor: "#625BEC",
+            "&:hover": {
+              color: "#ffffff",
+              borderColor: "#4338CA",
+              backgroundColor: "#625BEC",
+            },
           }}
         >
           Create Request
@@ -61,6 +71,13 @@ function QuickActions() {
           sx={{
             height: 50,
             borderRadius: 3,
+            color: "#625BEC",
+            borderColor: "#625BEC",
+            "&:hover": {
+              color: "#ffffff",
+              borderColor: "#4338CA",
+              backgroundColor: "#625BEC",
+            },
           }}
         >
           My Requests

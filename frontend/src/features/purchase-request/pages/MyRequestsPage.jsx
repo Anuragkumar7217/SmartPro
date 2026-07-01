@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import {
   Alert,
   Box,
@@ -30,6 +32,17 @@ function MyRequestsPage() {
     handleViewRequest,
   } = useMyRequests();
 
+  const detailsRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedRequest && detailsRef.current) {
+      detailsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [selectedRequest]);
+
   if (loading) {
     return (
       <Box
@@ -46,16 +59,12 @@ function MyRequestsPage() {
   }
 
   return (
-    <Stack spacing={4}>
+    <Stack spacing={2}>
       <Box>
         <Typography
-          variant="h4"
+          variant="h5"
           fontWeight={700}
         >
-          My Requests
-        </Typography>
-
-        <Typography color="text.secondary">
           View and track all your purchase requests.
         </Typography>
       </Box>
@@ -82,10 +91,12 @@ function MyRequestsPage() {
         onView={handleViewRequest}
       />
 
-      <RequestDetails
-        request={selectedRequest}
-        loading={viewLoading}
-      />
+      <Box ref={detailsRef}>
+        <RequestDetails
+          request={selectedRequest}
+          loading={viewLoading}
+        />
+      </Box>
     </Stack>
   );
 }

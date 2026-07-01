@@ -1,4 +1,9 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import {
   FileText,
@@ -18,7 +23,7 @@ const cards = [
     key: "submitted",
     title: "Submitted",
     icon: Clock3,
-    color: "#F59E0B",
+    color: "#ed6c02",
   },
   {
     key: "approved",
@@ -63,31 +68,45 @@ function DashboardStats({ stats }) {
                 height: "100%",
               }}
             >
-              <Icon
-                size={30}
-                color={card.color}
-              />
-
-              <Typography
-                sx={{
-                  mt: 2,
-                  color: "#6B7280",
-                  fontSize: 14,
-                }}
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
               >
-                {card.title}
-              </Typography>
+                <Stack
+                  sx={{
+                    width: 54,
+                    height: 54,
+                    borderRadius: 3,
+                    bgcolor: `${card.color}15`,
+                    color: card.color,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Icon size={26} />
+                </Stack>
 
-              <Typography
-                sx={{
-                  mt: 1,
-                  fontSize: 34,
-                  fontWeight: 700,
-                  color: "#111827",
-                }}
-              >
-                {stats[card.key]}
-              </Typography>
+                <Stack
+                  spacing={0.5}
+                  sx={{ flex: 1 }}
+                >
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {card.title}
+                  </Typography>
+
+                  <Typography
+                    variant="h4"
+                    fontWeight={700}
+                  >
+                    {stats[card.key]}
+                  </Typography>
+                </Stack>
+              </Stack>
             </Paper>
           </Grid>
         );

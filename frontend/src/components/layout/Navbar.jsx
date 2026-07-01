@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import {
   Avatar,
   Box,
-  Divider,
   IconButton,
   Menu,
   MenuItem,
@@ -12,10 +11,16 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Menu as MenuIcon } from "lucide-react";
+import {
+  Menu as MenuIcon,
+  User,
+  LogOut,
+} from "lucide-react";
 
 import { useAuthStore } from "../../store/authStore";
 import { sidebarMenu } from "../../utils/sidebarMenu";
+
+import ProfileDialog from "../../features/profile/components/ProfileDialog";
 
 function Navbar({ isMobile, onMenuClick }) {
   const navigate = useNavigate();
@@ -25,6 +30,7 @@ function Navbar({ isMobile, onMenuClick }) {
   const logout = useAuthStore((state) => state.logout);
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const fullName = user
     ? `${user.firstName} ${user.lastName}`
@@ -40,14 +46,14 @@ function Navbar({ isMobile, onMenuClick }) {
   );
 
   const pageTitle = activeItem?.label || "Dashboard";
-  const isDashboard = location.pathname === "/dashboard";
 
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+
   const handleMenuClose = () => setAnchorEl(null);
 
   const handleProfile = () => {
     handleMenuClose();
-    navigate("/profile");
+    setProfileOpen(true);
   };
 
   const handleLogout = () => {
@@ -106,7 +112,6 @@ function Navbar({ isMobile, onMenuClick }) {
               height: "100%",
             }}
           >
-            {/* TITLE */}
             <Typography
               sx={{
                 fontSize: { xs: 18, sm: 24, md: 30 },
@@ -140,7 +145,9 @@ function Navbar({ isMobile, onMenuClick }) {
               py: 1,
               borderRadius: 4,
               transition: ".25s",
-              "&:hover": { bgcolor: "#F5F3FF" },
+              "&:hover": {
+                bgcolor: "#F5F3FF",
+              },
             }}
           >
             <Avatar
@@ -159,7 +166,14 @@ function Navbar({ isMobile, onMenuClick }) {
               <Typography sx={{ fontSize: 15, fontWeight: 700 }}>
                 {fullName}
               </Typography>
-              <Typography sx={{ fontSize: 13, color: "#6B7280" }}>
+
+              <Typography
+                sx={{
+                  fontSize: 13,
+                  color: "#6B7280",
+                  textTransform: "capitalize",
+                }}
+              >
                 {user?.role}
               </Typography>
             </Box>
@@ -167,12 +181,93 @@ function Navbar({ isMobile, onMenuClick }) {
         </Stack>
       </Box>
 
-      {/* MENU */}
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-        <MenuItem onClick={handleProfile}>Profile</MenuItem>
-        <Divider />
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        transformOrigin={{
+          horizontal: "right",
+          vertical: "top",
+        }}
+        anchorOrigin={{
+          horizontal: "right",
+          vertical: "bottom",
+        }}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            mt: 1,
+            p: 1,
+            minWidth: 220,
+            borderRadius: 4,
+            border: "1px solid #E5E7EB",
+            boxShadow:
+              "0 18px 40px rgba(15,23,42,.12)",
+          },
+        }}
+      >
+        <MenuItem
+          onClick={handleProfile}
+          sx={{
+            borderRadius: 3,
+            py: 1.25,
+            px: 1.5,
+            mx: 2,
+            gap: 1.5,
+            fontSize: 15,
+            fontWeight: 500,
+            color: "#374151",
+            transition: "all .2s ease",
+            "&:hover": {
+              bgcolor: "#EEF2FF",
+              color: "#4F46E5",
+            },
+            "& svg": {
+              color: "#6B7280",
+            },
+            "&:hover svg": {
+              color: "#4F46E5",
+            },
+          }}
+        >
+          <User size={18} />
+          Profile
+        </MenuItem>
+
+        <MenuItem
+          onClick={handleLogout}
+          sx={{
+            mt: 0.5,
+            borderRadius: 3,
+            py: 1.25,
+            px: 1.5,
+            mx: 2,
+            gap: 1.5,
+            fontSize: 15,
+            fontWeight: 500,
+            color: "#374151",
+            transition: "all .2s ease",
+            "&:hover": {
+              bgcolor: "#EEF2FF",
+              color: "#4F46E5",
+            },
+            "& svg": {
+              color: "#6B7280",
+            },
+            "&:hover svg": {
+              color: "#4F46E5",
+            },
+          }}
+        >
+          <LogOut size={18} />
+          Logout
+        </MenuItem>
       </Menu>
+
+      <ProfileDialog
+        open={profileOpen}
+        onClose={() => setProfileOpen(false)}
+      />
     </>
   );
 }

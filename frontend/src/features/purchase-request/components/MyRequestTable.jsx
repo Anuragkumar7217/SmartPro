@@ -7,9 +7,12 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from "@mui/material";
+
+import { useState } from "react";
 
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
@@ -33,6 +36,17 @@ function MyRequestTable({
   requests,
   onView,
 }) {
+  const [page, setPage] = useState(0);
+
+  const rowsPerPage = 5;
+
+  const handleChangePage = (
+    event,
+    newPage
+  ) => {
+    setPage(newPage);
+  };
+
   if (requests.length === 0) {
     return (
       <Paper
@@ -100,58 +114,82 @@ function MyRequestTable({
           </TableHead>
 
           <TableBody>
-            {requests.map((request) => (
-              <TableRow
-                hover
-                key={request._id}
-              >
-                <TableCell>
-                  {request.prNumber}
-                </TableCell>
+            {requests
+              .slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )
+              .map((request) => (
+                <TableRow
+                  hover
+                  key={request._id}
+                >
+                  <TableCell>
+                    {request.prNumber}
+                  </TableCell>
 
-                <TableCell>
-                  {request.title}
-                </TableCell>
+                  <TableCell>
+                    {request.title}
+                  </TableCell>
 
-                <TableCell>
-                  <Chip
-                    size="small"
-                    label={request.status}
-                    color={getStatusColor(
-                      request.status
-                    )}
-                  />
-                </TableCell>
+                  <TableCell>
+                    <Chip
+                      size="small"
+                      label={request.status}
+                      color={getStatusColor(
+                        request.status
+                      )}
+                    />
+                  </TableCell>
 
-                <TableCell>
-                  {request.items.length}
-                </TableCell>
+                  <TableCell>
+                    {request.items.length}
+                  </TableCell>
 
-                <TableCell>
-                  {new Date(
-                    request.createdAt
-                  ).toLocaleDateString()}
-                </TableCell>
+                  <TableCell>
+                    {new Date(
+                      request.createdAt
+                    ).toLocaleDateString()}
+                  </TableCell>
 
-                <TableCell align="center">
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    startIcon={
-                      <VisibilityOutlinedIcon />
-                    }
-                    onClick={() =>
-                      onView(request._id)
-                    }
-                  >
-                    View
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+                  <TableCell align="center">
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      startIcon={
+                        <VisibilityOutlinedIcon />
+                      }
+                      sx={{
+                        borderRadius: 1,
+                        color: "#625BEC",
+                        borderColor: "#625BEC",
+                        "&:hover": {
+                          color: "#ffffff",
+                          borderColor: "#4338CA",
+                          backgroundColor: "#625BEC",
+                        },
+                      }}
+                      onClick={() =>
+                        onView(request._id)
+                      }
+                    >
+                      View
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      <TablePagination
+        component="div"
+        count={requests.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        rowsPerPageOptions={[5]}
+      />
     </Paper>
   );
 }

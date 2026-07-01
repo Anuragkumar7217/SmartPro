@@ -21,7 +21,7 @@ const cards = [
   },
   {
     title: "Submitted",
-    color: "#2563EB",
+    color: "#ed6c02",
     icon: Clock3,
     key: "submitted",
   },
@@ -83,48 +83,50 @@ function MyRequestStats({
               sx={{
                 p: 3,
                 borderRadius: 5,
-                border:
-                  "1px solid #E5E7EB",
+                border: "1px solid #E5E7EB",
                 boxShadow:
                   "0 8px 30px rgba(15,23,42,.06)",
               }}
             >
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="center"
+            >
               <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
+                sx={{
+                  width: 54,
+                  height: 54,
+                  borderRadius: 3,
+                  bgcolor: `${card.color}15`,
+                  color: card.color,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
               >
-                <Stack spacing={1}>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                  >
-                    {card.title}
-                  </Typography>
-
-                  <Typography
-                    variant="h4"
-                    fontWeight={700}
-                  >
-                    {stats[card.key]}
-                  </Typography>
-                </Stack>
-
-                <Stack
-                  sx={{
-                    width: 54,
-                    height: 54,
-                    borderRadius: 3,
-                    bgcolor: `${card.color}15`,
-                    color: card.color,
-                    alignItems: "center",
-                    justifyContent:
-                      "center",
-                  }}
-                >
-                  <Icon size={26} />
-                </Stack>
+                <Icon size={26} />
               </Stack>
+
+              <Stack
+                spacing={0.5}
+                sx={{ flex: 1 }}
+              >
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  {card.title}
+                </Typography>
+
+                <Typography
+                  variant="h4"
+                  fontWeight={700}
+                >
+                  {stats[card.key]}
+                </Typography>
+              </Stack>
+            </Stack>
             </Paper>
           </Grid>
         );
