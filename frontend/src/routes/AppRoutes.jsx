@@ -16,6 +16,7 @@ import MyRequestsPage from "../features/purchase-request/pages/MyRequestsPage";
 import PendingRequestsPage from "../features/approval/pages/PendingRequestsPage";
 
 import ApprovedRequestsPage from "../features/rfq/pages/ApprovedRequestsPage";
+import RFQManagementPage from "../features/rfq/pages/RFQManagementPage";
 
 import VendorsPage from "../features/vendor/pages/VendorsPage";
 
@@ -91,6 +92,11 @@ function AppRoutes() {
           <Route
             path="/vendors"
             element={<VendorsPage />}
+          />
+
+          <Route
+            path="/rfqs"
+            element={<RFQManagementPage />}
           />
         </Route>
 

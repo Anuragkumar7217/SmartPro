@@ -1,8 +1,6 @@
 import { useMemo, useState } from "react";
 
-import {
-  Box,
-} from "@mui/material";
+import { Box } from "@mui/material";
 
 import AppSnackbar from "../../../components/common/AppSnackbar";
 import Loader from "../../../components/common/Loader";
@@ -10,6 +8,7 @@ import Loader from "../../../components/common/Loader";
 import ApprovedPRDrawer from "../components/ApprovedPRDrawer";
 import ApprovedPRStats from "../components/ApprovedPRStats";
 import ApprovedPRTable from "../components/ApprovedPRTable";
+import CreateRFQDrawer from "../components/CreateRFQDrawer";
 import RFQFilters from "../components/RFQFilters";
 
 import useApprovedPurchaseRequests from "../hooks/useApprovedPurchaseRequests";
@@ -17,15 +16,25 @@ import useApprovedPurchaseRequests from "../hooks/useApprovedPurchaseRequests";
 function ApprovedRequestsPage() {
   const {
     requests,
+    vendors,
+
     loading,
+    actionLoading,
 
     selectedRequest,
+
     drawerOpen,
+    createDrawerOpen,
 
     snackbar,
 
     openRequestDrawer,
     closeRequestDrawer,
+
+    openCreateDrawer,
+    closeCreateDrawer,
+
+    createRFQ,
 
     closeSnackbar,
   } = useApprovedPurchaseRequests();
@@ -96,9 +105,16 @@ function ApprovedRequestsPage() {
         open={drawerOpen}
         request={selectedRequest}
         onClose={closeRequestDrawer}
-        onCreateRFQ={(request) => {
-          console.log("Create RFQ for:", request);
-        }}
+        onCreateRFQ={openCreateDrawer}
+      />
+
+      <CreateRFQDrawer
+        open={createDrawerOpen}
+        request={selectedRequest}
+        vendors={vendors}
+        loading={actionLoading}
+        onClose={closeCreateDrawer}
+        onSubmit={createRFQ}
       />
 
       <AppSnackbar
