@@ -2,8 +2,6 @@ import { useMemo, useState } from "react";
 
 import {
   Box,
-  Paper,
-  TextField,
 } from "@mui/material";
 
 import AppSnackbar from "../../../components/common/AppSnackbar";
@@ -12,6 +10,7 @@ import Loader from "../../../components/common/Loader";
 import ApprovedPRDrawer from "../components/ApprovedPRDrawer";
 import ApprovedPRStats from "../components/ApprovedPRStats";
 import ApprovedPRTable from "../components/ApprovedPRTable";
+import RFQFilters from "../components/RFQFilters";
 
 import useApprovedPurchaseRequests from "../hooks/useApprovedPurchaseRequests";
 
@@ -32,11 +31,12 @@ function ApprovedRequestsPage() {
   } = useApprovedPurchaseRequests();
 
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("latest");
 
   const filteredRequests = useMemo(() => {
     const keyword = search.toLowerCase().trim();
 
-    return requests.filter((request) => {
+    const filtered = requests.filter((request) => {
       const requestedBy =
         `${request.createdBy.firstName} ${request.createdBy.lastName}`.toLowerCase();
 
@@ -46,7 +46,23 @@ function ApprovedRequestsPage() {
         requestedBy.includes(keyword)
       );
     });
-  }, [requests, search]);
+
+    filtered.sort((a, b) => {
+      if (sortBy === "latest") {
+        return (
+          new Date(b.createdAt) -
+          new Date(a.createdAt)
+        );
+      }
+
+      return (
+        new Date(a.createdAt) -
+        new Date(b.createdAt)
+      );
+    });
+
+    return filtered;
+  }, [requests, search, sortBy]);
 
   if (loading) {
     return <Loader />;
@@ -63,30 +79,12 @@ function ApprovedRequestsPage() {
       >
         <ApprovedPRStats requests={requests} />
 
-        <Paper
-          elevation={0}
-          sx={{
-            p: 3,
-            borderRadius: 5,
-            border: "1px solid",
-            borderColor: "divider",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          <TextField
-            size="small"
-            placeholder="Search by PR Number, Title or Employee"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            sx={{
-              width: {
-                xs: "100%",
-                md: 350,
-              },
-            }}
-          />
-        </Paper>
+        <RFQFilters
+          search={search}
+          onSearchChange={setSearch}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+        />
 
         <ApprovedPRTable
           requests={filteredRequests}

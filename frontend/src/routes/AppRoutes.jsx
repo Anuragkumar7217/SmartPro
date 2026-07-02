@@ -12,9 +12,12 @@ import DashboardPage from "../features/dashboard/pages/DashboardPage";
 
 import CreateRequestPage from "../features/purchase-request/pages/CreateRequestPage";
 import MyRequestsPage from "../features/purchase-request/pages/MyRequestsPage";
-import ApprovedRequestsPage from "../features/rfq/pages/ApprovedRequestsPage";
 
 import PendingRequestsPage from "../features/approval/pages/PendingRequestsPage";
+
+import ApprovedRequestsPage from "../features/rfq/pages/ApprovedRequestsPage";
+
+import VendorsPage from "../features/vendor/pages/VendorsPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -83,6 +86,11 @@ function AppRoutes() {
           <Route
             path="/purchase-requests/approved"
             element={<ApprovedRequestsPage />}
+          />
+
+          <Route
+            path="/vendors"
+            element={<VendorsPage />}
           />
         </Route>
 
