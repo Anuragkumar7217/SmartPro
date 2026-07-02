@@ -60,17 +60,13 @@ function ApprovalDrawer({
   };
 
   const handleApprove = () => {
-    if (!validateComment()) {
-      return;
-    }
+    if (!validateComment()) return;
 
     onApprove(request._id, managerComment.trim());
   };
 
   const handleReject = () => {
-    if (!validateComment()) {
-      return;
-    }
+    if (!validateComment()) return;
 
     onReject(request._id, managerComment.trim());
   };
@@ -80,12 +76,18 @@ function ApprovalDrawer({
       anchor="right"
       open={open}
       onClose={onClose}
-      PaperProps={{
-        sx: {
-          width: {
-            xs: "100%",
-            sm: 500,
-            md: 650,
+      slotProps={{
+        paper: {
+          sx: {
+            width: {
+              xs: "90vw",
+              sm: 500,
+            },
+            maxWidth: 650,
+            minWidth: {
+              xs: "90vw",
+              sm: 500,
+            },
           },
         },
       }}
@@ -95,15 +97,18 @@ function ApprovalDrawer({
           p: 3,
           display: "flex",
           flexDirection: "column",
-          gap: 3,
+          gap: 1,
           height: "100%",
           overflowY: "auto",
         }}
       >
         <Box>
           <Typography
-            variant="h5"
+            variant="h4"
             fontWeight={700}
+            sx={{
+              color: "#443faa",
+            }}
           >
             Review Purchase Request
           </Typography>
@@ -121,19 +126,9 @@ function ApprovalDrawer({
 
         <RequestInformationCard request={request} />
 
-        <Box>
-          <Typography
-            variant="h6"
-            fontWeight={700}
-            mb={2}
-          >
-            Requested Items
-          </Typography>
-
-          <RequestedItemsTable
-            items={request?.items}
-          />
-        </Box>
+        <RequestedItemsTable
+          items={request?.items}
+        />
 
         <ManagerCommentBox
           ref={commentInputRef}

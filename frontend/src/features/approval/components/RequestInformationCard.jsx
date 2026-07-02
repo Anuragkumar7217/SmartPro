@@ -46,7 +46,7 @@ function RequestInformationCard({
     <Paper
       elevation={0}
       sx={{
-        p: 3,
+        p: 2,
         borderRadius: 4,
         border: "1px solid",
         borderColor: "divider",
@@ -55,12 +55,12 @@ function RequestInformationCard({
       <Typography
         variant="h6"
         fontWeight={700}
-        mb={3}
+        mb={1}
       >
         Purchase Request Details
       </Typography>
 
-      <Stack spacing={3}>
+      <Stack spacing={1}>
         <DetailItem
           label="PR Number"
           value={request.prNumber}

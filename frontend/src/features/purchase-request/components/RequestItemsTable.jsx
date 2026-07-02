@@ -89,13 +89,7 @@ function RequestItemsTable({
         variant="contained"
         startIcon={<AddIcon />}
         onClick={addItem}
-        sx={{
-          mt: 3,
-          background: "linear-gradient(135deg,#4F46E5,#6366F1)",
-          "&:hover": {
-            background: "linear-gradient(135deg,#4338CA,#4F46E5)",
-          },
-        }}
+        sx={{ mt: 3 }}
       >
         Add Item
       </Button>

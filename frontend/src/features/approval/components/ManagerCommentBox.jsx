@@ -20,12 +20,8 @@ const ManagerCommentBox = forwardRef(
       <Paper
         elevation={0}
         sx={{
-          p: 3,
+          p: 1,
           borderRadius: 4,
-          border: "1px solid",
-          borderColor: error
-            ? "error.main"
-            : "divider",
         }}
       >
         <Typography
@@ -47,7 +43,7 @@ const ManagerCommentBox = forwardRef(
           fullWidth
           required
           multiline
-          minRows={3}
+          minRows={2}
           error={error}
           helperText={
             error
@@ -81,9 +77,11 @@ const ManagerCommentBox = forwardRef(
               },
             },
 
-            animation: shake
-              ? "shake .6s ease"
-              : "none",
+            "& .MuiOutlinedInput-root": {
+              animation: shake
+                ? "shake .6s ease"
+                : "none",
+            },
           }}
         />
       </Paper>

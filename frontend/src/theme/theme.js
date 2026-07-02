@@ -112,9 +112,9 @@ const theme = createTheme({
     },
   },
 
-  shape: {
-    borderRadius: 16,
-  },
+  // shape: {
+  //   borderRadius: 10,
+  // },
 
   shadows: [
     "none",
@@ -169,23 +169,39 @@ const theme = createTheme({
           height: 48,
           padding: "0 24px",
           fontWeight: 600,
+          textTransform: "none",
         },
 
+        // Filled Button
         containedPrimary: {
-          backgroundColor: "#4F46E5",
+          background: "linear-gradient(135deg,#4F46E5,#6366F1)",
+          color: "#fff",
+          boxShadow: "0 10px 24px rgba(79,70,229,.25)",
 
           "&:hover": {
-            backgroundColor: "#4338CA",
+            background: "linear-gradient(135deg,#4338CA,#4F46E5)",
+            boxShadow: "0 12px 28px rgba(79,70,229,.35)",
           },
         },
 
+        // Outlined Button
         outlinedPrimary: {
-          borderColor: "#4F46E5",
+          color: "#625BEC",
+          borderColor: "#625BEC",
 
           "&:hover": {
-            background: "#EEF2FF",
-            borderColor: "#4F46E5",
+            color: "#fff",
+            borderColor: "#4338CA",
+            backgroundColor: "#625BEC",
           },
+        },
+
+        // Small Outlined Button (View/Edit/Delete)
+        sizeSmall: {
+          borderRadius: 4,
+          height: 34,
+          padding: "0 14px",
+          fontSize: "0.8rem",
         },
       },
     },
