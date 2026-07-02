@@ -9,8 +9,8 @@ import {
 
 import ApprovalActions from "./ApprovalActions";
 import ManagerCommentBox from "./ManagerCommentBox";
-import RequestInformationCard from "./RequestInformationCard";
-import RequestedItemsTable from "./RequestedItemsTable";
+import RequestInformationCard from "../../../components/common/RequestInformationCard";
+import RequestedItemsTable from "../../../components/common/RequestedItemsTable";
 
 function ApprovalDrawer({
   open,
@@ -80,12 +80,12 @@ function ApprovalDrawer({
         paper: {
           sx: {
             width: {
-              xs: "90vw",
+              xs: "100%",
               sm: 500,
             },
             maxWidth: 650,
             minWidth: {
-              xs: "90vw",
+              xs: "100%",
               sm: 500,
             },
           },

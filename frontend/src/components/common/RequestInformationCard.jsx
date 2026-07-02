@@ -91,14 +91,18 @@ function RequestInformationCard({
 
         <DetailItem
           label="Requested By"
-          value={`${request.createdBy.firstName} ${request.createdBy.lastName}`}
+          value={
+            request.createdBy
+              ? `${request.createdBy.firstName} ${request.createdBy.lastName}`
+              : "-"
+          }
         />
 
         <Divider />
 
         <DetailItem
           label="Email"
-          value={request.createdBy.email}
+          value={request.createdBy?.email}
         />
 
         <Divider />
@@ -108,6 +112,24 @@ function RequestInformationCard({
           value={new Date(
             request.createdAt
           ).toLocaleString()}
+        />
+
+        <Divider />
+
+        <DetailItem
+          label="Approved By"
+          value={
+            request.approvedBy
+              ? `${request.approvedBy.firstName} ${request.approvedBy.lastName}`
+              : "-"
+          }
+        />
+
+        <Divider />
+
+        <DetailItem
+          label="Manager Comment"
+          value={request.managerComment}
         />
       </Stack>
     </Paper>

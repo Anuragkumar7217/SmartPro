@@ -5,14 +5,19 @@ import {
 
 function AppSnackbar({
   open,
-  severity = "success",
   message = "",
-  autoHideDuration = 4000,
+  severity = "success",
+
+  autoHideDuration = 3000,
+
   anchorOrigin = {
-    vertical: "bottom",
-    horizontal: "center",
+    vertical: "top",
+    horizontal: "right",
   },
+
   onClose,
+
+  sx = {},
 }) {
   return (
     <Snackbar
@@ -27,6 +32,12 @@ function AppSnackbar({
         onClose={onClose}
         sx={{
           width: "100%",
+          minWidth: 320,
+          fontWeight: 500,
+          borderRadius: 2,
+          boxShadow:
+            "0 8px 24px rgba(15,23,42,.15)",
+          ...sx,
         }}
       >
         {message}

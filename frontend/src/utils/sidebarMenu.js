@@ -35,8 +35,8 @@ export const sidebarMenu = {
       icon: LayoutDashboard,
     },
     {
-      label: "Purchase Requests",
-      to: "/purchase-requests",
+      label: "Approved PRs",
+      to: "/purchase-requests/approved",
       icon: FileText,
     },
     {

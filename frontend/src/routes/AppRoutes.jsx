@@ -12,6 +12,7 @@ import DashboardPage from "../features/dashboard/pages/DashboardPage";
 
 import CreateRequestPage from "../features/purchase-request/pages/CreateRequestPage";
 import MyRequestsPage from "../features/purchase-request/pages/MyRequestsPage";
+import ApprovedRequestsPage from "../features/rfq/pages/ApprovedRequestsPage";
 
 import PendingRequestsPage from "../features/approval/pages/PendingRequestsPage";
 
@@ -77,6 +78,11 @@ function AppRoutes() {
           <Route
             path="/purchase-requests/pending"
             element={<PendingRequestsPage />}
+          />
+
+          <Route
+            path="/purchase-requests/approved"
+            element={<ApprovedRequestsPage />}
           />
         </Route>
 

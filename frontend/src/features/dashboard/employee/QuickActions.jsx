@@ -19,7 +19,7 @@ function QuickActions() {
     <Paper
       elevation={0}
       sx={{
-        p: 3,
+        p: 2,
         borderRadius: 5,
         border: "1px solid #E5E7EB",
         boxShadow:
@@ -30,15 +30,15 @@ function QuickActions() {
       <Typography
         variant="h6"
         fontWeight={700}
-        mb={3}
+        sx={{ mb: 1 }}
       >
         Quick Actions
       </Typography>
 
       <Stack
-  direction="row"
-  spacing={2}
->
+        direction="row"
+        spacing={2}
+      >
         <Button
           fullWidth
           variant="outlined"

@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import {
-  Alert,
   Paper,
   Stack,
 } from "@mui/material";
@@ -9,14 +8,22 @@ import {
 import SubmitButton from "../../auth/components/forms/SubmitButton";
 
 import RequestInformation from "./RequestInformation";
-import RequestItemsTable from "./RequestItemsTable";
+import RequestItemsEditor from "./RequestItemsEditor";
 
 import { purchaseRequestService } from "../services/purchaseRequestService";
+
+import AppSnackbar from "../../../components/common/AppSnackbar";
 
 function CreateRequestForm() {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   const [formData, setFormData] = useState({
     title: "",
@@ -78,6 +85,13 @@ function CreateRequestForm() {
     }));
   };
 
+  const handleSnackbarClose = () => {
+    setSnackbar((prev) => ({
+      ...prev,
+      open: false,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -89,7 +103,12 @@ function CreateRequestForm() {
         formData
       );
 
-      alert("Purchase Request Created Successfully");
+      setSnackbar({
+        open: true,
+        severity: "success",
+        message:
+          "Purchase Request created successfully.",
+      });
 
       setFormData({
         title: "",
@@ -103,10 +122,17 @@ function CreateRequestForm() {
         ],
       });
     } catch (err) {
-      setError(
+      const message =
         err.response?.data?.message ||
-          "Something went wrong"
-      );
+        "Something went wrong";
+
+      setError(message);
+
+      setSnackbar({
+        open: true,
+        severity: "error",
+        message,
+      });
     } finally {
       setLoading(false);
     }
@@ -133,7 +159,7 @@ function CreateRequestForm() {
           handleChange={handleChange}
         />
 
-        <RequestItemsTable
+        <RequestItemsEditor
           items={formData.items}
           handleItemChange={
             handleItemChange
@@ -141,12 +167,6 @@ function CreateRequestForm() {
           addItem={addItem}
           removeItem={removeItem}
         />
-
-        {error && (
-          <Alert severity="error">
-            {error}
-          </Alert>
-        )}
 
         <SubmitButton
           type="submit"
@@ -156,6 +176,13 @@ function CreateRequestForm() {
           Create Purchase Request
         </SubmitButton>
       </Stack>
+
+      <AppSnackbar
+        open={snackbar.open}
+        severity={snackbar.severity}
+        message={snackbar.message}
+        onClose={handleSnackbarClose}
+      />
     </Paper>
   );
 }

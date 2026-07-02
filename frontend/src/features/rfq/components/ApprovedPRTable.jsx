@@ -15,11 +15,9 @@ import {
   Typography,
 } from "@mui/material";
 
-function PendingRequestsTable({
+function ApprovedPRTable({
   requests = [],
-  onReview,
-  title = "Pending Requests",
-  enableActions = true,
+  onView,
 }) {
   const [page, setPage] = useState(0);
 
@@ -50,7 +48,7 @@ function PendingRequestsTable({
           variant="h6"
           fontWeight={600}
         >
-          No Pending Requests
+          No Approved Purchase Requests
         </Typography>
 
         <Typography
@@ -58,7 +56,7 @@ function PendingRequestsTable({
           color="text.secondary"
           mt={1}
         >
-          There are currently no purchase requests awaiting approval.
+          There are currently no approved purchase requests available.
         </Typography>
       </Paper>
     );
@@ -86,7 +84,7 @@ function PendingRequestsTable({
           variant="h6"
           fontWeight={700}
         >
-          {title}
+          Approved Purchase Requests
         </Typography>
       </Box>
 
@@ -107,17 +105,23 @@ function PendingRequestsTable({
               </TableCell>
 
               <TableCell sx={{ fontWeight: 700 }}>
-                Submitted On
+                Approved By
               </TableCell>
 
-              {enableActions && (
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: 700 }}
-                >
-                  Action
-                </TableCell>
-              )}
+              <TableCell sx={{ fontWeight: 700 }}>
+                Approved On
+              </TableCell>
+
+              <TableCell sx={{ fontWeight: 700 }}>
+                Status
+              </TableCell>
+
+              <TableCell
+                align="center"
+                sx={{ fontWeight: 700 }}
+              >
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
 
@@ -159,9 +163,23 @@ function PendingRequestsTable({
                 </TableCell>
 
                 <TableCell>
+                  <Typography fontWeight={500}>
+                    {request.approvedBy.firstName}{" "}
+                    {request.approvedBy.lastName}
+                  </Typography>
+
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                  >
+                    {request.approvedBy.email}
+                  </Typography>
+                </TableCell>
+
+                <TableCell>
                   <Typography>
                     {new Date(
-                      request.createdAt
+                      request.updatedAt
                     ).toLocaleDateString()}
                   </Typography>
 
@@ -170,7 +188,7 @@ function PendingRequestsTable({
                     color="text.secondary"
                   >
                     {new Date(
-                      request.createdAt
+                      request.updatedAt
                     ).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -178,21 +196,27 @@ function PendingRequestsTable({
                   </Typography>
                 </TableCell>
 
-                {enableActions && (
-                  <TableCell align="center">
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => onReview?.(request)}
-                      sx={{
-                        textTransform: "none",
-                        borderRadius: 2,
-                      }}
-                    >
-                      Review
-                    </Button>
-                  </TableCell>
-                )}
+                <TableCell>
+                  <Chip
+                    label={request.status}
+                    color="success"
+                    size="small"
+                  />
+                </TableCell>
+
+                <TableCell align="center">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => onView(request)}
+                    sx={{
+                      textTransform: "none",
+                      borderRadius: 2,
+                    }}
+                  >
+                    View Details
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -212,4 +236,4 @@ function PendingRequestsTable({
   );
 }
 
-export default PendingRequestsTable;
+export default ApprovedPRTable;

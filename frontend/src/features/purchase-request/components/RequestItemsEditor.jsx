@@ -14,7 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import RequestItemRow from "./RequestItemRow";
 
-function RequestItemsTable({
+function RequestItemsEditor({
   items,
   handleItemChange,
   addItem,
@@ -97,4 +97,4 @@ function RequestItemsTable({
   );
 }
 
-export default RequestItemsTable;
+export default RequestItemsEditor;
