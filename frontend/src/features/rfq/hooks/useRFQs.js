@@ -8,6 +8,7 @@ import {
 import useSnackbar from "../../../hooks/useSnackbar";
 
 import rfqService from "../services/rfqService";
+import quotationService from "../../quotation/services/quotationService";
 
 function useRFQs() {
   const [loading, setLoading] = useState(true);
@@ -16,6 +17,14 @@ function useRFQs() {
 
   const [selectedRFQ, setSelectedRFQ] =
     useState(null);
+
+  const [quotations, setQuotations] =
+    useState([]);
+
+  const [
+    quotationDrawerOpen,
+    setQuotationDrawerOpen,
+  ] = useState(false);
 
   const [search, setSearch] = useState("");
 
@@ -56,22 +65,21 @@ function useRFQs() {
   }, [fetchRFQs]);
 
   const filteredRFQs = useMemo(() => {
-    return rfqs.filter((rfq) => {
-      const matchesSearch =
-        !search ||
-        rfq.rfqNumber
-          ?.toLowerCase()
-          .includes(search.toLowerCase());
+    return rfqs
+      .filter((rfq) => rfq.status !== "CLOSED")
+      .filter((rfq) => {
+        const matchesSearch =
+          !search ||
+          rfq.rfqNumber
+            ?.toLowerCase()
+            .includes(search.toLowerCase());
 
-      const matchesStatus =
-        !status ||
-        rfq.status === status;
+        const matchesStatus =
+          !status ||
+          rfq.status === status;
 
-      return (
-        matchesSearch &&
-        matchesStatus
-      );
-    });
+        return matchesSearch && matchesStatus;
+      });
   }, [rfqs, search, status]);
 
   const selectRFQ = async (rfq) => {
@@ -82,6 +90,15 @@ function useRFQs() {
         await rfqService.getRFQById(rfq._id);
 
       setSelectedRFQ(response.data);
+
+      const quotationResponse =
+        await quotationService.getQuotationsByRFQ(
+          rfq._id
+        );
+
+      setQuotations(
+        quotationResponse.data || []
+      );
     } catch (error) {
       showError(
         error.response?.data?.message ||
@@ -150,11 +167,46 @@ function useRFQs() {
     }
   };
 
+  const openQuotationDrawer = () =>
+    setQuotationDrawerOpen(true);
+
+  const closeQuotationDrawer = () =>
+    setQuotationDrawerOpen(false);
+
+  const createQuotation = async (data) => {
+    try {
+      setActionLoading(true);
+
+      await quotationService.createQuotation(
+        data
+      );
+
+      const quotationResponse =
+        await quotationService.getQuotationsByRFQ(
+          selectedRFQ._id
+        );
+
+      setQuotations(
+        quotationResponse.data || []
+      );
+
+      setQuotationDrawerOpen(false);
+    } catch (error) {
+      showError(
+        error.response?.data?.message ||
+          "Failed to create quotation."
+      );
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   return {
     rfqs: filteredRFQs,
     loading,
 
     selectedRFQ,
+    quotations,
 
     search,
     setSearch,
@@ -174,6 +226,12 @@ function useRFQs() {
 
     issueRFQ,
     closeRFQ,
+
+    quotationDrawerOpen,
+    openQuotationDrawer,
+    closeQuotationDrawer,
+
+    createQuotation,
   };
 }
 

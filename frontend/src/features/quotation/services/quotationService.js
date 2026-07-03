@@ -32,7 +32,7 @@ const quotationService = {
     return response.data;
   },
 
-  async getQuotationComparison(rfqId) {
+  async getComparison(rfqId) {
     const response = await api.get(
       `/quotations/rfq/${rfqId}/comparison`
     );

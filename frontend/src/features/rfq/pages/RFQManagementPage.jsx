@@ -10,6 +10,8 @@ import RFQFilters from "../components/RFQFilters";
 import RFQTable from "../components/RFQTable";
 import RFQDetailPanel from "../components/RFQDetailPanel";
 
+import CreateQuotationDrawer from "../../quotation/components/CreateQuotationDrawer";
+
 import useRFQs from "../hooks/useRFQs";
 
 function RFQManagementPage() {
@@ -20,6 +22,7 @@ function RFQManagementPage() {
     actionLoading,
 
     selectedRFQ,
+    quotations,
 
     search,
     setSearch,
@@ -31,6 +34,12 @@ function RFQManagementPage() {
 
     issueRFQ,
     closeRFQ,
+
+    quotationDrawerOpen,
+    openQuotationDrawer,
+    closeQuotationDrawer,
+
+    createQuotation,
 
     snackbar,
     closeSnackbar,
@@ -71,15 +80,29 @@ function RFQManagementPage() {
           <Grid size={{ xs: 12, md: 7 }}>
             <RFQDetailPanel
               rfq={selectedRFQ}
+              quotations={quotations}
               loading={
                 detailLoading || actionLoading
               }
               onIssue={issueRFQ}
               onClose={closeRFQ}
+              onAddQuotation={
+                openQuotationDrawer
+              }
             />
           </Grid>
         </Grid>
       </Box>
+
+      <CreateQuotationDrawer
+        open={quotationDrawerOpen}
+        onClose={closeQuotationDrawer}
+        rfq={selectedRFQ}
+        vendors={selectedRFQ?.vendors || []}
+        quotations={quotations}
+        loading={actionLoading}
+        onSubmit={createQuotation}
+      />
 
       <AppSnackbar
         open={snackbar.open}

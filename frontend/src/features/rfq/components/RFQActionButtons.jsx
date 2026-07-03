@@ -8,6 +8,7 @@ function RFQActionButtons({
   loading = false,
   onIssue,
   onClose,
+  onAddQuotation,
 }) {
   return (
     <Box
@@ -28,14 +29,24 @@ function RFQActionButtons({
       )}
 
       {status === "ISSUED" && (
-        <Button
-          color="error"
-          variant="contained"
-          disabled={loading}
-          onClick={onClose}
-        >
-          Close RFQ
-        </Button>
+        <>
+          <Button
+            variant="outlined"
+            disabled={loading}
+            onClick={onAddQuotation}
+          >
+            Add Quotation
+          </Button>
+
+          <Button
+            color="error"
+            variant="contained"
+            disabled={loading}
+            onClick={onClose}
+          >
+            Close RFQ
+          </Button>
+        </>
       )}
     </Box>
   );

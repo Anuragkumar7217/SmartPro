@@ -11,9 +11,11 @@ import RFQActionButtons from "./RFQActionButtons";
 
 function RFQDetailPanel({
   rfq,
+  quotations,
   loading,
   onIssue,
   onClose,
+  onAddQuotation,
 }) {
   if (loading) {
     return <Loader />;
@@ -52,6 +54,7 @@ function RFQDetailPanel({
         loading={loading}
         onIssue={onIssue}
         onClose={onClose}
+        onAddQuotation={onAddQuotation}
       />
     </Stack>
   );
