@@ -87,6 +87,18 @@ function CreateQuotationDrawer({
   }, [items]);
 
   const handleSubmit = () => {
+    if (!vendor) return;
+
+    const hasInvalidPrice = items.some(
+      (item) =>
+        !item.unitPrice ||
+        Number(item.unitPrice) <= 0
+    );
+
+    if (hasInvalidPrice) {
+      return;
+    }
+
     onSubmit({
       rfq: rfq._id,
       vendor,
@@ -368,10 +380,15 @@ function CreateQuotationDrawer({
             <Button
               variant="contained"
               disabled={
-                loading ||
-                !vendor ||
-                availableVendors.length === 0
-              }
+              loading ||
+              !vendor ||
+              availableVendors.length === 0 ||
+              items.some(
+                (item) =>
+                  !item.unitPrice ||
+                  Number(item.unitPrice) <= 0
+              )
+            }
               onClick={handleSubmit}
             >
               Submit Quotation

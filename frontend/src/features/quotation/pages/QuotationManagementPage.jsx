@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import {
   Box,
   Grid,
@@ -8,55 +6,33 @@ import {
 import Loader from "../../../components/common/Loader";
 import AppSnackbar from "../../../components/common/AppSnackbar";
 
-import QuotationFilters from "../components/QuotationFilters";
-import QuotationTable from "../components/QuotationTable";
+import QuotationRFQFilters from "../components/QuotationRFQFilters";
+import QuotationRFQTable from "../components/QuotationRFQTable";
 import QuotationDetailPanel from "../components/QuotationDetailPanel";
-import CreateQuotationDrawer from "../components/CreateQuotationDrawer";
-import QuotationComparisonDrawer from "../components/QuotationComparisonDrawer";
 
 import useQuotations from "../hooks/useQuotations";
 
 function QuotationManagementPage() {
   const {
-    rfqs,
-    quotations,
-    vendors,
-
     loading,
-    actionLoading,
+    detailLoading,
+
+    filteredRFQs,
 
     selectedRFQ,
 
-    createDrawerOpen,
-    comparisonDrawerOpen,
-
-    snackbar,
+    search,
+    setSearch,
 
     selectRFQ,
 
-    openCreateDrawer,
-    closeCreateDrawer,
-
-    openComparisonDrawer,
-    closeComparisonDrawer,
-
-    createQuotation,
-    selectQuotation,
-
+    snackbar,
     closeSnackbar,
   } = useQuotations();
-
-  const [search, setSearch] = useState("");
 
   if (loading) {
     return <Loader />;
   }
-
-  const filteredRFQs = rfqs.filter((rfq) =>
-    rfq.rfqNumber
-      ?.toLowerCase()
-      .includes(search.toLowerCase())
-  );
 
   return (
     <>
@@ -67,23 +43,24 @@ function QuotationManagementPage() {
           gap: 3,
         }}
       >
-        <QuotationFilters
+        <QuotationRFQFilters
           search={search}
           onSearchChange={setSearch}
         />
 
-        <Grid container spacing={3}>
+        <Grid
+          container
+          spacing={3}
+        >
           <Grid
             size={{
               xs: 12,
-              md: 5,
+              lg: 5,
             }}
           >
-            <QuotationTable
+            <QuotationRFQTable
               rfqs={filteredRFQs}
-              selectedRFQ={
-                selectedRFQ
-              }
+              selectedRFQ={selectedRFQ}
               onSelect={selectRFQ}
             />
           </Grid>
@@ -91,60 +68,21 @@ function QuotationManagementPage() {
           <Grid
             size={{
               xs: 12,
-              md: 7,
+              lg: 7,
             }}
           >
-            {selectedRFQ && (
-              <QuotationDetailPanel
-                rfq={selectedRFQ}
-                quotations={
-                  quotations
-                }
-                onCreateQuotation={
-                  openCreateDrawer
-                }
-                onCompare={
-                  openComparisonDrawer
-                }
-              />
-            )}
+            <QuotationDetailPanel
+              rfq={selectedRFQ}
+              loading={detailLoading}
+            />
           </Grid>
         </Grid>
       </Box>
 
-      <CreateQuotationDrawer
-        open={createDrawerOpen}
-        onClose={closeCreateDrawer}
-        rfq={selectedRFQ}
-        vendors={
-          selectedRFQ?.vendors ||
-          []
-        }
-        loading={actionLoading}
-        onSubmit={createQuotation}
-      />
-
-      <QuotationComparisonDrawer
-        open={
-          comparisonDrawerOpen
-        }
-        onClose={
-          closeComparisonDrawer
-        }
-        quotations={quotations}
-        onSelect={
-          selectQuotation
-        }
-      />
-
       <AppSnackbar
         open={snackbar.open}
-        severity={
-          snackbar.severity
-        }
-        message={
-          snackbar.message
-        }
+        severity={snackbar.severity}
+        message={snackbar.message}
         onClose={closeSnackbar}
       />
     </>
