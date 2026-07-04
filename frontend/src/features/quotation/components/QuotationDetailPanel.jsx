@@ -18,6 +18,7 @@ function QuotationDetailPanel({
   onVendorClick,
   onSelectQuotation,
 }) {
+
   if (loading) {
     return <Loader />;
   }

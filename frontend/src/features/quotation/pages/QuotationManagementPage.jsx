@@ -14,21 +14,27 @@ import useQuotations from "../hooks/useQuotations";
 
 function QuotationManagementPage() {
   const {
-    loading,
-    detailLoading,
+  loading,
+  detailLoading,
+  actionLoading,
 
-    filteredRFQs,
+  filteredRFQs,
 
-    selectedRFQ,
+  comparison,
+  selectedQuotation,
 
-    search,
-    setSearch,
+  selectedRFQ,
 
-    selectRFQ,
+  search,
+  setSearch,
 
-    snackbar,
-    closeSnackbar,
-  } = useQuotations();
+  selectRFQ,
+  loadQuotation,
+  selectQuotation,
+
+  snackbar,
+  closeSnackbar,
+} = useQuotations();
 
   if (loading) {
     return <Loader />;
@@ -72,9 +78,14 @@ function QuotationManagementPage() {
             }}
           >
             <QuotationDetailPanel
-              rfq={selectedRFQ}
-              loading={detailLoading}
-            />
+  rfq={selectedRFQ}
+  comparison={comparison}
+  selectedQuotation={selectedQuotation}
+  loading={detailLoading}
+  actionLoading={actionLoading}
+  onVendorClick={loadQuotation}
+  onSelectQuotation={selectQuotation}
+/>
           </Grid>
         </Grid>
       </Box>
