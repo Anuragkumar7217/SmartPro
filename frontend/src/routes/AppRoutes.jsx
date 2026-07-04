@@ -20,6 +20,7 @@ import RFQManagementPage from "../features/rfq/pages/RFQManagementPage";
 
 import VendorsPage from "../features/vendor/pages/VendorsPage";
 import QuotationManagementPage from "../features/quotation/pages/QuotationManagementPage";
+import PurchaseOrderPage from "../features/purchase-order/pages/PurchaseOrderPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -103,6 +104,11 @@ function AppRoutes() {
           <Route
             path="/quotations"
             element={<QuotationManagementPage />}
+          />
+
+          <Route
+            path="/purchase-orders"
+            element={<PurchaseOrderPage />}
           />
         </Route>
 

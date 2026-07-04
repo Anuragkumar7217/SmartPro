@@ -5,6 +5,7 @@ import { ROLES } from "../../../utils/roles";
 
 import EmployeeDashboard from "./EmployeeDashboard";
 import ManagerDashboard from "./ManagerDashboard";
+import PurchaseTeamDashboard from "./PurchaseTeamDashboard";
 
 function DashboardPage() {
   const user = useAuthStore((state) => state.user);
@@ -17,9 +18,8 @@ function DashboardPage() {
       case ROLES.MANAGER:
         return <ManagerDashboard />;
 
-      // Future Modules
-      // case ROLES.PURCHASE_TEAM:
-      //   return <PurchaseDashboard />;
+      case ROLES.PURCHASE_TEAM:
+        return <PurchaseTeamDashboard />;
 
       // case ROLES.ADMIN:
       //   return <AdminDashboard />;
