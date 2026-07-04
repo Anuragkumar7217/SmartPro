@@ -49,6 +49,7 @@ function QuotationManagementPage() {
           gap: 3,
         }}
       >
+
         <QuotationRFQFilters
           search={search}
           onSearchChange={setSearch}

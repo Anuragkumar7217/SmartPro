@@ -30,19 +30,19 @@ function PurchaseOrderDetailPanel({
 
   return (
     <Stack spacing={3}>
+      <PurchaseOrderActions
+        purchaseOrder={purchaseOrder}
+        loading={actionLoading}
+        onIssue={onIssue}
+        onCancel={onCancel}
+      />
+      
       <PurchaseOrderInfoCard
         purchaseOrder={purchaseOrder}
       />
 
       <PurchaseOrderItemsTable
         items={purchaseOrder.items ?? []}
-      />
-
-      <PurchaseOrderActions
-        purchaseOrder={purchaseOrder}
-        loading={actionLoading}
-        onIssue={onIssue}
-        onCancel={onCancel}
       />
     </Stack>
   );

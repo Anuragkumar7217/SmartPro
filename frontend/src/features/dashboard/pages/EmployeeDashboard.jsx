@@ -9,7 +9,7 @@ import {
 import useDashboard from "../hooks/useDashboard";
 
 import WelcomeCard from "../../../components/common/WelcomeCard";
-import DashboardStats from "../employee/DashboardStats";
+import PRStats from "../../purchase-request/components/PRStats";
 import RecentRequests from "../employee/RecentRequests";
 import QuickActions from "../employee/QuickActions";
 import RequestSummaryChart from "../employee/RequestSummaryChart";
@@ -51,8 +51,8 @@ function EmployeeDashboardPage() {
 
       {/* Stats */}
 
-      <DashboardStats
-        stats={stats}
+      <PRStats
+        requests={recentRequests}
       />
 
       {/* Bottom Section */}

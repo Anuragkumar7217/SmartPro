@@ -1,4 +1,5 @@
 import {
+  Alert,
   Stack,
 } from "@mui/material";
 
@@ -23,32 +24,14 @@ function RFQDetailPanel({
 
   if (!rfq) {
     return (
-      <Stack spacing={3}>
-        <RFQInfoCard rfq={rfq} />
-
-        <RFQVendorTable
-          vendors={rfq?.vendors || []}
-        />
-
-        <RFQItemsTable
-          items={rfq?.purchaseRequest?.items || []}
-        />
-      </Stack>
+      <Alert severity="info">
+        Select an RFQ from the left to view its details.
+      </Alert>
     );
   }
 
   return (
     <Stack spacing={3}>
-      <RFQInfoCard rfq={rfq} />
-
-      <RFQVendorTable
-        vendors={rfq.vendors}
-      />
-
-      <RFQItemsTable
-        items={rfq.purchaseRequest?.items || []}
-      />
-
       <RFQActionButtons
         status={rfq.status}
         loading={loading}
@@ -56,6 +39,16 @@ function RFQDetailPanel({
         onClose={onClose}
         onAddQuotation={onAddQuotation}
       />
+      
+      <RFQItemsTable
+        items={rfq.purchaseRequest?.items || []}
+      />
+
+      <RFQInfoCard rfq={rfq} />
+
+      <RFQVendorTable
+        vendors={rfq.vendors}
+      />   
     </Stack>
   );
 }

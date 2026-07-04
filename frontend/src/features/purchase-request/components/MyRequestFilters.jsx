@@ -1,10 +1,8 @@
 import {
-  Grid,
+  Box,
   MenuItem,
-  Paper,
+  TextField,
 } from "@mui/material";
-
-import TextInput from "../../auth/components/forms/TextInput";
 
 function MyRequestFilters({
   search = "",
@@ -13,69 +11,86 @@ function MyRequestFilters({
   onStatusChange = () => {},
 }) {
   return (
-    <Paper
-      elevation={0}
+    <Box
       sx={{
-        p: 3,
-        borderRadius: 5,
-        border: "1px solid #E5E7EB",
-        boxShadow:
-          "0 8px 30px rgba(15,23,42,.06)",
+        display: "flex",
+        gap: 2,
+        flexWrap: "wrap",
       }}
     >
-      <Grid
-        container
-        spacing={3}
+      <TextField
+        fullWidth
+        size="small"
+        placeholder="Search by PR Number or Title"
+        value={search}
+        onChange={(event) =>
+          onSearchChange(event.target.value)
+        }
+        sx={{
+          flex: 1,
+          minWidth: 300,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
+          },
+        }}
+      />
+
+      <TextField
+        select
+        size="small"
+        label="Status"
+        value={status}
+        onChange={(event) =>
+          onStatusChange(event.target.value)
+        }
+        sx={{
+          width: 220,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
+          },
+        }}
       >
-        <Grid
-          size={{
-            xs: 12,
-            md: 8,
-          }}
-        >
-          <TextInput
-            label="Search"
-            placeholder="Search by PR Number or Title"
-            value={search}
-            onChange={(e) =>
-              onSearchChange(e.target.value)
-            }
-          />
-        </Grid>
+        <MenuItem value="">
+          All Status
+        </MenuItem>
 
-        <Grid
-          size={{
-            xs: 12,
-            md: 4,
-          }}
-        >
-          <TextInput
-            select
-            label="Status"
-            value={status}
-            onChange={(e) =>
-              onStatusChange(e.target.value)
-            }
-          >
-            <MenuItem value="">
-              All Status
-            </MenuItem>
+        <MenuItem value="SUBMITTED">
+          Submitted
+        </MenuItem>
 
-            <MenuItem value="SUBMITTED">
-              Submitted
-            </MenuItem>
+        <MenuItem value="APPROVED">
+          Approved
+        </MenuItem>
 
-            <MenuItem value="APPROVED">
-              Approved
-            </MenuItem>
-
-            <MenuItem value="REJECTED">
-              Rejected
-            </MenuItem>
-          </TextInput>
-        </Grid>
-      </Grid>
-    </Paper>
+        <MenuItem value="REJECTED">
+          Rejected
+        </MenuItem>
+      </TextField>
+    </Box>
   );
 }
 

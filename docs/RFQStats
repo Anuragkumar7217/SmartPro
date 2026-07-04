@@ -1,0 +1,47 @@
+// import {
+//   FileText,
+//   Clock3,
+//   Send,
+//   Lock,
+// } from "lucide-react";
+
+// import StatsCards from "../../../components/common/StatsCards";
+
+// function RFQStats({ rfqs }) {
+//   const stats = [
+//     {
+//       title: "Total RFQs",
+//       value: rfqs.length,
+//       color: "#4F46E5",
+//       icon: <FileText size={26} />,
+//     },
+//     {
+//       title: "Draft",
+//       value: rfqs.filter(
+//         (rfq) => rfq.status === "DRAFT"
+//       ).length,
+//       color: "#ED6C02",
+//       icon: <Clock3 size={26} />,
+//     },
+//     {
+//       title: "Issued",
+//       value: rfqs.filter(
+//         (rfq) => rfq.status === "ISSUED"
+//       ).length,
+//       color: "#16A34A",
+//       icon: <Send size={26} />,
+//     },
+//     {
+//       title: "Closed",
+//       value: rfqs.filter(
+//         (rfq) => rfq.status === "CLOSED"
+//       ).length,
+//       color: "#DC2626",
+//       icon: <Lock size={26} />,
+//     },
+//   ];
+
+//   return <StatsCards stats={stats} />;
+// }
+
+// export default RFQStats;

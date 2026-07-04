@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import {
   Box,
-  Paper,
   TextField,
 } from "@mui/material";
 
@@ -62,30 +61,42 @@ function PendingRequestsPage() {
           gap: 3,
         }}
       >
-        <Paper
-          elevation={0}
-          sx={{
-            p: 3,
-            borderRadius: 5,
-            border: "1px solid",
-            borderColor: "divider",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          <TextField
-            size="small"
-            placeholder="Search by PR Number, Title or Employee"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            sx={{
-              width: {
-                xs: "100%",
-                md: 350,
-              },
-            }}
-          />
-        </Paper>
+        <Box
+  sx={{
+    display: "flex",
+    gap: 2,
+    flexWrap: "wrap",
+  }}
+>
+      <TextField
+        fullWidth
+        size="small"
+        placeholder="Search by PR Number, Title or Employee"
+        value={search}
+        onChange={(event) =>
+          setSearch(event.target.value)
+        }
+        sx={{
+          flex: 1,
+          minWidth: 300,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
+          },
+        }}
+      />
+    </Box>
 
         <PendingRequestsTable
           requests={filteredRequests}

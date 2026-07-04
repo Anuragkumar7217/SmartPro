@@ -1,6 +1,6 @@
 import {
+  Box,
   MenuItem,
-  Paper,
   TextField,
 } from "@mui/material";
 
@@ -12,13 +12,8 @@ function VendorFilters({
   cities = [],
 }) {
   return (
-    <Paper
-      elevation={0}
+    <Box
       sx={{
-        p: 3,
-        borderRadius: 5,
-        border: "1px solid",
-        borderColor: "divider",
         display: "flex",
         gap: 2,
         flexWrap: "wrap",
@@ -27,7 +22,7 @@ function VendorFilters({
       <TextField
         fullWidth
         size="small"
-        placeholder="Search vendor..."
+        placeholder="Search Vendor"
         value={search}
         onChange={(event) =>
           onSearchChange(event.target.value)
@@ -35,6 +30,21 @@ function VendorFilters({
         sx={{
           flex: 1,
           minWidth: 250,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
+          },
         }}
       />
 
@@ -48,6 +58,21 @@ function VendorFilters({
         }
         sx={{
           width: 220,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
+          },
         }}
       >
         <MenuItem value="">
@@ -63,7 +88,7 @@ function VendorFilters({
           </MenuItem>
         ))}
       </TextField>
-    </Paper>
+    </Box>
   );
 }
 

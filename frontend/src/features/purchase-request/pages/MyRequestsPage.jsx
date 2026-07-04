@@ -10,7 +10,7 @@ import {
 
 import useMyRequests from "../hooks/useMyRequests";
 
-import MyRequestStats from "../components/MyRequestStats";
+import PRStats from "../components/PRStats";
 import MyRequestFilters from "../components/MyRequestFilters";
 import MyRequestTable from "../components/MyRequestTable";
 import RequestDetails from "../components/RequestDetails";
@@ -75,7 +75,7 @@ function MyRequestsPage() {
         </Alert>
       )}
 
-      <MyRequestStats
+      <PRStats
         requests={requests}
       />
 

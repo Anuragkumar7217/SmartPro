@@ -33,18 +33,18 @@ function QuotationDetailPanel({
 
   return (
     <Stack spacing={3}>
-      <QuotationInfoCard rfq={rfq} />
-
-      <AssignedVendorsCard
-        vendors={rfq.vendors || []}
-      />
-
       <QuotationComparisonCard
         comparison={comparison}
         selectedQuotation={selectedQuotation}
         loading={actionLoading}
         onVendorClick={onVendorClick}
         onSelect={onSelectQuotation}
+      />
+      
+      <QuotationInfoCard rfq={rfq} />
+
+      <AssignedVendorsCard
+        vendors={rfq.vendors || []}
       />
     </Stack>
   );

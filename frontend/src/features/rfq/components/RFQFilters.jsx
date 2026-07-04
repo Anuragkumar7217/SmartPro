@@ -1,6 +1,6 @@
 import {
+  Box,
   MenuItem,
-  Paper,
   TextField,
 } from "@mui/material";
 
@@ -11,13 +11,8 @@ function RFQFilters({
   onStatusChange,
 }) {
   return (
-    <Paper
-      elevation={0}
+    <Box
       sx={{
-        p: 3,
-        borderRadius: 5,
-        border: "1px solid",
-        borderColor: "divider",
         display: "flex",
         gap: 2,
         flexWrap: "wrap",
@@ -34,6 +29,9 @@ function RFQFilters({
         sx={{
           flex: 1,
           minWidth: 300,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+          },
         }}
       />
 
@@ -47,6 +45,9 @@ function RFQFilters({
         }
         sx={{
           width: 180,
+          "& .MuiOutlinedInput-root": {
+            bgcolor: "#ffffff",
+          },
         }}
       >
         <MenuItem value="">
@@ -61,75 +62,8 @@ function RFQFilters({
           Issued
         </MenuItem>
       </TextField>
-    </Paper>
+    </Box>
   );
 }
 
 export default RFQFilters;
-
-
-
-// import {
-//   MenuItem,
-//   Paper,
-//   TextField,
-// } from "@mui/material";
-
-// function RFQFilters({
-//   search,
-//   onSearchChange,
-//   sortBy,
-//   onSortChange,
-// }) {
-//   return (
-//     <Paper
-//       elevation={0}
-//       sx={{
-//         p: 3,
-//         borderRadius: 5,
-//         border: "1px solid",
-//         borderColor: "divider",
-//         display: "flex",
-//         gap: 2,
-//         flexWrap: "wrap",
-//       }}
-//     >
-//       <TextField
-//         fullWidth
-//         size="small"
-//         placeholder="Search by PR Number, Title or Employee"
-//         value={search}
-//         onChange={(event) =>
-//           onSearchChange(event.target.value)
-//         }
-//         sx={{
-//           flex: 1,
-//           minWidth: 300,
-//         }}
-//       />
-
-//       <TextField
-//         select
-//         size="small"
-//         label="Sort By"
-//         value={sortBy}
-//         onChange={(event) =>
-//           onSortChange(event.target.value)
-//         }
-//         sx={{
-//           width: 180,
-//         }}
-//       >
-//         <MenuItem value="latest">
-//           Latest
-//         </MenuItem>
-
-//         <MenuItem value="oldest">
-//           Oldest
-//         </MenuItem>
-//       </TextField>
-//     </Paper>
-//   );
-// }
-
-// export default RFQFilters;

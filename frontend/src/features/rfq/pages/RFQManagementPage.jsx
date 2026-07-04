@@ -58,6 +58,7 @@ function RFQManagementPage() {
           gap: 3,
         }}
       >
+
         <RFQFilters
           search={search}
           onSearchChange={setSearch}
