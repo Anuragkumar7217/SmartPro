@@ -34,25 +34,34 @@ function PendingRequestsCard({
         spacing={3}
         height="100%"
       >
+        {/* Center aligned section */}
         <Box
           sx={{
-            width: 72,
-            height: 72,
-            borderRadius: "50%",
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
-            bgcolor: "#EEF2FF",
-            color: "#4F46E5",
+            textAlign: "center",
           }}
         >
-          <Clock3 size={34} />
-        </Box>
+          <Box
+            sx={{
+              width: 72,
+              height: 72,
+              borderRadius: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              bgcolor: "#EEF2FF",
+              color: "#4F46E5",
+            }}
+          >
+            <Clock3 size={34} />
+          </Box>
 
-        <Box>
           <Typography
             variant="h5"
             fontWeight={700}
+            mt={3}
           >
             Pending Requests
           </Typography>

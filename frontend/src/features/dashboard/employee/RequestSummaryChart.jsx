@@ -1,32 +1,82 @@
 import {
   Box,
+  Grid,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
 
+import { PieChart } from "@mui/x-charts";
+
+function SummaryRow({
+  label,
+  value,
+  color,
+}) {
+  return (
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      sx={{ width: "100%" }}
+    >
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={1.2}
+      >
+        <Box
+          sx={{
+    width: 10,
+    height: 10,
+    borderRadius: "50%",
+    bgcolor: color,
+    flexShrink: 0,
+    position: "relative",
+    top: "10px", 
+  }}
+        />
+
+        <Typography
+          fontSize={16}
+          fontWeight={500}
+          sx={{ minWidth: 90 }}
+        >
+          {label}
+        </Typography>
+
+        <Typography
+          fontSize={16}
+          fontWeight={700}
+          sx={{
+            width: 28,
+            textAlign: "right",
+          }}
+        >
+          {value}
+        </Typography>
+      </Stack>
+    </Stack>
+  );
+}
+
 function RequestSummaryChart({
   stats,
 }) {
-  const total =
-    stats.submitted +
-    stats.approved +
-    stats.rejected;
-
-  const submitted =
-    total === 0
-      ? 0
-      : (stats.submitted / total) * 100;
-
-  const approved =
-    total === 0
-      ? 0
-      : (stats.approved / total) * 100;
-
-  const rejected =
-    total === 0
-      ? 0
-      : (stats.rejected / total) * 100;
+  const chartData = [
+    {
+      value: stats.submitted,
+      color: "#F59E0B",
+    },
+    {
+      value: stats.approved,
+      color: "#22C55E",
+    },
+    {
+      value: stats.rejected,
+      color: "#EF4444",
+    },
+  ];
 
   return (
     <Paper
@@ -43,114 +93,67 @@ function RequestSummaryChart({
       <Typography
         variant="h6"
         fontWeight={700}
+        align="center"
         mb={3}
       >
         Request Summary
       </Typography>
 
-      <Stack
-        spacing={3}
+      <Grid
+        container
         alignItems="center"
       >
-        <Box
+        <Grid size={7}>
+          <Stack spacing={1.5}>
+            <SummaryRow
+              label="Submitted"
+              value={stats.submitted}
+              color="#F59E0B"
+            />
+
+            <SummaryRow
+              label="Approved"
+              value={stats.approved}
+              color="#22C55E"
+            />
+
+            <SummaryRow
+              label="Rejected"
+              value={stats.rejected}
+              color="#EF4444"
+            />
+          </Stack>
+        </Grid>
+
+        <Grid
+          size={5}
           sx={{
-            width: 180,
-            height: 180,
-            borderRadius: "50%",
-            background: `conic-gradient(
-              #F59E0B 0% ${submitted}%,
-              #22C55E ${submitted}% ${
-              submitted + approved
-            }%,
-              #EF4444 ${
-                submitted + approved
-              }% 100%
-            )`,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Box
-            sx={{
-              width: 110,
-              height: 110,
-              bgcolor: "#FFFFFF",
-              borderRadius: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "1px solid #E5E7EB",
+          <PieChart
+            width={135}
+            height={135}
+            series={[
+              {
+                innerRadius: 34,
+                outerRadius: 52,
+                paddingAngle: 2,
+                cornerRadius: 5,
+                data: chartData,
+              },
+            ]}
+            slotProps={{
+              legend: {
+                hidden: true,
+              },
             }}
-          >
-            <Typography
-              fontWeight={700}
-              fontSize={24}
-            >
-              {total}
-            </Typography>
-          </Box>
-        </Box>
-
-        <Stack
-          spacing={1}
-          width="100%"
-        >
-          <Legend
-            color="#F59E0B"
-            label="Submitted"
-            value={stats.submitted}
           />
-
-          <Legend
-            color="#22C55E"
-            label="Approved"
-            value={stats.approved}
-          />
-
-          <Legend
-            color="#EF4444"
-            label="Rejected"
-            value={stats.rejected}
-          />
-        </Stack>
-      </Stack>
+        </Grid>
+      </Grid>
     </Paper>
-  );
-}
-
-function Legend({
-  color,
-  label,
-  value,
-}) {
-  return (
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      <Stack
-        direction="row"
-        spacing={1}
-        alignItems="center"
-      >
-        <Box
-          sx={{
-            width: 12,
-            height: 12,
-            borderRadius: "50%",
-            bgcolor: color,
-          }}
-        />
-
-        <Typography>{label}</Typography>
-      </Stack>
-
-      <Typography fontWeight={700}>
-        {value}
-      </Typography>
-    </Stack>
   );
 }
 

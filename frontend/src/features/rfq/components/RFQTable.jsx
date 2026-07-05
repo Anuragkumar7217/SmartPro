@@ -20,6 +20,10 @@ function RFQTable({
   rfqs = [],
   selectedRFQ,
   onSelect,
+
+  disableRowClick = false,
+  disablePagination = false,
+  title = "RFQs",
 }) {
   const [page, setPage] = useState(0);
 
@@ -82,7 +86,7 @@ function RFQTable({
           variant="h6"
           fontWeight={700}
         >
-          RFQs
+          {title}
         </Typography>
       </Box>
 
@@ -90,19 +94,19 @@ function RFQTable({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell align="center">
                 RFQ
               </TableCell>
 
-              <TableCell>
+              <TableCell align="center">
                 PR
               </TableCell>
 
-              <TableCell>
+              <TableCell align="center">
                 Vendors
               </TableCell>
 
-              <TableCell>
+              <TableCell align="center">
                 Status
               </TableCell>
             </TableRow>
@@ -111,20 +115,24 @@ function RFQTable({
           <TableBody>
             {tableData.map((rfq) => (
               <TableRow
-                hover
+                hover={!disableRowClick}
                 key={rfq._id}
                 selected={
-                  selectedRFQ?._id ===
-                  rfq._id
+                  !disableRowClick &&
+                  selectedRFQ?._id === rfq._id
                 }
-                onClick={() =>
-                  onSelect(rfq)
-                }
+                onClick={() => {
+                  if (!disableRowClick) {
+                    onSelect?.(rfq);
+                  }
+                }}
                 sx={{
-                  cursor: "pointer",
+                  cursor: disableRowClick
+                    ? "default"
+                    : "pointer",
                 }}
               >
-                <TableCell>
+                <TableCell align="center">
                   <Chip
                     size="small"
                     color="primary"
@@ -133,16 +141,16 @@ function RFQTable({
                   />
                 </TableCell>
 
-                <TableCell>
+                <TableCell align="center">
                   {rfq.purchaseRequest
                     ?.prNumber || "-"}
                 </TableCell>
 
-                <TableCell>
+                <TableCell align="center">
                   {rfq.vendors?.length}
                 </TableCell>
 
-                <TableCell>
+                <TableCell align="center">
                   <StatusChip
                     status={rfq.status}
                   />
@@ -153,16 +161,18 @@ function RFQTable({
         </Table>
       </TableContainer>
 
-      <TablePagination
-        component="div"
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[6]}
-        count={rfqs.length}
-        page={page}
-        onPageChange={(_, page) =>
-          setPage(page)
-        }
-      />
+      {!disablePagination && (
+        <TablePagination
+          component="div"
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[6]}
+          count={rfqs.length}
+          page={page}
+          onPageChange={(_, page) =>
+            setPage(page)
+          }
+        />
+      )}
     </Paper>
   );
 }

@@ -21,6 +21,10 @@ function PurchaseOrderTable({
   loading = false,
   selectedPurchaseOrder,
   onSelect,
+
+  title = "Purchase Orders",
+  disableRowClick = false,
+  disablePagination = false,
 }) {
   const [page, setPage] = useState(0);
 
@@ -99,24 +103,20 @@ function PurchaseOrderTable({
           variant="h6"
           fontWeight={700}
         >
-          Purchase Orders
+          {title}
         </Typography>
       </Box>
 
       <TableContainer>
-      <Table
-        sx={{
-          width: "100%",
-        }}
-      >
+        <Table
+          sx={{
+            width: "100%",
+          }}
+        >
           <TableHead>
             <TableRow>
               <TableCell align="center">
                 PO
-              </TableCell>
-
-              <TableCell align="center">
-                Status
               </TableCell>
 
               <TableCell align="center">
@@ -126,35 +126,35 @@ function PurchaseOrderTable({
               <TableCell align="center">
                 Created On
               </TableCell>
+
+              <TableCell align="center">
+                Status
+              </TableCell>
             </TableRow>
           </TableHead>
-          
+
           <TableBody>
             {tableData.map((purchaseOrder) => (
               <TableRow
                 hover
                 key={purchaseOrder._id}
                 selected={
-                  selectedPurchaseOrder?._id ===
-                  purchaseOrder._id
+                  !disableRowClick &&
+                  selectedPurchaseOrder?._id === purchaseOrder._id
                 }
-                onClick={() =>
-                  onSelect(purchaseOrder)
-                }
+                onClick={() => {
+                  if (!disableRowClick) {
+                    onSelect?.(purchaseOrder);
+                  }
+                }}
                 sx={{
-                  cursor: "pointer",
+                  cursor: disableRowClick
+                    ? "default"
+                    : "pointer",
                 }}
               >
                 <TableCell align="center">
                   {purchaseOrder.poNumber}
-                </TableCell>
-
-                <TableCell align="center">
-                  <StatusChip
-                    status={
-                      purchaseOrder.status
-                    }
-                  />
                 </TableCell>
 
                 <TableCell align="center">
@@ -176,22 +176,32 @@ function PurchaseOrderTable({
                       )
                     : "-"}
                 </TableCell>
+
+                <TableCell align="center">
+                  <StatusChip
+                    status={
+                      purchaseOrder.status
+                    }
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
 
-      <TablePagination
-        component="div"
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[6]}
-        count={purchaseOrders.length}
-        page={page}
-        onPageChange={(_, page) =>
-          setPage(page)
-        }
-      />
+      {!disablePagination && (
+        <TablePagination
+          component="div"
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={[6]}
+          count={purchaseOrders.length}
+          page={page}
+          onPageChange={(_, page) =>
+            setPage(page)
+          }
+        />
+      )}
     </Paper>
   );
 }
