@@ -5,6 +5,7 @@ import {
   ClipboardList,
   ReceiptText,
   ShoppingCart,
+  UsersRound,
 } from "lucide-react";
 
 import { ROLES } from "./roles";
@@ -24,6 +25,19 @@ export const sidebarMenu = {
     {
       label: "My Requests",
       to: "/purchase-requests/my",
+      icon: FileText,
+    },
+  ],
+
+  [ROLES.MANAGER]: [
+    {
+      label: "Dashboard",
+      to: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "Pending Requests",
+      to: "/purchase-requests/pending",
       icon: FileText,
     },
   ],
@@ -61,19 +75,6 @@ export const sidebarMenu = {
     },
   ],
 
-  [ROLES.MANAGER]: [
-    {
-      label: "Dashboard",
-      to: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      label: "Pending Requests",
-      to: "/purchase-requests/pending",
-      icon: FileText,
-    },
-  ],
-
   [ROLES.ADMIN]: [
     {
       label: "Dashboard",
@@ -81,14 +82,9 @@ export const sidebarMenu = {
       icon: LayoutDashboard,
     },
     {
-      label: "Purchase Requests",
-      to: "/purchase-requests",
-      icon: FileText,
-    },
-    {
-      label: "Vendors",
-      to: "/vendors",
-      icon: Building2,
+      label: "User Management",
+      to: "/UserManagement",
+      icon: UsersRound,
     },
     {
       label: "RFQs",

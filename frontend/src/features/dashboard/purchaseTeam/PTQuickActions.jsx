@@ -89,9 +89,7 @@ function PTQuickActions() {
             startIcon={
               <FilePlus2 size={18} />
             }
-            onClick={() =>
-              navigate("/approved-requests")
-            }
+            onClick={() => navigate("/rfqs")}
             sx={{
               height: 56,
               borderRadius: 3,
