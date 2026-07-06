@@ -136,33 +136,45 @@ function SummarySection({
         </Stack>
       </Grid>
 
-      <Grid
-        size={5}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <PieChart
-  width={135}
-  height={135}
-  series={[
-    {
-      innerRadius: 34,
-      outerRadius: 52,
-      paddingAngle: 2,
-      cornerRadius: 5,
-      data: chartData,
-    },
-  ]}
-  slotProps={{
-    legend: {
-      hidden: true,
-    },
+<Grid
+  size={5}
+  sx={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   }}
-/>
-      </Grid>
+>
+  <Box
+    sx={{
+      display: "inline-flex",
+      transition: "transform 0.25s ease, filter 0.25s ease",
+      cursor: "pointer",
+      "&:hover": {
+        transform: "translateY(-6px) scale(1.04)",
+        filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.12))",
+      },
+    }}
+  >
+    <PieChart
+      width={135}
+      height={135}
+      series={[
+        {
+          innerRadius: 34,
+          outerRadius: 52,
+          paddingAngle: 2,
+          cornerRadius: 5,
+          data: chartData,
+        },
+      ]}
+      slotProps={{
+        legend: {
+          hidden: true,
+        },
+      }}
+    />
+  </Box>
+</Grid>
     </Grid>
   );
 }

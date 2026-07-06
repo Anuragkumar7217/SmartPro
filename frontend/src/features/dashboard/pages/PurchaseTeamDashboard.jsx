@@ -43,37 +43,37 @@ function PurchaseTeamDashboard() {
   }
 
   const statCards = [
-    {
-      title: "Total RFQs",
-      value: stats.totalRFQs,
-      icon: FileText,
-      color: "primary",
-    },
-    {
-      title: "Closed RFQs",
-      value: stats.closedRFQs,
-      icon: CheckCircle2,
-      color: "success",
-    },
-    {
-      title: "Draft Purchase Orders",
-      value: stats.draftPurchaseOrders,
-      icon: ClipboardList,
-      color: "warning",
-    },
-    {
-      title: "Issued Purchase Orders",
-      value: stats.issuedPurchaseOrders,
-      icon: Send,
-      color: "info",
-    },
-  ];
+  {
+    title: "Total RFQs",
+    value: stats.totalRFQs,
+    icon: <FileText size={26} />,
+    color: "#4F46E5",
+  },
+  {
+    title: "Closed RFQs",
+    value: stats.closedRFQs,
+    icon: <CheckCircle2 size={26} />,
+    color: "#16A34A",
+  },
+  {
+    title: "Draft POs",
+    value: stats.draftPurchaseOrders,
+    icon: <ClipboardList size={26} />,
+    color: "#ED6C02",
+  },
+  {
+    title: "Issued POs",
+    value: stats.issuedPurchaseOrders,
+    icon: <Send size={26} />,
+    color: "#0288D1", // ya "#1976D2"
+  },
+];
 
   return (
     <Stack spacing={3}>
       <WelcomeCard />
 
-      <StatsCards cards={statCards} />
+      <StatsCards stats={statCards} />
 
       <Grid
         container
