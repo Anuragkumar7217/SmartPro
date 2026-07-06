@@ -13,44 +13,39 @@ function PurchaseOrderToolbar({
   onCreatePurchaseOrder,
 }) {
   return (
-    <Box sx={{ mt: 3, mb: 3 }}>
+    <Box sx={{ mb: 3 }}>
       <Grid
         container
         spacing={2}
-        alignItems="center"
+        alignItems="stretch"
       >
-        <Grid size={{ xs: 12, md: 8 }}>
+        <Grid size={{ xs: 12, md: 9 }}>
           <TextField
             fullWidth
             size="small"
-            placeholder="Search by PO Number..."
+            placeholder="Search by PO Number"
             value={search}
             onChange={(event) =>
               onSearchChange(event.target.value)
             }
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                bgcolor: "#fff",
+                height: 40,
+              },
+            }}
           />
         </Grid>
 
-        <Grid
-          size={{ xs: 12, md: 4 }}
-          sx={{
-            display: "flex",
-            justifyContent: {
-              xs: "stretch",
-              md: "flex-end",
-            },
-          }}
-        >
+        <Grid size={{ xs: 12, md: 3 }}>
           <Button
             fullWidth
             variant="contained"
             startIcon={<AddIcon />}
             onClick={onCreatePurchaseOrder}
             sx={{
-              maxWidth: {
-                xs: "100%",
-                md: 260,
-              },
+              height: 40,
+              whiteSpace: "nowrap",
             }}
           >
             Create Purchase Order

@@ -150,23 +150,6 @@ function PurchaseOrderInfoCard({
               variant="caption"
               color="text.secondary"
             >
-              Issued On
-            </Typography>
-
-            <Typography fontWeight={600}>
-              {purchaseOrder.issuedAt
-                ? new Date(
-                    purchaseOrder.issuedAt
-                  ).toLocaleDateString()
-                : "-"}
-            </Typography>
-          </Grid>
-
-          <Grid size={12}>
-            <Typography
-              variant="caption"
-              color="text.secondary"
-            >
               Remarks
             </Typography>
 

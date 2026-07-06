@@ -120,7 +120,7 @@ function PurchaseOrderTable({
               </TableCell>
 
               <TableCell align="center">
-                Amount
+                Amount (₹)
               </TableCell>
 
               <TableCell align="center">

@@ -12,9 +12,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import StatusChip from "../../../components/common/StatusChip";
 
 import QuotationRowDetails from "./QuotationRowDetails";
 
@@ -25,8 +23,7 @@ function QuotationComparisonTable({
   onVendorClick,
   onSelect,
 }) {
-
-if (!comparison.length) {
+  if (!comparison.length) {
     return (
       <TableContainer
         component={Paper}
@@ -62,15 +59,11 @@ if (!comparison.length) {
             </TableCell>
 
             <TableCell align="right">
-              Amount
+              Amount (₹)
             </TableCell>
 
             <TableCell align="center">
-              Status
-            </TableCell>
-
-            <TableCell align="center">
-              Action
+              Decision
             </TableCell>
           </TableRow>
         </TableHead>
@@ -88,8 +81,13 @@ if (!comparison.length) {
                     key={quotation.quotationId}
                     hover
                     sx={{
-                      cursor: "pointer",
-                    }}
+  cursor: "pointer",
+  transition: "background-color .2s",
+
+  "&:hover": {
+    backgroundColor: "#F8FAFC",
+  },
+}}
                     onClick={() =>
                       onVendorClick(
                         quotation.quotationId
@@ -102,20 +100,12 @@ if (!comparison.length) {
 
                     <TableCell>
                       <Box
-                        display="flex"
-                        alignItems="center"
-                        gap={1}
-                      >
-                        {expanded ? (
-                          <KeyboardArrowUpIcon fontSize="small" />
-                        ) : (
-                          <KeyboardArrowDownIcon fontSize="small" />
-                        )}
-
-                        {
-                          quotation.vendor
-                        }
-                      </Box>
+  display="flex"
+  alignItems="center"
+  gap={1}
+>
+  {quotation.vendor}
+</Box>
                     </TableCell>
 
                     <TableCell>
@@ -134,54 +124,46 @@ if (!comparison.length) {
                     </TableCell>
 
                     <TableCell align="center">
-                      <Chip
-                        size="small"
-                        label={
-                          quotation.status
-                        }
-                        color={
-                          quotation.status ===
-                          "SELECTED"
-                            ? "success"
-                            : "default"
-                        }
-                      />
-                    </TableCell>
+                      {quotation.status ===
+                      "SUBMITTED" ? (
+                        <Button
+                          size="small"
+                          variant="contained"
+                          color="warning"
+                          disabled={loading}
+                          onClick={(e) => {
+                            e.stopPropagation();
 
-                    <TableCell align="center">
-                      <Button
-                        size="small"
-                        variant="contained"
-                        disabled={
-                          loading ||
-                          quotation.status ===
-                            "SELECTED"
+                            onSelect(
+                              quotation.quotationId
+                            );
+                          }}
+                          sx={{
+                            minWidth: 96,
+                            fontWeight: 600,
+                            textTransform:
+                              "none",
+                            borderRadius: 2,
+                          }}
+                        >
+                          {loading ? (
+                            <CircularProgress
+                              size={18}
+                              color="inherit"
+                            />
+                          ) : (
+                            "Select"
+                          )}
+                        </Button>
+                      ) : quotation.status ===
+                        "SELECTED" ? (<StatusChip status="SELECTED" />) : (<StatusChip status="REJECTED" /> )
                         }
-                        onClick={(e) => {
-                          e.stopPropagation();
-
-                          onSelect(
-                            quotation.quotationId
-                          );
-                        }}
-                      >
-                        {loading ? (
-                          <CircularProgress
-                            size={18}
-                          />
-                        ) : quotation.status ===
-                          "SELECTED" ? (
-                          "Selected"
-                        ) : (
-                          "Select"
-                        )}
-                      </Button>
                     </TableCell>
                   </TableRow>
 
                   <TableRow>
                     <TableCell
-                      colSpan={6}
+                      colSpan={5}
                       sx={{
                         p: 0,
                         border: 0,

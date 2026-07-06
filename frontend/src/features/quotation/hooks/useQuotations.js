@@ -65,34 +65,56 @@ function useQuotations() {
       );
 
       const updatedRFQs = await Promise.all(
-        availableRFQs.map(async (rfq) => {
-          if (rfq.status !== "CLOSED") {
-            return {
-              ...rfq,
-              quotationCount: 0,
-            };
-          }
+  availableRFQs.map(async (rfq) => {
+    if (rfq.status !== "CLOSED") {
+      return {
+        ...rfq,
+        quotationCount: 0,
+        actionStatus: "PENDING",
+      };
+    }
 
-          try {
-            const quotationResponse =
-              await quotationService.getQuotationsByRFQ(
-                rfq._id
-              );
+    try {
+      const [
+        quotationResponse,
+        comparisonResponse,
+      ] = await Promise.all([
+        quotationService.getQuotationsByRFQ(
+          rfq._id
+        ),
+        quotationService.getComparison(
+          rfq._id
+        ),
+      ]);
 
-            return {
-              ...rfq,
-              quotationCount: (
-                quotationResponse.data || []
-              ).length,
-            };
-          } catch {
-            return {
-              ...rfq,
-              quotationCount: 0,
-            };
-          }
-        })
-      );
+      const quotations =
+        comparisonResponse.data?.quotations || [];
+
+      const hasSelected =
+        quotations.some(
+          (quotation) =>
+            quotation.status === "SELECTED"
+        );
+
+      return {
+        ...rfq,
+
+        quotationCount:
+          (quotationResponse.data || []).length,
+
+        actionStatus: hasSelected
+          ? "COMPLETED"
+          : "PENDING",
+      };
+    } catch {
+      return {
+        ...rfq,
+        quotationCount: 0,
+        actionStatus: "PENDING",
+      };
+    }
+  })
+);
 
       setRFQs(updatedRFQs);
     } catch (error) {
@@ -220,24 +242,33 @@ function useQuotations() {
   };
 
   const loadQuotation = async (
+  quotationId
+) => {
+  // Toggle close if same quotation is clicked
+  if (
+    selectedQuotation?._id ===
     quotationId
-  ) => {
-    try {
-      const response =
-        await quotationService.getQuotationById(
-          quotationId
-        );
+  ) {
+    setSelectedQuotation(null);
+    return;
+  }
 
-      setSelectedQuotation(
-        response.data
+  try {
+    const response =
+      await quotationService.getQuotationById(
+        quotationId
       );
-    } catch (error) {
-      showError(
-        error.response?.data?.message ||
-          "Failed to load quotation."
-      );
-    }
-  };
+
+    setSelectedQuotation(
+      response.data
+    );
+  } catch (error) {
+    showError(
+      error.response?.data?.message ||
+        "Failed to load quotation."
+    );
+  }
+};
 
   const openCreateDrawer = () => {
     setCreateDrawerOpen(true);

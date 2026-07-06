@@ -29,8 +29,21 @@ function RFQFilters({
         sx={{
           flex: 1,
           minWidth: 300,
+
           "& .MuiOutlinedInput-root": {
             bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "text.primary",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
           },
         }}
       />
@@ -44,9 +57,22 @@ function RFQFilters({
           onStatusChange(event.target.value)
         }
         sx={{
-          width: 180,
+          width: 220,
+
           "& .MuiOutlinedInput-root": {
             bgcolor: "#ffffff",
+
+            "& fieldset": {
+              borderColor: "#E5E7EB",
+            },
+
+            "&:hover fieldset": {
+              borderColor: "text.primary",
+            },
+
+            "&.Mui-focused fieldset": {
+              borderColor: "#4F46E5",
+            },
           },
         }}
       >

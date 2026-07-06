@@ -42,8 +42,8 @@ function UserFilters({
             },
 
             "&:hover fieldset": {
-              borderColor: "#E5E7EB",
-            },
+  borderColor: "text.primary",
+},
 
             "&.Mui-focused fieldset": {
               borderColor: "#4F46E5",
@@ -71,8 +71,8 @@ function UserFilters({
             },
 
             "&:hover fieldset": {
-              borderColor: "#E5E7EB",
-            },
+  borderColor: "text.primary",
+},
 
             "&.Mui-focused fieldset": {
               borderColor: "#4F46E5",
@@ -122,8 +122,8 @@ function UserFilters({
             },
 
             "&:hover fieldset": {
-              borderColor: "#E5E7EB",
-            },
+  borderColor: "text.primary",
+},
 
             "&.Mui-focused fieldset": {
               borderColor: "#4F46E5",

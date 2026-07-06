@@ -29,7 +29,8 @@ function VendorFilters({
         }
         sx={{
           flex: 1,
-          minWidth: 250,
+          minWidth: 300,
+
           "& .MuiOutlinedInput-root": {
             bgcolor: "#ffffff",
 
@@ -38,8 +39,8 @@ function VendorFilters({
             },
 
             "&:hover fieldset": {
-              borderColor: "#E5E7EB",
-            },
+  borderColor: "text.primary",
+},
 
             "&.Mui-focused fieldset": {
               borderColor: "#4F46E5",
@@ -51,13 +52,14 @@ function VendorFilters({
       <TextField
         select
         size="small"
-        label="City"
+        label="All Cities"
         value={city}
         onChange={(event) =>
           onCityChange(event.target.value)
         }
         sx={{
           width: 220,
+
           "& .MuiOutlinedInput-root": {
             bgcolor: "#ffffff",
 
@@ -66,9 +68,8 @@ function VendorFilters({
             },
 
             "&:hover fieldset": {
-              borderColor: "#E5E7EB",
-            },
-
+  borderColor: "text.primary",
+},
             "&.Mui-focused fieldset": {
               borderColor: "#4F46E5",
             },

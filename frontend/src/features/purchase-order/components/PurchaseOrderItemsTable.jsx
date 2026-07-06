@@ -43,7 +43,7 @@ function PurchaseOrderItemsTable({
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>
+                <TableCell align="center">
                   Item
                 </TableCell>
 
@@ -51,12 +51,12 @@ function PurchaseOrderItemsTable({
                   Quantity
                 </TableCell>
 
-                <TableCell align="right">
-                  Unit Price
+                <TableCell align="center">
+                  Unit Price (₹)
                 </TableCell>
 
-                <TableCell align="right">
-                  Total
+                <TableCell align="center">
+                  Total (₹)
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -72,7 +72,7 @@ function PurchaseOrderItemsTable({
                           index
                         }
                       >
-                        <TableCell>
+                        <TableCell align="center">
                           {item.itemName}
                         </TableCell>
 
@@ -80,7 +80,7 @@ function PurchaseOrderItemsTable({
                           {item.quantity}
                         </TableCell>
 
-                        <TableCell align="right">
+                        <TableCell align="center">
                           ₹
                           {Number(
                             item.unitPrice || 0
@@ -89,7 +89,7 @@ function PurchaseOrderItemsTable({
                           )}
                         </TableCell>
 
-                        <TableCell align="right">
+                        <TableCell align="center">
                           ₹
                           {(
                             (item.quantity ||

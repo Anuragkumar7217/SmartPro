@@ -96,7 +96,7 @@ function QuotationRFQTable({
               </TableCell>
 
               <TableCell align="center">
-                Vendors
+                Actions
               </TableCell>
 
               <TableCell align="center">
@@ -143,8 +143,27 @@ function QuotationRFQTable({
                   </TableCell>
 
                   <TableCell align="center">
-                    {vendorCount}
-                  </TableCell>
+  <Chip
+    size="small"
+    label={
+      rfq.actionStatus ===
+      "COMPLETED"
+        ? "Completed"
+        : "Pending"
+    }
+    color={
+      rfq.actionStatus ===
+      "COMPLETED"
+        ? "success"
+        : "warning"
+    }
+    variant="filled"
+    sx={{
+      minWidth: 100,
+      fontWeight: 600,
+    }}
+  />
+</TableCell>
 
                   <TableCell align="center">
                     {quotationCount} / {vendorCount}
