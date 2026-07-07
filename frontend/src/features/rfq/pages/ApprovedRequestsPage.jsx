@@ -7,36 +7,31 @@ import Loader from "../../../components/common/Loader";
 
 import ApprovedPRDrawer from "../components/ApprovedPRDrawer";
 import ApprovedPRTable from "../components/ApprovedPRTable";
-import CreateRFQDrawer from "../components/CreateRFQDrawer";
 import RFQFilters from "../components/RFQFilters";
 
 import useApprovedPurchaseRequests from "../hooks/useApprovedPurchaseRequests";
 
 function ApprovedRequestsPage() {
   const {
-    requests,
-    vendors,
+  requests,
+  vendors,
 
-    loading,
-    actionLoading,
+  loading,
+  actionLoading,
 
-    selectedRequest,
+  selectedRequest,
 
-    drawerOpen,
-    createDrawerOpen,
+  drawerOpen,
 
-    snackbar,
+  snackbar,
 
-    openRequestDrawer,
-    closeRequestDrawer,
+  openRequestDrawer,
+  closeRequestDrawer,
 
-    openCreateDrawer,
-    closeCreateDrawer,
+  createRFQ,
 
-    createRFQ,
-
-    closeSnackbar,
-  } = useApprovedPurchaseRequests();
+  closeSnackbar,
+} = useApprovedPurchaseRequests();
 
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("latest");
@@ -101,20 +96,13 @@ function ApprovedRequestsPage() {
       </Box>
 
       <ApprovedPRDrawer
-        open={drawerOpen}
-        request={selectedRequest}
-        onClose={closeRequestDrawer}
-        onCreateRFQ={openCreateDrawer}
-      />
-
-      <CreateRFQDrawer
-        open={createDrawerOpen}
-        request={selectedRequest}
-        vendors={vendors}
-        loading={actionLoading}
-        onClose={closeCreateDrawer}
-        onSubmit={createRFQ}
-      />
+  open={drawerOpen}
+  request={selectedRequest}
+  vendors={vendors}
+  loading={actionLoading}
+  onSubmit={createRFQ}
+  onClose={closeRequestDrawer}
+/>
 
       <AppSnackbar
         open={snackbar.open}
