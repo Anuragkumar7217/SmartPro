@@ -145,7 +145,7 @@ const handleCreate = () => {
 )}
 
         {expanded && (
-  <Accordion
+<Accordion
     expanded
     sx={{
       mt: "auto",

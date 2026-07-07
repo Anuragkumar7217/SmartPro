@@ -2,12 +2,20 @@ import axios from "axios";
 import { storage } from "../utils/storage";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: ${import.meta.env.VITE_API_BASE_URL}/api,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
+// const api = axios.create({
+//   baseURL: import.meta.env.VITE_API_BASE_URL,
+//   timeout: 10000,
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+// });
 
 // Attach JWT token to every request
 api.interceptors.request.use(
