@@ -1,4 +1,7 @@
 import {
+  Card,
+  CardContent,
+  Divider,
   Paper,
   Table,
   TableBody,
@@ -13,67 +16,63 @@ function RFQItemsTable({
   items = [],
 }) {
   return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 3,
-        borderRadius: 4,
-        border: "1px solid",
-        borderColor: "divider",
-      }}
-    >
-      <Typography
-        variant="h6"
-        fontWeight={700}
-        mb={2}
-      >
-        Requested Items
-      </Typography>
+    <Card elevation={0}>
+      <CardContent>
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          mb={2}
+        >
+          Requested Items
+        </Typography>
 
-      <TableContainer>
-        <Table size="small">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 700 }}>
-                Item
-              </TableCell>
+        <Divider sx={{ mb: 3 }} />
 
-              <TableCell
-                align="center"
-                sx={{ fontWeight: 700 }}
-              >
-                Quantity
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {items.length ? (
-              items.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    {item.itemName}
-                  </TableCell>
-
-                  <TableCell align="center">
-                    {item.quantity}
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
+        <TableContainer
+          component={Paper}
+          variant="outlined"
+        >
+          <Table size="small">
+            <TableHead>
               <TableRow>
-                <TableCell
-                  colSpan={2}
-                  align="center"
-                >
-                  No Items
+                <TableCell>
+                  Item
+                </TableCell>
+
+                <TableCell align="center">
+                  Quantity
                 </TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
+            </TableHead>
+
+            <TableBody>
+              {items.length > 0 ? (
+                items.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell>
+                      {item.itemName}
+                    </TableCell>
+
+                    <TableCell align="center">
+                      {item.quantity}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={2}
+                    align="center"
+                  >
+                    No requested items.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </CardContent>
+    </Card>
   );
 }
 

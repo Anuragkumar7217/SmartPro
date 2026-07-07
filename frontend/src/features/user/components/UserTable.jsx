@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import StatusChip from "../../../components/common/StatusChip";
+
 function UserTable({
   users = [],
   selectedUser,
@@ -91,47 +93,47 @@ function UserTable({
         </Typography>
       </Box>
 
-      <TableContainer sx={{ overflowX: "hidden", }} >
+      <TableContainer sx={{ overflowX: "hidden" }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell
                 align="center"
                 sx={{
-                    fontWeight: 700,
-                    whiteSpace: "nowrap",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
                 }}
-                >
+              >
                 Name
               </TableCell>
 
               <TableCell
                 align="center"
                 sx={{
-                    fontWeight: 700,
-                    whiteSpace: "nowrap",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
                 }}
-                >
+              >
                 Email
               </TableCell>
 
               <TableCell
                 align="center"
                 sx={{
-                    fontWeight: 700,
-                    whiteSpace: "nowrap",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
                 }}
-                >
+              >
                 Role
               </TableCell>
 
               <TableCell
                 align="center"
                 sx={{
-                    fontWeight: 700,
-                    whiteSpace: "nowrap",
+                  fontWeight: 700,
+                  whiteSpace: "nowrap",
                 }}
-                >
+              >
                 Status
               </TableCell>
             </TableRow>
@@ -167,49 +169,55 @@ function UserTable({
                 >
                   <TableCell align="center">
                     <Typography
-                        fontWeight={600}
-                        noWrap
-                        sx={{
+                      fontWeight={600}
+                      noWrap
+                      sx={{
                         maxWidth: 90,
                         mx: "auto",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        }}
+                      }}
                     >
-                        {user.firstName} {user.lastName}
+                      {user.firstName}{" "}
+                      {user.lastName}
                     </Typography>
-                    </TableCell>
+                  </TableCell>
 
-                    <TableCell align="center">
+                  <TableCell align="center">
                     <Typography
-                        noWrap
-                        sx={{
+                      noWrap
+                      sx={{
                         maxWidth: 110,
                         mx: "auto",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        }}
+                      }}
                     >
-                        {user.email}
+                      {user.email}
                     </Typography>
-                    </TableCell>
+                  </TableCell>
 
                   <TableCell align="center">
                     <Chip
-                        label={user.role.replaceAll("_", " ")}
-                        color="primary"
-                        variant="outlined"
-                        size="small"
+                      label={user.role.replaceAll(
+                        "_",
+                        " "
+                      )}
+                      color="primary"
+                      variant="outlined"
+                      size="small"
                     />
-                    </TableCell>
+                  </TableCell>
 
                   <TableCell align="center">
-                    <Chip
-                        label={user.isActive ? "Active" : "Inactive"}
-                        color={user.isActive ? "success" : "error"}
-                        size="small"
+                    <StatusChip
+                      status={
+                        user.isActive
+                          ? "ACTIVE"
+                          : "INACTIVE"
+                      }
                     />
-                    </TableCell>
+                  </TableCell>
                 </TableRow>
               );
             })}

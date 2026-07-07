@@ -62,7 +62,7 @@ function QuotationManagementPage() {
           <Grid
             size={{
               xs: 12,
-              lg: 5,
+              lg: 6,
             }}
           >
             <QuotationRFQTable
@@ -75,7 +75,7 @@ function QuotationManagementPage() {
           <Grid
             size={{
               xs: 12,
-              lg: 7,
+              lg: 6,
             }}
           >
             <QuotationDetailPanel

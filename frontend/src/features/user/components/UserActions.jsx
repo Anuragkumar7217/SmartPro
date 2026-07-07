@@ -4,8 +4,11 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
-  Paper,
+  Card,
+  CardContent,
+  Divider,
   Stack,
   Typography,
 } from "@mui/material";
@@ -13,7 +16,6 @@ import {
 import { ChevronDown } from "lucide-react";
 
 import ConfirmationDialog from "../../../components/common/ConfirmationDialog";
-
 import StatusChip from "../../../components/common/StatusChip";
 
 function UserActions({
@@ -42,34 +44,26 @@ function UserActions({
 
   return (
     <>
-      <Paper
-        elevation={0}
-        sx={{
-          borderRadius: 5,
-          border: "1px solid",
-          borderColor: "divider",
-          overflow: "hidden",
-        }}
-      >
-        <Stack
-          spacing={2}
-          sx={{ p: 3 }}
-        >
+      <Card elevation={0}>
+        <CardContent sx={{ pb: 0 }}>
           <Typography
             variant="h6"
             fontWeight={700}
+            mb={2}
           >
             Account Status
           </Typography>
 
-          <Stack spacing={0.5}>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-            >
-              Current Status
-            </Typography>
+          <Divider sx={{ mb: 3 }} />
 
+          <Typography
+            variant="caption"
+            color="text.secondary"
+          >
+            Current Status
+          </Typography>
+
+          <Box mt={0.5} mb={3}>
             <StatusChip
               status={
                 isActive
@@ -77,8 +71,8 @@ function UserActions({
                   : "INACTIVE"
               }
             />
-          </Stack>
-        </Stack>
+          </Box>
+        </CardContent>
 
         <Accordion
           elevation={0}
@@ -93,6 +87,8 @@ function UserActions({
             boxShadow: "none",
             borderTop: "1px solid",
             borderColor: "divider",
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
           }}
         >
           <AccordionSummary
@@ -139,7 +135,6 @@ function UserActions({
                 }
                 sx={{
                   height: 46,
-                  borderRadius: 3,
                 }}
               >
                 {isActive
@@ -149,7 +144,7 @@ function UserActions({
             </Stack>
           </AccordionDetails>
         </Accordion>
-      </Paper>
+      </Card>
 
       <ConfirmationDialog
         open={dialogOpen}
@@ -157,16 +152,6 @@ function UserActions({
           isActive
             ? "Deactivate User"
             : "Activate User"
-        }
-        message={
-          isActive
-            ? `Are you sure you want to deactivate ${user.firstName} ${user.lastName}'s account? They will not be able to log in until activated again.`
-            : `Are you sure you want to activate ${user.firstName} ${user.lastName}'s account? They will be able to access the system again.`
-        }
-        confirmText={
-          isActive
-            ? "Deactivate"
-            : "Activate"
         }
         confirmColor={
           isActive

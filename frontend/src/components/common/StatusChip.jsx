@@ -1,7 +1,21 @@
 import { Chip } from "@mui/material";
 
 const STATUS_CONFIG = {
-  // Purchase Order & RFQ
+  // Purchase Request
+  SUBMITTED: {
+    label: "Submitted",
+    color: "warning",
+  },
+  APPROVED: {
+    label: "Approved",
+    color: "success",
+  },
+  REJECTED: {
+    label: "Rejected",
+    color: "error",
+  },
+
+  // RFQ & Purchase Order
   DRAFT: {
     label: "Draft",
     color: "default",
@@ -16,20 +30,6 @@ const STATUS_CONFIG = {
   },
   CANCELLED: {
     label: "Cancelled",
-    color: "default",
-  },
-
-  // Purchase Request & Quotation
-  SUBMITTED: {
-    label: "Submitted",
-    color: "warning",
-  },
-  APPROVED: {
-    label: "Approved",
-    color: "success",
-  },
-  REJECTED: {
-    label: "Rejected",
     color: "error",
   },
 
@@ -38,10 +38,29 @@ const STATUS_CONFIG = {
     label: "Selected",
     color: "success",
   },
+  PENDING: {
+    label: "Pending",
+    color: "warning",
+  },
+  COMPLETED: {
+    label: "Completed",
+    color: "success",
+  },
+
+  // User
+  ACTIVE: {
+    label: "ACTIVE",
+    color: "success",
+  },
+
+  INACTIVE: {
+    label: "INACTIVE",
+    color: "error",
+  },
 };
 
 function StatusChip({ status = "" }) {
-  const key = String(status).toUpperCase();
+  const key = String(status).trim().toUpperCase();
 
   const config = STATUS_CONFIG[key] || {
     label: status,
@@ -53,9 +72,12 @@ function StatusChip({ status = "" }) {
       size="small"
       label={config.label}
       color={config.color}
+      variant="filled"
       sx={{
-        minWidth: 90,
+        minWidth: 96,
         fontWeight: 600,
+        borderRadius: 2,
+        textTransform: "none",
       }}
     />
   );

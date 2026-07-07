@@ -25,26 +25,40 @@ function ConfirmationDialog({
   return (
     <Dialog
       open={open}
-      onClose={
-        loading
-          ? undefined
-          : onClose
-      }
+      onClose={loading ? undefined : onClose}
       fullWidth
       maxWidth="xs"
+      PaperProps={{
+        sx: {
+          borderRadius: 3,
+          boxShadow: "0 16px 40px rgba(15,23,42,.15)",
+        },
+      }}
     >
       <DialogTitle
         sx={{
+          textAlign: "center",
           fontWeight: 700,
+          fontSize: 20,
+          pt: 3,
+          pb: 1,
         }}
       >
         {title}
       </DialogTitle>
 
-      <DialogContent>
+      <DialogContent
+        sx={{
+          px: 3,
+          pt: 1,
+          pb: 3,
+        }}
+      >
         <DialogContentText
           sx={{
-            color: "text.primary",
+            textAlign: "center",
+            color: "text.secondary",
+            fontSize: 14,
             lineHeight: 1.7,
           }}
         >
@@ -56,12 +70,23 @@ function ConfirmationDialog({
         sx={{
           px: 3,
           pb: 3,
+          pt: 0,
+          gap: 1.5,
+          justifyContent: "center",
         }}
       >
         <Button
           variant="outlined"
-          onClick={onClose}
+          color="inherit"
           disabled={loading}
+          onClick={onClose}
+          sx={{
+            minWidth: 110,
+            height: 42,
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 600,
+          }}
         >
           {cancelText}
         </Button>
@@ -69,8 +94,20 @@ function ConfirmationDialog({
         <Button
           variant="contained"
           color={confirmColor}
-          onClick={onConfirm}
           disabled={loading}
+          onClick={onConfirm}
+          sx={{
+            minWidth: 110,
+            height: 42,
+            borderRadius: 2,
+            textTransform: "none",
+            fontWeight: 600,
+            boxShadow: "none",
+
+            "&:hover": {
+              boxShadow: "0 6px 14px rgba(0,0,0,.15)",
+            },
+          }}
         >
           {confirmText}
         </Button>

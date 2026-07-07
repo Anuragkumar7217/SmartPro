@@ -109,10 +109,13 @@ function QuotationComparisonTable({
                     </TableCell>
 
                     <TableCell>
-                      {
-                        quotation.quotationNumber
-                      }
-                    </TableCell>
+  <Chip
+    size="small"
+    color="primary"
+    variant="outlined"
+    label={quotation.quotationNumber}
+  />
+</TableCell>
 
                     <TableCell align="right">
                       ₹

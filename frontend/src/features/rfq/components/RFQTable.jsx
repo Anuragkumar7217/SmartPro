@@ -142,9 +142,17 @@ function RFQTable({
                 </TableCell>
 
                 <TableCell align="center">
-                  {rfq.purchaseRequest
-                    ?.prNumber || "-"}
-                </TableCell>
+  {rfq.purchaseRequest?.prNumber ? (
+    <Chip
+      size="small"
+      color="primary"
+      variant="outlined"
+      label={rfq.purchaseRequest.prNumber}
+    />
+  ) : (
+    "-"
+  )}
+</TableCell>
 
                 <TableCell align="center">
                   {rfq.vendors?.length}

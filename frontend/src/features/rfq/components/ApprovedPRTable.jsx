@@ -15,6 +15,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import StatusChip from "../../../components/common/StatusChip";
+
 function ApprovedPRTable({
   requests = [],
   onView,
@@ -197,12 +199,8 @@ function ApprovedPRTable({
                 </TableCell>
 
                 <TableCell>
-                  <Chip
-                    label={request.status}
-                    color="success"
-                    size="small"
-                  />
-                </TableCell>
+  <StatusChip status={request.status} />
+</TableCell>
 
                 <TableCell align="center">
                   <Button

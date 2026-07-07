@@ -103,13 +103,13 @@ function usePurchaseOrders() {
             console.log("Comparison:", comparison);
             const safeComparison = comparison?.quotations || [];
 
-            const quotation =
-            safeComparison.find((item) => item.rank === 1) ||
-            safeComparison[0];
+            const quotation = safeComparison.find(
+  (item) => item.status === "SELECTED"
+);
 
-          if (!quotation) {
-            continue;
-          }
+if (!quotation) {
+  continue;
+}
 
           const alreadyCreated =
             purchaseOrders.some((po) => {

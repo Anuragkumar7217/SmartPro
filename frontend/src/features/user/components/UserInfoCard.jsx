@@ -1,39 +1,38 @@
 import {
+  Box,
+  Card,
+  CardContent,
+  Chip,
+  Divider,
   Grid,
-  Paper,
-  Stack,
   Typography,
 } from "@mui/material";
 
 import StatusChip from "../../../components/common/StatusChip";
 
-function UserInfoCard({
-  user,
-}) {
-  return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 3,
-        borderRadius: 5,
-        border: "1px solid",
-        borderColor: "divider",
-      }}
-    >
-      <Typography
-        variant="h6"
-        fontWeight={700}
-        mb={3}
-      >
-        User Information
-      </Typography>
+function UserInfoCard({ user }) {
+  if (!user) {
+    return null;
+  }
 
-      <Grid
-        container
-        spacing={3}
-      >
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <Stack spacing={0.5}>
+  return (
+    <Card elevation={0}>
+      <CardContent>
+        <Typography
+          variant="h6"
+          fontWeight={700}
+          mb={2}
+        >
+          User Information
+        </Typography>
+
+        <Divider sx={{ mb: 3 }} />
+
+        <Grid
+          container
+          spacing={3}
+        >
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -42,14 +41,11 @@ function UserInfoCard({
             </Typography>
 
             <Typography fontWeight={600}>
-              {user.firstName}{" "}
-              {user.lastName}
+              {user.firstName} {user.lastName}
             </Typography>
-          </Stack>
-        </Grid>
+          </Grid>
 
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <Stack spacing={0.5}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -57,32 +53,30 @@ function UserInfoCard({
               Email
             </Typography>
 
-            <Typography>
+            <Typography fontWeight={600}>
               {user.email}
             </Typography>
-          </Stack>
-        </Grid>
+          </Grid>
 
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <Stack spacing={0.5}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
             >
-              Current Role
+              Role
             </Typography>
 
-            <Typography fontWeight={600}>
-              {user.role.replaceAll(
-                "_",
-                " "
-              )}
-            </Typography>
-          </Stack>
-        </Grid>
+            <Box mt={0.5}>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={user.role.replaceAll("_", " ")}
+              />
+            </Box>
+          </Grid>
 
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <Stack spacing={0.5}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -90,18 +84,18 @@ function UserInfoCard({
               Status
             </Typography>
 
-            <StatusChip
-              status={
-                user.isActive
-                  ? "ACTIVE"
-                  : "INACTIVE"
-              }
-            />
-          </Stack>
-        </Grid>
+            <Box mt={0.5}>
+              <StatusChip
+                status={
+                  user.isActive
+                    ? "ACTIVE"
+                    : "INACTIVE"
+                }
+              />
+            </Box>
+          </Grid>
 
-        <Grid size={{ xs: 12, sm: 6 }}>
-          <Stack spacing={0.5}>
+          <Grid size={{ xs: 12, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -109,15 +103,15 @@ function UserInfoCard({
               Joined On
             </Typography>
 
-            <Typography>
+            <Typography fontWeight={600}>
               {new Date(
                 user.createdAt
-              ).toLocaleDateString()}
+              ).toLocaleDateString("en-IN")}
             </Typography>
-          </Stack>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </CardContent>
+    </Card>
   );
 }
 

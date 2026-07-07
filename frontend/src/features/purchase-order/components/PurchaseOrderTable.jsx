@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import {
   Box,
+  Chip,
   CircularProgress,
   Paper,
   Table,
@@ -108,11 +109,7 @@ function PurchaseOrderTable({
       </Box>
 
       <TableContainer>
-        <Table
-          sx={{
-            width: "100%",
-          }}
-        >
+        <Table sx={{ width: "100%" }}>
           <TableHead>
             <TableRow>
               <TableCell align="center">
@@ -154,15 +151,19 @@ function PurchaseOrderTable({
                 }}
               >
                 <TableCell align="center">
-                  {purchaseOrder.poNumber}
+                  <Chip
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                    label={purchaseOrder.poNumber}
+                  />
                 </TableCell>
 
                 <TableCell align="center">
                   ₹
                   {Number(
                     purchaseOrder.totalAmount ??
-                      purchaseOrder.quotation
-                        ?.totalAmount ??
+                      purchaseOrder.quotation?.totalAmount ??
                       0
                   ).toLocaleString("en-IN")}
                 </TableCell>
@@ -171,17 +172,13 @@ function PurchaseOrderTable({
                   {purchaseOrder.createdAt
                     ? new Date(
                         purchaseOrder.createdAt
-                      ).toLocaleDateString(
-                        "en-IN"
-                      )
+                      ).toLocaleDateString("en-IN")
                     : "-"}
                 </TableCell>
 
                 <TableCell align="center">
                   <StatusChip
-                    status={
-                      purchaseOrder.status
-                    }
+                    status={purchaseOrder.status}
                   />
                 </TableCell>
               </TableRow>

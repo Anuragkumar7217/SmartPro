@@ -14,6 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 
+import StatusChip from "../../../components/common/StatusChip";
+
 function QuotationRFQTable({
   rfqs = [],
   selectedRFQ,
@@ -96,7 +98,7 @@ function QuotationRFQTable({
               </TableCell>
 
               <TableCell align="center">
-                Actions
+                Action
               </TableCell>
 
               <TableCell align="center">
@@ -138,32 +140,27 @@ function QuotationRFQTable({
                   </TableCell>
 
                   <TableCell>
-                    {rfq.purchaseRequest
-                      ?.prNumber || "-"}
-                  </TableCell>
+  {rfq.purchaseRequest?.prNumber ? (
+    <Chip
+      size="small"
+      color="primary"
+      variant="outlined"
+      label={rfq.purchaseRequest.prNumber}
+    />
+  ) : (
+    "-"
+  )}
+</TableCell>
 
                   <TableCell align="center">
-  <Chip
-    size="small"
-    label={
-      rfq.actionStatus ===
-      "COMPLETED"
-        ? "Completed"
-        : "Pending"
-    }
-    color={
-      rfq.actionStatus ===
-      "COMPLETED"
-        ? "success"
-        : "warning"
-    }
-    variant="filled"
-    sx={{
-      minWidth: 100,
-      fontWeight: 600,
-    }}
-  />
-</TableCell>
+                    <StatusChip
+                      status={
+                        rfq.actionStatus === "COMPLETED"
+                          ? "COMPLETED"
+                          : "PENDING"
+                      }
+                    />
+                  </TableCell>
 
                   <TableCell align="center">
                     {quotationCount} / {vendorCount}

@@ -1,95 +1,124 @@
 import {
+  Box,
+  Card,
+  CardContent,
+  Chip,
   Divider,
-  Paper,
-  Stack,
+  Grid,
   Typography,
 } from "@mui/material";
 
 import StatusChip from "../../../components/common/StatusChip";
 
-function Row({
-  label,
-  children,
-}) {
+function RFQInfoCard({ rfq }) {
+  if (!rfq) {
+    return null;
+  }
+
   return (
-    <>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        py={1}
-      >
+    <Card elevation={0}>
+      <CardContent>
         <Typography
-          color="text.secondary"
-          fontWeight={600}
+          variant="h6"
+          fontWeight={700}
+          mb={2}
         >
-          {label}
+          RFQ Information
         </Typography>
 
-        {children}
-      </Stack>
+        <Divider sx={{ mb: 3 }} />
 
-      <Divider />
-    </>
-  );
-}
+        <Grid
+          container
+          spacing={3}
+        >
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+            >
+              RFQ Number
+            </Typography>
 
-function RFQInfoCard({ rfq }) {
-  if (!rfq) return null;
+            <Box mt={0.5}>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={rfq.rfqNumber}
+              />
+            </Box>
+          </Grid>
 
-  return (
-    <Paper
-      elevation={0}
-      sx={{
-        p: 3,
-        borderRadius: 4,
-        border: "1px solid",
-        borderColor: "divider",
-      }}
-    >
-      <Typography
-        variant="h6"
-        fontWeight={700}
-        mb={2}
-      >
-        RFQ Information
-      </Typography>
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+            >
+              PR Number
+            </Typography>
 
-      <Stack>
-        <Row label="RFQ Number">
-          <Typography>{rfq.rfqNumber}</Typography>
-        </Row>
+            <Box mt={0.5}>
+              {rfq.purchaseRequest?.prNumber ? (
+                <Chip
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                  label={rfq.purchaseRequest.prNumber}
+                />
+              ) : (
+                <Typography fontWeight={600}>
+                  -
+                </Typography>
+              )}
+            </Box>
+          </Grid>
 
-        <Row label="Status">
-          <StatusChip status={rfq.status} />
-        </Row>
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+            >
+              Status
+            </Typography>
 
-        <Row label="PR Number">
-          <Typography>
-            {rfq.purchaseRequest?.prNumber || "-"}
-          </Typography>
-        </Row>
+            <Box mt={0.5}>
+              <StatusChip
+                status={rfq.status}
+              />
+            </Box>
+          </Grid>
 
-        <Row label="Created On">
-          <Typography>
-            {new Date(
-              rfq.createdAt
-            ).toLocaleString()}
-          </Typography>
-        </Row>
+          <Grid size={{ xs: 12, sm: 6 }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+            >
+              Created On
+            </Typography>
 
-        <Row label="Remarks">
-          <Typography
-            textAlign="right"
-            sx={{
-              maxWidth: 280,
-            }}
-          >
-            {rfq.remarks || "-"}
-          </Typography>
-        </Row>
-      </Stack>
-    </Paper>
+            <Typography fontWeight={600}>
+              {new Date(
+                rfq.createdAt
+              ).toLocaleDateString("en-IN")}
+            </Typography>
+          </Grid>
+
+          <Grid size={12}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+            >
+              Remarks
+            </Typography>
+
+            <Typography fontWeight={600}>
+              {rfq.remarks || "-"}
+            </Typography>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 }
 

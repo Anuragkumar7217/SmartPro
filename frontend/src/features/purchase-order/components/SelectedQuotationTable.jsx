@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Chip,
   CircularProgress,
   Table,
   TableBody,
@@ -77,15 +78,34 @@ function SelectedQuotationTable({
                   </TableCell>
 
                   <TableCell>
-                    {quotation.rfqNumber}
+                    <Chip
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                      label={quotation.rfqNumber}
+                    />
                   </TableCell>
 
                   <TableCell>
-                    {quotation.prNumber}
+                    {quotation.prNumber ? (
+                      <Chip
+                        size="small"
+                        color="primary"
+                        variant="outlined"
+                        label={quotation.prNumber}
+                      />
+                    ) : (
+                      "-"
+                    )}
                   </TableCell>
 
                   <TableCell>
-                    {quotation.quotationNumber}
+                    <Chip
+                      size="small"
+                      color="primary"
+                      variant="outlined"
+                      label={quotation.quotationNumber}
+                    />
                   </TableCell>
 
                   <TableCell align="right">
