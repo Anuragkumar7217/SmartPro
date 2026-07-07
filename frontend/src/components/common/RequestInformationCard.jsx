@@ -1,15 +1,14 @@
 import {
   Box,
+  Chip,
   Divider,
+  Grid,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
 
-function DetailItem({
-  label,
-  value,
-}) {
+function DetailItem({ label, value }) {
   return (
     <Box>
       <Typography
@@ -35,9 +34,7 @@ function DetailItem({
   );
 }
 
-function RequestInformationCard({
-  request,
-}) {
+function RequestInformationCard({ request }) {
   if (!request) {
     return null;
   }
@@ -60,78 +57,112 @@ function RequestInformationCard({
         Purchase Request Details
       </Typography>
 
-      <Stack spacing={1}>
-        <DetailItem
-          label="PR Number"
-          value={request.prNumber}
-        />
+      <Divider sx={{ mb: 2 }} />
 
-        <Divider />
+      <Stack spacing={2}>
+  {/* PR Number + Submitted On */}
+  <Grid
+    container
+    spacing={2}
+  >
+    <Grid size={{ xs: 12, md: 6 }}>
+      <Box>
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ fontWeight: 600 }}
+        >
+          PR Number
+        </Typography>
 
-        <DetailItem
-          label="Title"
-          value={request.title}
-        />
+        <Box sx={{ mt: 0.75 }}>
+          <Chip
+            label={request.prNumber}
+            color="primary"
+            variant="outlined"
+            size="small"
+            sx={{
+              fontWeight: 600,
+              borderRadius: 2,
+            }}
+          />
+        </Box>
+      </Box>
+    </Grid>
 
-        <Divider />
+    <Grid size={{ xs: 12, md: 6 }}>
+      <DetailItem
+        label="Submitted On"
+        value={new Date(request.createdAt).toLocaleString()}
+      />
+    </Grid>
+  </Grid>
 
-        <DetailItem
-          label="Description"
-          value={request.description}
-        />
+  <Divider />
 
-        <Divider />
+  {/* Requested By + Email */}
+  <Grid
+    container
+    spacing={2}
+  >
+    <Grid size={{ xs: 12, md: 6 }}>
+      <DetailItem
+        label="Requested By"
+        value={
+          request.createdBy
+            ? `${request.createdBy.firstName} ${request.createdBy.lastName}`
+            : "-"
+        }
+      />
+    </Grid>
 
-        <DetailItem
-          label="Business Justification"
-          value={request.reason}
-        />
+    <Grid size={{ xs: 12, md: 6 }}>
+      <DetailItem
+        label="Email"
+        value={request.createdBy?.email}
+      />
+    </Grid>
+  </Grid>
 
-        <Divider />
+  <Divider />
 
-        <DetailItem
-          label="Requested By"
-          value={
-            request.createdBy
-              ? `${request.createdBy.firstName} ${request.createdBy.lastName}`
-              : "-"
-          }
-        />
+  <DetailItem
+    label="Title"
+    value={request.title}
+  />
 
-        <Divider />
+  <Divider />
 
-        <DetailItem
-          label="Email"
-          value={request.createdBy?.email}
-        />
+  <DetailItem
+    label="Description"
+    value={request.description}
+  />
 
-        <Divider />
+  <Divider />
 
-        <DetailItem
-          label="Submitted On"
-          value={new Date(
-            request.createdAt
-          ).toLocaleString()}
-        />
+  <DetailItem
+    label="Business Justification"
+    value={request.reason}
+  />
 
-        <Divider />
+  <Divider />
 
-        <DetailItem
-          label="Approved By"
-          value={
-            request.approvedBy
-              ? `${request.approvedBy.firstName} ${request.approvedBy.lastName}`
-              : "-"
-          }
-        />
+  <DetailItem
+    label="Approved By"
+    value={
+      request.approvedBy
+        ? `${request.approvedBy.firstName} ${request.approvedBy.lastName}`
+        : "-"
+    }
+  />
 
-        <Divider />
+  <Divider />
 
-        <DetailItem
-          label="Manager Comment"
-          value={request.managerComment}
-        />
-      </Stack>
+  <DetailItem
+    label="Manager Comment"
+    value={request.managerComment}
+  />
+</Stack>
     </Paper>
   );
 }

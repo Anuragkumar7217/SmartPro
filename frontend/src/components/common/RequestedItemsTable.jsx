@@ -1,4 +1,5 @@
 import {
+  Divider,
   Paper,
   Table,
   TableBody,
@@ -14,10 +15,7 @@ function RequestedItemsTable({ items = [] }) {
     <Paper
       elevation={0}
       sx={{
-        p: 1,
-        borderRadius: 4,
-        border: "1px solid",
-        borderColor: "divider",
+        p: 3,
       }}
     >
       <Typography
@@ -28,16 +26,13 @@ function RequestedItemsTable({ items = [] }) {
         Requested Items
       </Typography>
 
+      <Divider sx={{ mb: 3 }} />
+
       <TableContainer
         component={Paper}
-        elevation={0}
-        sx={{
-          borderRadius: 4,
-          border: "1px solid",
-          borderColor: "divider",
-        }}
+        variant="outlined"
       >
-        <Table>
+        <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 700 }}>
@@ -59,7 +54,10 @@ function RequestedItemsTable({ items = [] }) {
           <TableBody>
             {items.length > 0 ? (
               items.map((item, index) => (
-                <TableRow key={index} hover>
+                <TableRow
+                  key={index}
+                  hover
+                >
                   <TableCell>
                     <Typography fontWeight={500}>
                       {item.itemName}
@@ -76,7 +74,6 @@ function RequestedItemsTable({ items = [] }) {
                 <TableCell
                   colSpan={2}
                   align="center"
-                  sx={{ py: 4 }}
                 >
                   <Typography color="text.secondary">
                     No items available.

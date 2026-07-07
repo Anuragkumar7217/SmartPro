@@ -89,8 +89,9 @@ function VendorsPage() {
         gap={3}
       >
         <PageHeader
-          title="Manage vendor information used during the procurement process."
-          buttonText="+ Add Vendor"
+          title="Manage vendors"
+          subtitle="Add, search and maintain vendor information used in the procurement process."
+          buttonText="Add Vendor"
           onButtonClick={openDrawer}
         />
 

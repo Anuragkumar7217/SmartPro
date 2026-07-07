@@ -58,7 +58,7 @@ function PurchaseOrderTable({
       <Paper
         elevation={0}
         sx={{
-          p: 6,
+          p: 2,
           borderRadius: 5,
           border: "1px solid",
           borderColor: "divider",

@@ -6,7 +6,6 @@ import AppSnackbar from "../../../components/common/AppSnackbar";
 import Loader from "../../../components/common/Loader";
 
 import ApprovedPRDrawer from "../components/ApprovedPRDrawer";
-// import ApprovedPRStats from "../components/ApprovedPRStats";
 import ApprovedPRTable from "../components/ApprovedPRTable";
 import CreateRFQDrawer from "../components/CreateRFQDrawer";
 import RFQFilters from "../components/RFQFilters";

@@ -50,7 +50,6 @@ function VendorForm({
         fullWidth
         required
         multiline
-        minRows={3}
         label="Address"
         name="address"
         value={formData.address}
