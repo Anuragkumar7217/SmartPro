@@ -221,41 +221,45 @@ const handleCreate = () => {
           </FormGroup>
         </Paper>
               <TextField
-                label="Remarks"
-                multiline
-                value={remarks}
-                onChange={(e) =>
-                  setRemarks(e.target.value)
-                }
-              />
+      fullWidth
+      sx={{ mt: 3 }}
+      label="Remarks"
+      multiline
+      rows={4}
+      value={remarks}
+      onChange={(e) =>
+        setRemarks(e.target.value)
+      }
+    />
 
               <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                }}
-              >
+      sx={{
+        display: "flex",
+        gap: 2,
+        mt: 3,
+      }}
+    >
                 <Button
-                  fullWidth
-                  variant="outlined"
-                  onClick={() =>
-                    setExpanded(false)
-                  }
-                >
-                  Cancel
-                </Button>
+        fullWidth
+        variant="outlined"
+        onClick={() =>
+          setExpanded(false)
+        }
+      >
+        Cancel
+      </Button>
 
                 <Button
-                  fullWidth
-                  variant="contained"
-                  disabled={
-                    loading ||
-                    selectedVendors.length === 0
-                  }
-                  onClick={handleCreate}
-                >
-                  Create RFQ
-                </Button>
+        fullWidth
+        variant="contained"
+        disabled={
+          loading ||
+          selectedVendors.length === 0
+        }
+        onClick={handleCreate}
+      >
+        Create RFQ
+      </Button>
               </Box>
             </Stack>
           </AccordionDetails>
