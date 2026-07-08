@@ -13,21 +13,9 @@ import {
   Typography,
 } from "@mui/material";
 
-function getStatusColor(status) {
-  switch (status) {
-    case "APPROVED":
-      return "success";
+import StatusChip from "../../../components/common/StatusChip";
 
-    case "REJECTED":
-      return "error";
-
-    case "SUBMITTED":
-      return "warning";
-
-    default:
-      return "default";
-  }
-}
+import RequestedItemsTable from "../../../components/common/RequestedItemsTable";
 
 function DetailRow({
   label,
@@ -77,26 +65,25 @@ function RequestDetails({
       >
         <Box>
           <Typography
-            variant="h5"
+            variant="h6"
             fontWeight={700}
           >
             Purchase Request Details
           </Typography>
 
-          <Typography color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            mt={1}
+          >
             Complete information about the selected purchase request.
           </Typography>
         </Box>
 
-        <Chip
-          label={request.status}
-          color={getStatusColor(
-            request.status
-          )}
-        />
+        <StatusChip status={request.status} />
       </Stack>
 
-      <Divider sx={{ mb: 4 }} />
+      <Divider sx={{ mb: 3 }} />
 
       {/* Basic Information */}
 
@@ -105,17 +92,24 @@ function RequestDetails({
         spacing={3}
         mb={4}
       >
-        <Grid
-          size={{
-            xs: 12,
-            md: 6,
-          }}
-        >
-          <DetailRow
-            label="PR Number"
-            value={request.prNumber}
-          />
-        </Grid>
+<Grid
+  size={{
+    xs: 12,
+    md: 6,
+  }}
+>
+  <DetailRow
+    label="PR Number"
+    value={
+      <Chip
+        size="small"
+        color="primary"
+        variant="outlined"
+        label={request.prNumber}
+      />
+    }
+  />
+</Grid>
 
         <Grid
           size={{
@@ -218,51 +212,9 @@ function RequestDetails({
 
       {/* Items */}
 
-      <Typography
-        variant="h6"
-        fontWeight={700}
-        mb={2}
-      >
-        Requested Items
-      </Typography>
-
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell width={80}>
-              <strong>#</strong>
-            </TableCell>
-
-            <TableCell>
-              <strong>Item Name</strong>
-            </TableCell>
-
-            <TableCell width={180}>
-              <strong>Quantity</strong>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {request.items.map(
-            (item, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  {index + 1}
-                </TableCell>
-
-                <TableCell>
-                  {item.itemName}
-                </TableCell>
-
-                <TableCell>
-                  {item.quantity}
-                </TableCell>
-              </TableRow>
-            )
-          )}
-        </TableBody>
-      </Table>
+      <RequestedItemsTable
+          items={request?.items}
+        />
     </Paper>
   );
 }

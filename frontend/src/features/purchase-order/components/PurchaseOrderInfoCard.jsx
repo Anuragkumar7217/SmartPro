@@ -40,8 +40,13 @@ function PurchaseOrderInfoCard({
               PO Number
             </Typography>
 
-            <Typography fontWeight={600}>
-              {purchaseOrder.poNumber}
+            <Typography>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={purchaseOrder.poNumber}
+              />
             </Typography>
           </Grid>
 
@@ -67,9 +72,13 @@ function PurchaseOrderInfoCard({
               RFQ Number
             </Typography>
 
-            <Typography fontWeight={600}>
-              {purchaseOrder.rfq?.rfqNumber ||
-                "-"}
+            <Typography>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={purchaseOrder.rfq?.rfqNumber || "-"}
+              />
             </Typography>
           </Grid>
 
@@ -81,9 +90,13 @@ function PurchaseOrderInfoCard({
               Quotation Number
             </Typography>
 
-            <Typography fontWeight={600}>
-              {purchaseOrder.quotation
-                ?.quotationNumber || "-"}
+            <Typography>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={purchaseOrder.quotation?.quotationNumber || "-"}
+              />
             </Typography>
           </Grid>
 

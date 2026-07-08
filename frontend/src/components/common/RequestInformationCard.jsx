@@ -77,15 +77,11 @@ function RequestInformationCard({ request }) {
 
         <Box sx={{ mt: 0.75 }}>
           <Chip
-            label={request.prNumber}
-            color="primary"
-            variant="outlined"
-            size="small"
-            sx={{
-              fontWeight: 600,
-              borderRadius: 2,
-            }}
-          />
+    size="small"
+    color="primary"
+    variant="outlined"
+    label={request.prNumber}
+  />
         </Box>
       </Box>
     </Grid>

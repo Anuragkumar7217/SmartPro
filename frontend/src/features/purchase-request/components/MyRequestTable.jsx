@@ -14,23 +14,9 @@ import {
 
 import { useState } from "react";
 
+import StatusChip from "../../../components/common/StatusChip";
+
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
-function getStatusColor(status) {
-  switch (status) {
-    case "APPROVED":
-      return "success";
-
-    case "REJECTED":
-      return "error";
-
-    case "SUBMITTED":
-      return "warning";
-
-    default:
-      return "default";
-  }
-}
 
 function MyRequestTable({
   requests,
@@ -125,21 +111,20 @@ function MyRequestTable({
                   key={request._id}
                 >
                   <TableCell>
-                    {request.prNumber}
-                  </TableCell>
+  <Chip
+    size="small"
+    color="primary"
+    variant="outlined"
+    label={request.prNumber}
+  />
+</TableCell>
 
                   <TableCell>
                     {request.title}
                   </TableCell>
 
                   <TableCell>
-                    <Chip
-                      size="small"
-                      label={request.status}
-                      color={getStatusColor(
-                        request.status
-                      )}
-                    />
+                    <StatusChip status={request.status} />
                   </TableCell>
 
                   <TableCell>

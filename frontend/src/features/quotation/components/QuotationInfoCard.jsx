@@ -38,8 +38,13 @@ function QuotationInfoCard({ rfq }) {
               RFQ Number
             </Typography>
 
-            <Typography fontWeight={600}>
-              {rfq.rfqNumber}
+            <Typography>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={rfq.rfqNumber}
+              />
             </Typography>
           </Grid>
 
@@ -51,8 +56,13 @@ function QuotationInfoCard({ rfq }) {
               PR Number
             </Typography>
 
-            <Typography fontWeight={600}>
-              {rfq.purchaseRequest?.prNumber}
+            <Typography>
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={rfq.purchaseRequest?.prNumber}
+              />
             </Typography>
           </Grid>
 
