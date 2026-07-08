@@ -59,8 +59,7 @@ function CreatePurchaseOrderDrawer({
             color="text.secondary"
             mt={1}
           >
-            Only quotations selected from closed RFQs are eligible for Purchase
-            Order creation.
+            Only quotations selected from closed RFQs are eligible for Purchase Order creation.
           </Typography>
         </Box>
 

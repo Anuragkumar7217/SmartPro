@@ -144,24 +144,6 @@ function RequestInformationCard({ request }) {
     label="Business Justification"
     value={request.reason}
   />
-
-  <Divider />
-
-  <DetailItem
-    label="Approved By"
-    value={
-      request.approvedBy
-        ? `${request.approvedBy.firstName} ${request.approvedBy.lastName}`
-        : "-"
-    }
-  />
-
-  <Divider />
-
-  <DetailItem
-    label="Manager Comment"
-    value={request.managerComment}
-  />
 </Stack>
     </Paper>
   );

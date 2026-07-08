@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Box,
   Button,
@@ -12,7 +14,9 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
+
 import StatusChip from "../../../components/common/StatusChip";
+import ConfirmationDialog from "../../../components/common/ConfirmationDialog";
 
 import QuotationRowDetails from "./QuotationRowDetails";
 
@@ -23,6 +27,30 @@ function QuotationComparisonTable({
   onVendorClick,
   onSelect,
 }) {
+  const [dialogOpen, setDialogOpen] =
+    useState(false);
+
+  const [quotationId, setQuotationId] =
+    useState(null);
+
+  const handleOpenDialog = (id) => {
+    setQuotationId(id);
+    setDialogOpen(true);
+  };
+
+  const handleConfirm = () => {
+    onSelect(quotationId);
+    setDialogOpen(false);
+    setQuotationId(null);
+  };
+
+  const handleCloseDialog = () => {
+    if (loading) return;
+
+    setDialogOpen(false);
+    setQuotationId(null);
+  };
+
   if (!comparison.length) {
     return (
       <TableContainer
@@ -43,155 +71,178 @@ function QuotationComparisonTable({
   }
 
   return (
-    <TableContainer
-      component={Paper}
-      variant="outlined"
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Rank</TableCell>
+    <>
+      <TableContainer
+        component={Paper}
+        variant="outlined"
+      >
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Rank</TableCell>
 
-            <TableCell>Vendor</TableCell>
+              <TableCell>Vendor</TableCell>
 
-            <TableCell>
-              Quotation
-            </TableCell>
+              <TableCell>
+                Quotation
+              </TableCell>
 
-            <TableCell align="right">
-              Amount (₹)
-            </TableCell>
+              <TableCell align="right">
+                Amount (₹)
+              </TableCell>
 
-            <TableCell align="center">
-              Decision
-            </TableCell>
-          </TableRow>
-        </TableHead>
+              <TableCell align="center">
+                Decision
+              </TableCell>
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {comparison.map(
-            (quotation, index) => {
-              const expanded =
-                selectedQuotation?._id ===
-                quotation.quotationId;
+          <TableBody>
+            {comparison.map(
+              (quotation, index) => {
+                const expanded =
+                  selectedQuotation?._id ===
+                  quotation.quotationId;
 
-              return (
-                <>
-                  <TableRow
-                    key={quotation.quotationId}
-                    hover
-                    sx={{
-  cursor: "pointer",
-  transition: "background-color .2s",
-
-  "&:hover": {
-    backgroundColor: "#F8FAFC",
-  },
-}}
-                    onClick={() =>
-                      onVendorClick(
+                return (
+                  <>
+                    <TableRow
+                      key={
                         quotation.quotationId
-                      )
-                    }
-                  >
-                    <TableCell>
-                      {index + 1}
-                    </TableCell>
-
-                    <TableCell>
-                      <Box
-  display="flex"
-  alignItems="center"
-  gap={1}
->
-  {quotation.vendor}
-</Box>
-                    </TableCell>
-
-                    <TableCell>
-  <Chip
-    size="small"
-    color="primary"
-    variant="outlined"
-    label={quotation.quotationNumber}
-  />
-</TableCell>
-
-                    <TableCell align="right">
-                      ₹
-                      {Number(
-                        quotation.totalAmount
-                      ).toLocaleString(
-                        "en-IN"
-                      )}
-                    </TableCell>
-
-                    <TableCell align="center">
-                      {quotation.status ===
-                      "SUBMITTED" ? (
-                        <Button
-                          size="small"
-                          variant="contained"
-                          color="warning"
-                          disabled={loading}
-                          onClick={(e) => {
-                            e.stopPropagation();
-
-                            onSelect(
-                              quotation.quotationId
-                            );
-                          }}
-                          sx={{
-                            minWidth: 96,
-                            fontWeight: 600,
-                            textTransform:
-                              "none",
-                            borderRadius: 2,
-                          }}
-                        >
-                          {loading ? (
-                            <CircularProgress
-                              size={18}
-                              color="inherit"
-                            />
-                          ) : (
-                            "Select"
-                          )}
-                        </Button>
-                      ) : quotation.status ===
-                        "SELECTED" ? (<StatusChip status="SELECTED" />) : (<StatusChip status="REJECTED" /> )
-                        }
-                    </TableCell>
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCell
-                      colSpan={5}
+                      }
+                      hover
                       sx={{
-                        p: 0,
-                        border: 0,
+                        cursor: "pointer",
+                        transition:
+                          "background-color .2s",
+
+                        "&:hover": {
+                          backgroundColor:
+                            "#F8FAFC",
+                        },
                       }}
+                      onClick={() =>
+                        onVendorClick(
+                          quotation.quotationId
+                        )
+                      }
                     >
-                      <Collapse
-                        in={expanded}
-                        timeout="auto"
-                        unmountOnExit
-                      >
-                        <QuotationRowDetails
-                          quotation={
-                            selectedQuotation
+                      <TableCell>
+                        {index + 1}
+                      </TableCell>
+
+                      <TableCell>
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          gap={1}
+                        >
+                          {quotation.vendor}
+                        </Box>
+                      </TableCell>
+
+                      <TableCell>
+                        <Chip
+                          size="small"
+                          color="primary"
+                          variant="outlined"
+                          label={
+                            quotation.quotationNumber
                           }
                         />
-                      </Collapse>
-                    </TableCell>
-                  </TableRow>
-                </>
-              );
-            }
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                      </TableCell>
+
+                      <TableCell align="right">
+                        ₹
+                        {Number(
+                          quotation.totalAmount
+                        ).toLocaleString(
+                          "en-IN"
+                        )}
+                      </TableCell>
+
+                      <TableCell align="center">
+                        {quotation.status ===
+                        "SUBMITTED" ? (
+                          <Button
+                            size="small"
+                            variant="contained"
+                            color="warning"
+                            disabled={loading}
+                            onClick={(e) => {
+                              e.stopPropagation();
+
+                              handleOpenDialog(
+                                quotation.quotationId
+                              );
+                            }}
+                            sx={{
+                              minWidth: 96,
+                              fontWeight: 600,
+                              textTransform:
+                                "none",
+                              borderRadius: 2,
+                            }}
+                          >
+                            {loading ? (
+                              <CircularProgress
+                                size={18}
+                                color="inherit"
+                              />
+                            ) : (
+                              "Select"
+                            )}
+                          </Button>
+                        ) : quotation.status ===
+                          "SELECTED" ? (
+                          <StatusChip status="SELECTED" />
+                        ) : (
+                          <StatusChip status="REJECTED" />
+                        )}
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow>
+                      <TableCell
+                        colSpan={5}
+                        sx={{
+                          p: 0,
+                          border: 0,
+                        }}
+                      >
+                        <Collapse
+                          in={expanded}
+                          timeout="auto"
+                          unmountOnExit
+                        >
+                          <QuotationRowDetails
+                            quotation={
+                              selectedQuotation
+                            }
+                          />
+                        </Collapse>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                );
+              }
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <ConfirmationDialog
+        open={dialogOpen}
+        loading={loading}
+        title="Select Vendor"
+        message="Are you sure you want to select this quotation? All other quotations for this RFQ will be marked as rejected."
+        confirmText="Select Vendor"
+        cancelText="Cancel"
+        confirmColor="warning"
+        onConfirm={handleConfirm}
+        onClose={handleCloseDialog}
+      />
+    </>
   );
 }
 
