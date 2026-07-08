@@ -49,14 +49,14 @@ export const sidebarMenu = {
       icon: LayoutDashboard,
     },
     {
-      label: "Approved PRs",
-      to: "/purchase-requests/approved",
-      icon: FileText,
-    },
-    {
       label: "Vendors",
       to: "/vendors",
       icon: Building2,
+    },
+    {
+      label: "Approved PRs",
+      to: "/purchase-requests/approved",
+      icon: FileText,
     },
     {
       label: "RFQs",

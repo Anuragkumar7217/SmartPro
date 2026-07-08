@@ -59,7 +59,7 @@ function VendorDrawer({
           sx: {
             width: {
               xs: "100%",
-              sm: 500,
+              sm: 640,
             },
             maxWidth: 600,
           },

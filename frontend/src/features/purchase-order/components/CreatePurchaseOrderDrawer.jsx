@@ -25,7 +25,11 @@ function CreatePurchaseOrderDrawer({
       slotProps={{
         paper: {
           sx: {
-            width: 900,
+            width: {
+              xs: "100%",
+              sm: 640,
+            },
+            maxWidth: 650,
           },
         },
       }}
@@ -33,29 +37,41 @@ function CreatePurchaseOrderDrawer({
       <Box
         sx={{
           p: 3,
-          height: "100%",
           display: "flex",
           flexDirection: "column",
+          height: "100%",
+          gap: 2,
         }}
       >
-        <Typography
-          variant="h5"
-          fontWeight={700}
+        <Box>
+          <Typography
+            variant="h4"
+            fontWeight={700}
+            sx={{
+              color: "#443faa",
+            }}
+          >
+            Create Purchase Order
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            mt={1}
+          >
+            Only quotations selected from closed RFQs are eligible for Purchase
+            Order creation.
+          </Typography>
+        </Box>
+
+        <Divider />
+
+        <Box
+          sx={{
+            flex: 1,
+            overflow: "auto",
+          }}
         >
-          Create Purchase Order
-        </Typography>
-
-        <Typography
-          color="text.secondary"
-          sx={{ mt: 1, mb: 3 }}
-        >
-          Only quotations selected from closed RFQs are eligible
-          for Purchase Order creation.
-        </Typography>
-
-        <Divider sx={{ mb: 3 }} />
-
-        <Box sx={{ flex: 1, overflow: "auto" }}>
           <SelectedQuotationTable
             quotations={quotations}
             loading={loading}
@@ -64,12 +80,12 @@ function CreatePurchaseOrderDrawer({
           />
         </Box>
 
-        <Divider sx={{ my: 3 }} />
+        <Divider sx={{ mt: "auto" }} />
 
         <Stack
           direction="row"
-          justifyContent="flex-end"
           spacing={2}
+          justifyContent="flex-end"
         >
           <Button
             variant="outlined"

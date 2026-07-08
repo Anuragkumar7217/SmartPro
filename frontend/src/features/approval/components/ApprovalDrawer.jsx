@@ -81,13 +81,9 @@ function ApprovalDrawer({
           sx: {
             width: {
               xs: "100%",
-              sm: 500,
+              sm: 640,
             },
-            maxWidth: 650,
-            minWidth: {
-              xs: "100%",
-              sm: 500,
-            },
+            maxWidth: 640,
           },
         },
       }}

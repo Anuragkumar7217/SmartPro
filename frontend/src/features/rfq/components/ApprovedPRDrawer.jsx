@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
 
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
+  Checkbox,
   Divider,
   Drawer,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  Paper,
   Stack,
   TextField,
   Typography,
-  Checkbox,
-FormControlLabel,
-FormGroup,
-Grid,
-Paper,
 } from "@mui/material";
 
 import { ChevronDown } from "lucide-react";
@@ -71,9 +63,9 @@ const handleCreate = () => {
           sx: {
             width: {
               xs: "100%",
-              sm: 520,
+              sm: 640,
             },
-            maxWidth: 650,
+            maxWidth: 600,
           },
         },
       }}
@@ -145,111 +137,93 @@ const handleCreate = () => {
 )}
 
         {expanded && (
-<Accordion
-    expanded
+          <>
+  <Paper
+    elevation={0}
+    variant="outlined"
     sx={{
-      mt: "auto",
-      boxShadow: "none",
-      border: "1px solid",
-      borderColor: "divider",
-      borderRadius: 2,
-      "&:before": {
-        display: "none",
-      },
+      mt: 2,
+      p: 3,
+      borderRadius: 3,
     }}
   >
-          <AccordionSummary
-            expandIcon={<ChevronDown size={18} />}
-          >
-            <Typography fontWeight={600}>
-              Select Vendors and Create RFQ
-            </Typography>
-          </AccordionSummary>
+    <Typography
+      variant="h6"
+      fontWeight={700}
+      mb={2}
+    >
+      Select Vendors
+    </Typography>
 
-          <AccordionDetails>
-            <Stack spacing={3}>
-              <Paper
-          variant="outlined"
-          sx={{
-            p: 2,
-            borderRadius: 2,
-          }}
-        >
-          <Typography
-            variant="subtitle2"
-            fontWeight={600}
-            mb={2}
-          >
-            Select Vendors
-          </Typography>
+    <Divider sx={{ mb: 3 }} />
 
-          <FormGroup>
-            <Grid container spacing={1}>
-              {vendors.map((vendor) => (
-                <Grid
-                  size={{ xs: 12, sm: 6 }}
-                  key={vendor._id}
-                >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={selectedVendors.includes(
-                          vendor._id
-                        )}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedVendors((prev) => [
-                              ...prev,
-                              vendor._id,
-                            ]);
-                          } else {
-                            setSelectedVendors((prev) =>
-                              prev.filter(
-                                (id) =>
-                                  id !== vendor._id
-                              )
-                            );
-                          }
-                        }}
-                      />
+    <FormGroup>
+      <Grid container spacing={1}>
+        {vendors.map((vendor) => (
+          <Grid
+            size={{ xs: 12, sm: 6 }}
+            key={vendor._id}
+          >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedVendors.includes(
+                    vendor._id
+                  )}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedVendors((prev) => [
+                        ...prev,
+                        vendor._id,
+                      ]);
+                    } else {
+                      setSelectedVendors((prev) =>
+                        prev.filter(
+                          (id) => id !== vendor._id
+                        )
+                      );
                     }
-                    label={vendor.companyName}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </FormGroup>
-        </Paper>
-              <TextField
+                  }}
+                />
+              }
+              label={
+                <Typography fontWeight={500}>
+                  {vendor.companyName}
+                </Typography>
+              }
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </FormGroup>
+
+    <TextField
       fullWidth
-      sx={{ mt: 3 }}
-      label="Remarks"
       multiline
-      rows={4}
+      label="Remarks"
       value={remarks}
       onChange={(e) =>
         setRemarks(e.target.value)
       }
+      sx={{ mt: 3 }}
     />
-
-              <Box
+  </Paper>
+  <Box
       sx={{
         display: "flex",
         gap: 2,
         mt: 3,
       }}
     >
-                <Button
+      <Button
         fullWidth
         variant="outlined"
-        onClick={() =>
-          setExpanded(false)
-        }
+        onClick={() => setExpanded(false)}
       >
         Cancel
       </Button>
 
-                <Button
+      <Button
         fullWidth
         variant="contained"
         disabled={
@@ -260,10 +234,8 @@ const handleCreate = () => {
       >
         Create RFQ
       </Button>
-              </Box>
-            </Stack>
-          </AccordionDetails>
-        </Accordion>
+    </Box>
+    </>
 )}
       </Box>
     </Drawer>
