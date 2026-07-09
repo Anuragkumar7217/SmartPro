@@ -4,8 +4,7 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Eye, EyeOff } from "lucide-react";
 
 function PasswordInput({
   label,
@@ -35,21 +34,23 @@ function PasswordInput({
       onChange={onChange}
       error={error}
       helperText={helperText}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              edge="end"
-              onClick={handleTogglePassword}
-            >
-              {showPassword ? (
-                <VisibilityOff />
-              ) : (
-                <Visibility />
-              )}
-            </IconButton>
-          </InputAdornment>
-        ),
+      slotProps={{
+        input: {
+          sx: {
+            bgcolor: "#e8f0fe", 
+          },
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton onClick={handleTogglePassword}>
+                {showPassword ? (
+                  <EyeOff size={18} />
+                ) : (
+                  <Eye size={18} />
+                )}
+              </IconButton>
+            </InputAdornment>
+          ),
+        },
       }}
       {...props}
     />
