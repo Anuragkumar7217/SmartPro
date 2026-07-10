@@ -49,6 +49,10 @@ function VendorDrawer({
     );
   };
 
+const isFormValid = Object.values(formData).every(
+  (value) => value.trim() !== ""
+);
+
   return (
     <Drawer
       anchor="right"
@@ -120,7 +124,7 @@ function VendorDrawer({
           <Button
             variant="contained"
             onClick={handleCreate}
-            disabled={loading}
+            disabled={loading || !isFormValid}
           >
             {loading
               ? "Creating..."

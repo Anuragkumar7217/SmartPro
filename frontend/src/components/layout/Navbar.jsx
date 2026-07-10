@@ -66,6 +66,9 @@ function Navbar({ isMobile, onMenuClick }) {
     <>
       <Box
         sx={{
+          position: "sticky",
+          top: 24,
+          zIndex: 1100,
           height: 72,
           px: { xs: 2, sm: 3, md: 4 },
           borderRadius: 5,
