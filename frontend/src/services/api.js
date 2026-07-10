@@ -1,5 +1,6 @@
 import axios from "axios";
 import { storage } from "../utils/storage";
+import { useAuthStore } from "../store/authStore";
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_URL}`,
@@ -8,14 +9,6 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
-// const api = axios.create({
-//   baseURL: import.meta.env.VITE_API_BASE_URL,
-//   timeout: 10000,
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
 
 // Attach JWT token to every request
 api.interceptors.request.use(
@@ -34,10 +27,25 @@ api.interceptors.request.use(
 // Handle common response errors
 api.interceptors.response.use(
   (response) => response,
+
   (error) => {
-    // We'll expand this later for global error handling
+    if (error.response?.status === 401) {
+      useAuthStore.getState().logout();
+
+      window.location.replace("/login");
+    }
+
     return Promise.reject(error);
   }
 );
+
+
+// api.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     // We'll expand this later for global error handling
+//     return Promise.reject(error);
+//   }
+// );
 
 export default api;

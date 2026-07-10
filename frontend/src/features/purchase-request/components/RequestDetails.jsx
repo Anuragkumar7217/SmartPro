@@ -5,11 +5,6 @@ import {
   Grid,
   Paper,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
   Typography,
 } from "@mui/material";
 
@@ -31,7 +26,10 @@ function DetailRow({
         {label}
       </Typography>
 
-      <Typography fontWeight={600}>
+      <Typography
+        component="div"
+        fontWeight={600}
+      >
         {value || "-"}
       </Typography>
     </Box>
@@ -92,24 +90,24 @@ function RequestDetails({
         spacing={3}
         mb={4}
       >
-<Grid
-  size={{
-    xs: 12,
-    md: 6,
-  }}
->
-  <DetailRow
-    label="PR Number"
-    value={
-      <Chip
-        size="small"
-        color="primary"
-        variant="outlined"
-        label={request.prNumber}
-      />
-    }
-  />
-</Grid>
+        <Grid
+          size={{
+            xs: 12,
+            md: 6,
+          }}
+        >
+          <DetailRow
+            label="PR Number"
+            value={
+              <Chip
+                size="small"
+                color="primary"
+                variant="outlined"
+                label={request.prNumber}
+              />
+            }
+          />
+        </Grid>
 
         <Grid
           size={{
@@ -213,8 +211,8 @@ function RequestDetails({
       {/* Items */}
 
       <RequestedItemsTable
-          items={request?.items}
-        />
+        items={request?.items}
+      />
     </Paper>
   );
 }
