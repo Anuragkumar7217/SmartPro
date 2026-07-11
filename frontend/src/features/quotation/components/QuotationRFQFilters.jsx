@@ -31,7 +31,7 @@ function QuotationRFQFilters({
             md: 300,
           },
           "& .MuiOutlinedInput-root": {
-            bgcolor: "#ffffff",
+            bgcolor: "background.paper",
           },
         }}
       />

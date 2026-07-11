@@ -150,7 +150,7 @@ function CreateRequestForm() {
           md: 4,
         },
         borderRadius: 3,
-        bgcolor: "#FFFFFF",
+        bgcolor: "background.paper",
       }}
     >
       <Stack

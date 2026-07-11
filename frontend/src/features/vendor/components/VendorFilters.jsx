@@ -36,18 +36,18 @@ function VendorFilters({
           },
 
           "& .MuiOutlinedInput-root": {
-            bgcolor: "#ffffff",
+            bgcolor: "background.paper",
 
             "& fieldset": {
-              borderColor: "#E5E7EB",
+              borderColor: "divider",
             },
 
             "&:hover fieldset": {
-  borderColor: "text.primary",
-},
+              borderColor: "primary.main",
+            },
 
             "&.Mui-focused fieldset": {
-              borderColor: "#4F46E5",
+              borderColor: "primary.main",
             },
           },
         }}
@@ -65,17 +65,17 @@ function VendorFilters({
           width: 220,
 
           "& .MuiOutlinedInput-root": {
-            bgcolor: "#ffffff",
+            bgcolor: "background.paper",
 
             "& fieldset": {
-              borderColor: "#E5E7EB",
+              borderColor: "divider",
             },
 
             "&:hover fieldset": {
-  borderColor: "text.primary",
-},
+              borderColor: "primary.main",
+            },
             "&.Mui-focused fieldset": {
-              borderColor: "#4F46E5",
+              borderColor: "primary.main",
             },
           },
         }}

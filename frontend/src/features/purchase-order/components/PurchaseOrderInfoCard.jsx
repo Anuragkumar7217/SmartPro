@@ -32,7 +32,7 @@ function PurchaseOrderInfoCard({
           container
           spacing={3}
         >
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -50,7 +50,7 @@ function PurchaseOrderInfoCard({
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -64,7 +64,7 @@ function PurchaseOrderInfoCard({
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -82,7 +82,7 @@ function PurchaseOrderInfoCard({
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -100,7 +100,7 @@ function PurchaseOrderInfoCard({
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -113,19 +113,19 @@ function PurchaseOrderInfoCard({
                 label={purchaseOrder.status}
                 color={
                   purchaseOrder.status ===
-                  "ISSUED"
+                    "ISSUED"
                     ? "success"
                     : purchaseOrder.status ===
                       "CANCELLED"
-                    ? "error"
-                    : "warning"
+                      ? "error"
+                      : "warning"
                 }
                 size="small"
               />
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -141,7 +141,7 @@ function PurchaseOrderInfoCard({
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -152,13 +152,13 @@ function PurchaseOrderInfoCard({
             <Typography fontWeight={600}>
               {purchaseOrder.createdAt
                 ? new Date(
-                    purchaseOrder.createdAt
-                  ).toLocaleDateString()
+                  purchaseOrder.createdAt
+                ).toLocaleDateString()
                 : "-"}
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"

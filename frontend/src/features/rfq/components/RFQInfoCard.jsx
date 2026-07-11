@@ -32,7 +32,7 @@ function RFQInfoCard({ rfq }) {
           container
           spacing={3}
         >
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -50,7 +50,7 @@ function RFQInfoCard({ rfq }) {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -74,7 +74,7 @@ function RFQInfoCard({ rfq }) {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"
@@ -89,7 +89,7 @@ function RFQInfoCard({ rfq }) {
             </Box>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6 }}>
+          <Grid size={{ xs: 6, sm: 6 }}>
             <Typography
               variant="caption"
               color="text.secondary"

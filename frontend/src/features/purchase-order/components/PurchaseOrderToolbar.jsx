@@ -9,7 +9,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 function PurchaseOrderToolbar({
   search = "",
-  onSearchChange = () => {},
+  onSearchChange = () => { },
   onCreatePurchaseOrder,
 }) {
   return (
@@ -30,7 +30,7 @@ function PurchaseOrderToolbar({
             }
             sx={{
               "& .MuiOutlinedInput-root": {
-                bgcolor: "#fff",
+                bgcolor: "background.paper",
                 height: 40,
               },
             }}

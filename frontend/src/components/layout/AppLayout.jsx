@@ -22,8 +22,10 @@ function AppLayout() {
       sx={{
         display: "flex",
         minHeight: "100vh",
-        background:
-          "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
+        background: (theme) =>
+          theme.palette.mode === "dark"
+            ? "linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #311042 100%)"
+            : "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
       }}
     >
       <Sidebar

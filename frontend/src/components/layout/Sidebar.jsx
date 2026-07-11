@@ -27,9 +27,10 @@ function Sidebar({
         width: 270,
         height: "100%",
 
-        bgcolor: "#FFFFFF",
+        bgcolor: "background.paper",
 
-        borderRight: "1px solid #E5E7EB",
+        borderRight: "1px solid",
+        borderRightColor: "divider",
 
         display: "flex",
         flexDirection: "column",
@@ -41,7 +42,8 @@ function Sidebar({
         sx={{
           px: 2,
           py: 3,
-          borderBottom: "1px solid #F1F5F9",
+          borderBottom: "1px solid",
+          borderBottomColor: "divider",
         }}
       >
         <Stack
@@ -71,7 +73,7 @@ function Sidebar({
               fontSize: 22,
               fontWeight: 800,
               letterSpacing: "-0.4px",
-              color: "#111827",
+              color: "text.primary",
             }}
           >
             SmartPro
@@ -81,7 +83,7 @@ function Sidebar({
             sx={{
               fontSize: 13,
               fontWeight: 500,
-              color: "#6B7280",
+              color: "text.secondary",
               letterSpacing: "0.3px",
             }}
           >
@@ -141,12 +143,12 @@ function Sidebar({
             position: "sticky",
             top: 24,
 
-            bgcolor: "#FFFFFF",
+            bgcolor: "background.paper",
 
-            border: "1px solid #E5E7EB",
+            border: "1px solid",
+            borderColor: "divider",
 
-            boxShadow:
-              "0 8px 30px rgba(15,23,42,.06)",
+            boxShadow: (theme) => theme.shadows[1],
           }}
         >
           {sidebarContent}

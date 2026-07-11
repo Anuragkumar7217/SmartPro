@@ -88,7 +88,7 @@ function QuotationComparisonTable({
               </TableCell>
 
               <TableCell align="right">
-                Amount (₹)
+                Amount(₹)
               </TableCell>
 
               <TableCell align="center">
@@ -118,7 +118,7 @@ function QuotationComparisonTable({
 
                         "&:hover": {
                           backgroundColor:
-                            "#F8FAFC",
+                            "action.hover",
                         },
                       }}
                       onClick={() =>
@@ -163,7 +163,7 @@ function QuotationComparisonTable({
 
                       <TableCell align="center">
                         {quotation.status ===
-                        "SUBMITTED" ? (
+                          "SUBMITTED" ? (
                           <Button
                             size="small"
                             variant="contained"

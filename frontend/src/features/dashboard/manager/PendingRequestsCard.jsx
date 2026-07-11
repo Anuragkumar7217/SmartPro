@@ -23,11 +23,13 @@ function PendingRequestsCard({
         p: 4,
         height: "100%",
         borderRadius: 5,
-        border: "1px solid #E5E7EB",
-        background:
-          "linear-gradient(135deg,#FFFFFF 0%,#F8FAFC 100%)",
-        boxShadow:
-          "0 8px 30px rgba(15,23,42,.06)",
+        border: "1px solid",
+        borderColor: "divider",
+        background: (theme) =>
+          theme.palette.mode === "dark"
+            ? "linear-gradient(135deg,#1E293B 0%,#0F172A 100%)"
+            : "linear-gradient(135deg,#FFFFFF 0%,#F8FAFC 100%)",
+        boxShadow: (theme) => theme.shadows[1],
       }}
     >
       <Stack
@@ -51,8 +53,11 @@ function PendingRequestsCard({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              bgcolor: "#EEF2FF",
-              color: "#4F46E5",
+              bgcolor: (theme) =>
+                theme.palette.mode === "dark"
+                  ? "rgba(79,70,229,0.15)"
+                  : "#EEF2FF",
+              color: "primary.main",
             }}
           >
             <Clock3 size={34} />
@@ -72,7 +77,7 @@ function PendingRequestsCard({
               fontSize: 56,
               lineHeight: 1,
               fontWeight: 700,
-              color: "#4F46E5",
+              color: "primary.main",
             }}
           >
             {totalPending}

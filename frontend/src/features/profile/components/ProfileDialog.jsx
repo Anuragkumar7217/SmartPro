@@ -177,9 +177,10 @@ function InfoCard({ label, value }) {
     <Box
       sx={{
         p: 1.5,
-        border: "1px solid #E5E7EB",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 3,
-        bgcolor: "#FAFAFA",
+        bgcolor: "background.default",
       }}
     >
       <Typography

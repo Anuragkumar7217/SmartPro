@@ -80,18 +80,18 @@ function PendingRequestsPage() {
           flex: 1,
           minWidth: 300,
           "& .MuiOutlinedInput-root": {
-            bgcolor: "#ffffff",
+            bgcolor: "background.paper",
 
             "& fieldset": {
-              borderColor: "#E5E7EB",
+              borderColor: "divider",
             },
 
             "&:hover fieldset": {
-              borderColor: "#E5E7EB",
+              borderColor: "divider",
             },
 
             "&.Mui-focused fieldset": {
-              borderColor: "#4F46E5",
+              borderColor: "primary.main",
             },
           },
         }}

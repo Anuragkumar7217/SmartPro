@@ -15,9 +15,12 @@ import {
   Menu as MenuIcon,
   User,
   LogOut,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 import { useAuthStore } from "../../store/authStore";
+import { useThemeStore } from "../../store/themeStore";
 import { sidebarMenu } from "../../utils/sidebarMenu";
 
 import ProfileDialog from "../../features/profile/components/ProfileDialog";
@@ -28,6 +31,8 @@ function Navbar({ isMobile, onMenuClick }) {
 
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const { mode, toggleTheme } = useThemeStore();
+  const isDark = mode === "dark";
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -56,6 +61,11 @@ function Navbar({ isMobile, onMenuClick }) {
     setProfileOpen(true);
   };
 
+  const handleThemeToggle = () => {
+    handleMenuClose();
+    toggleTheme();
+  };
+
   const handleLogout = () => {
     handleMenuClose();
     logout();
@@ -72,9 +82,10 @@ function Navbar({ isMobile, onMenuClick }) {
           height: 72,
           px: { xs: 2, sm: 3, md: 4 },
           borderRadius: 5,
-          bgcolor: "#FFFFFF",
-          border: "1px solid #E5E7EB",
-          boxShadow: "0 8px 30px rgba(15,23,42,.06)",
+          bgcolor: "background.paper",
+          border: "1px solid",
+          borderColor: "divider",
+          boxShadow: isDark ? "0 8px 30px rgba(0,0,0,.3)" : "0 8px 30px rgba(15,23,42,.06)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -149,7 +160,7 @@ function Navbar({ isMobile, onMenuClick }) {
               borderRadius: 4,
               transition: ".25s",
               "&:hover": {
-                bgcolor: "#F5F3FF",
+                bgcolor: "action.hover",
               },
             }}
           >
@@ -219,22 +230,50 @@ function Navbar({ isMobile, onMenuClick }) {
             gap: 1.5,
             fontSize: 15,
             fontWeight: 500,
-            color: "#374151",
+            color: "text.primary",
             transition: "all .2s ease",
             "&:hover": {
-              bgcolor: "#EEF2FF",
-              color: "#4F46E5",
+              bgcolor: "action.hover",
+              color: "primary.main",
             },
             "& svg": {
-              color: "#6B7280",
+              color: "text.secondary",
             },
             "&:hover svg": {
-              color: "#4F46E5",
+              color: "primary.main",
             },
           }}
         >
           <User size={18} />
           Profile
+        </MenuItem>
+
+        <MenuItem
+          onClick={handleThemeToggle}
+          sx={{
+            borderRadius: 3,
+            py: 1.25,
+            px: 1.5,
+            mx: 2,
+            gap: 1.5,
+            fontSize: 15,
+            fontWeight: 500,
+            color: "text.primary",
+            transition: "all .2s ease",
+            "&:hover": {
+              bgcolor: "action.hover",
+              color: "primary.main",
+            },
+            "& svg": {
+              color: "text.secondary",
+            },
+            "&:hover svg": {
+              color: "primary.main",
+            },
+          }}
+        >
+          {mode === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          {mode === "light" ? "Dark Mode" : "Light Mode"}
         </MenuItem>
 
         <MenuItem
@@ -248,17 +287,17 @@ function Navbar({ isMobile, onMenuClick }) {
             gap: 1.5,
             fontSize: 15,
             fontWeight: 500,
-            color: "#374151",
+            color: "text.primary",
             transition: "all .2s ease",
             "&:hover": {
-              bgcolor: "#EEF2FF",
-              color: "#4F46E5",
+              bgcolor: "action.hover",
+              color: "primary.main",
             },
             "& svg": {
-              color: "#6B7280",
+              color: "text.secondary",
             },
             "&:hover svg": {
-              color: "#4F46E5",
+              color: "primary.main",
             },
           }}
         >
