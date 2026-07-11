@@ -93,7 +93,7 @@ function UserTable({
         </Typography>
       </Box>
 
-      <TableContainer sx={{ overflowX: "hidden" }}>
+      <TableContainer sx={{ overflowX: "auto" }}>
         <Table>
           <TableHead>
             <TableRow>

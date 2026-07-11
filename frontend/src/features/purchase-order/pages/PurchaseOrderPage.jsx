@@ -62,7 +62,7 @@ function PurchaseOrderPage() {
         />
 
         <Grid container spacing={3} sx={{ mt: 1 }}>
-          <Grid size={{ xs: 12, md: 5 }}>
+          <Grid size={{ xs: 12, lg: 5 }}>
             <PurchaseOrderTable
               purchaseOrders={purchaseOrders}
               loading={loading}
@@ -77,7 +77,7 @@ function PurchaseOrderPage() {
             />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 7 }}>
+          <Grid size={{ xs: 12, lg: 7 }}>
             <PurchaseOrderDetailPanel
               purchaseOrder={
                 selectedPurchaseOrder

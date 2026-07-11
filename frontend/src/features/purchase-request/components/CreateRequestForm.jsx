@@ -144,7 +144,11 @@ function CreateRequestForm() {
       sx={{
         maxWidth: 1100,
         mx: "auto",
-        p: 4,
+        p: {
+          xs: 2,
+          sm: 3,
+          md: 4,
+        },
         borderRadius: 3,
         bgcolor: "#FFFFFF",
       }}

@@ -244,6 +244,7 @@ const theme = createTheme({
         root: {
           borderRadius: 20,
           border: "1px solid #E5E7EB",
+          overflowX: "auto",
         },
       },
     },

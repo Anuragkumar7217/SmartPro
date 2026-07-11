@@ -46,7 +46,11 @@ function RequestDetails({
       elevation={0}
       sx={{
         mt: 4,
-        p: 4,
+        p: {
+          xs: 2,
+          sm: 3,
+          md: 4,
+        },
         borderRadius: 5,
         border: "1px solid #E5E7EB",
         boxShadow:
@@ -56,9 +60,16 @@ function RequestDetails({
       {/* Header */}
 
       <Stack
-        direction="row"
+        direction={{
+          xs: "column",
+          sm: "row",
+        }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{
+          xs: "flex-start",
+          sm: "center",
+        }}
+        spacing={2}
         mb={3}
       >
         <Box>

@@ -5,6 +5,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
@@ -24,7 +25,11 @@ function RequestItemsEditor({
     <Paper
       elevation={0}
       sx={{
-        p: 4,
+        p: {
+          xs: 2,
+          sm: 3,
+          md: 4,
+        },
         mt: 3,
         borderRadius: 3,
         border: "1px solid #E5E7EB",
@@ -48,42 +53,44 @@ function RequestItemsEditor({
       </Typography>
       </Box>
 
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell width={60}>#</TableCell>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell width={60}>#</TableCell>
 
-            <TableCell>
-              Item Name
-            </TableCell>
+              <TableCell>
+                Item Name
+              </TableCell>
 
-            <TableCell width={180}>
-              Quantity
-            </TableCell>
+              <TableCell width={180}>
+                Quantity
+              </TableCell>
 
-            <TableCell width={80}>
-              Action
-            </TableCell>
-          </TableRow>
-        </TableHead>
+              <TableCell width={80}>
+                Action
+              </TableCell>
+            </TableRow>
+          </TableHead>
 
-        <TableBody>
-          {items.map((item, index) => (
-            <RequestItemRow
-              key={index}
-              index={index}
-              item={item}
-              handleItemChange={
-                handleItemChange
-              }
-              removeItem={removeItem}
-              disableDelete={
-                items.length === 1
-              }
-            />
-          ))}
-        </TableBody>
-      </Table>
+          <TableBody>
+            {items.map((item, index) => (
+              <RequestItemRow
+                key={index}
+                index={index}
+                item={item}
+                handleItemChange={
+                  handleItemChange
+                }
+                removeItem={removeItem}
+                disableDelete={
+                  items.length === 1
+                }
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
             
       <Button
         variant="contained"

@@ -25,7 +25,11 @@ function QuotationRFQFilters({
         }
         sx={{
           flex: 1,
-          minWidth: 300,
+          minWidth: {
+            xs: "100%",
+            sm: 260,
+            md: 300,
+          },
           "& .MuiOutlinedInput-root": {
             bgcolor: "#ffffff",
           },

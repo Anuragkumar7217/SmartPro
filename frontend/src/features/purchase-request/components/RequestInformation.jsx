@@ -14,7 +14,11 @@ function RequestInformation({
     <Paper
       elevation={0}
       sx={{
-        p: 4,
+        p: {
+          xs: 2,
+          sm: 3,
+          md: 4,
+        },
         borderRadius: 3,
         mb: 3,
         border: "1px solid #E5E7EB",

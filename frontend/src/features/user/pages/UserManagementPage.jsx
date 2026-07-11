@@ -114,7 +114,7 @@ function UserManagementPage() {
           <Grid
             size={{
               xs: 12,
-              md: 6.5,
+              lg: 6.5,
             }}
           >
             <UserTable
@@ -131,7 +131,7 @@ function UserManagementPage() {
           <Grid
             size={{
               xs: 12,
-              md: 5.5,
+              lg: 5.5,
             }}
           >
             <UserDetailPanel

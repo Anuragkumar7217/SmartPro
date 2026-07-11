@@ -81,17 +81,27 @@ function PurchaseOrderActions({
           <Divider sx={{ mb: 3 }} />
 
           <Stack
-            direction="row"
+            direction={{
+              xs: "column",
+              sm: "row",
+            }}
             spacing={2}
             justifyContent="flex-end"
           >
             <Button
               variant="contained"
               color="success"
+              fullWidth
               disabled={
                 loading || !isDraft
               }
               onClick={handleIssueClick}
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "auto",
+                },
+              }}
             >
               Issue Purchase Order
             </Button>
@@ -99,12 +109,19 @@ function PurchaseOrderActions({
             <Button
               variant="outlined"
               color="error"
+              fullWidth
               disabled={
                 loading ||
                 isCancelled ||
                 isIssued
               }
               onClick={handleCancelClick}
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "auto",
+                },
+              }}
             >
               Cancel Purchase Order
             </Button>

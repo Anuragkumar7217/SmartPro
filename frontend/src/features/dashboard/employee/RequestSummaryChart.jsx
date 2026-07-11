@@ -102,8 +102,9 @@ function RequestSummaryChart({
       <Grid
         container
         alignItems="center"
+        spacing={2}
       >
-        <Grid size={7}>
+        <Grid size={{ xs: 12, sm: 7 }}>
           <Stack spacing={1.5}>
             <SummaryRow
               label="Submitted"
@@ -126,11 +127,12 @@ function RequestSummaryChart({
         </Grid>
 
         <Grid
-          size={5}
+          size={{ xs: 12, sm: 5 }}
           sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            mt: { xs: 2, sm: 0 },
           }}
         >
           <PieChart

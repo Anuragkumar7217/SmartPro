@@ -70,7 +70,7 @@ function RFQManagementPage() {
           container
           spacing={3}
         >
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <RFQTable
               rfqs={rfqs}
               selectedRFQ={selectedRFQ}
@@ -78,7 +78,7 @@ function RFQManagementPage() {
             />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, lg: 6 }}>
             <RFQDetailPanel
               rfq={selectedRFQ}
               quotations={quotations}
