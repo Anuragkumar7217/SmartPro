@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import {
   Alert,
@@ -20,6 +20,16 @@ import { useAuthStore } from "../../../store/authStore";
 
 function LoginForm() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [showExpiredAlert, setShowExpiredAlert] = useState(
+    searchParams.get("sessionExpired") === "true"
+  );
+
+  useEffect(() => {
+    if (searchParams.get("sessionExpired") === "true") {
+      setSearchParams({}, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const {
     login,
@@ -35,6 +45,7 @@ function LoginForm() {
 
   const handleChange = (e) => {
     clearError();
+    setShowExpiredAlert(false);
 
     setFormData((prev) => ({
       ...prev,
@@ -123,19 +134,18 @@ function LoginForm() {
             control={<Checkbox />}
             label="Remember me"
           />
-{/* 
-          <Link
-            to="#"
-            style={{
-              textDecoration: "none",
-              color: "#4F46E5",
-              fontWeight: 600,
-              fontSize: "14px",
-            }}
-          >
-            Forgot Password?
-          </Link> */}
         </Box>
+
+        {/* Session Expired Alert */}
+
+        {showExpiredAlert && (
+          <Alert
+            severity="warning"
+            onClose={() => setShowExpiredAlert(false)}
+          >
+            Session time expired. Please log in again.
+          </Alert>
+        )}
 
         {/* Error */}
 
