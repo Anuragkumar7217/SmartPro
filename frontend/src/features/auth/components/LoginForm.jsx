@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
+import { GoogleLogin } from "@react-oauth/google";
+
 import {
   Alert,
   Box,
@@ -32,11 +34,12 @@ function LoginForm() {
   }, [searchParams, setSearchParams]);
 
   const {
-    login,
-    loading,
-    error,
-    clearError,
-  } = useAuthStore();
+  login,
+  googleLogin,
+  loading,
+  error,
+  clearError,
+} = useAuthStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -63,6 +66,22 @@ function LoginForm() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+  try {
+    await googleLogin(
+      credentialResponse.credential
+    );
+
+    navigate("/dashboard");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+  const handleGoogleError = () => {
+    console.log("Google Login Failed");
   };
 
   return (
@@ -165,7 +184,24 @@ function LoginForm() {
           Sign In
         </SubmitButton>
 
-        <Divider />
+        <Stack spacing={2}>
+  <Divider>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+    >
+      OR
+    </Typography>
+  </Divider>
+
+  <GoogleLogin
+    onSuccess={handleGoogleSuccess}
+    onError={handleGoogleError}
+    useOneTap={false}
+  />
+</Stack>
+
+        {/* <Divider /> */}
 
         {/* Register */}
 

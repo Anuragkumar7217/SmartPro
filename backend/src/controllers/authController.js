@@ -34,6 +34,25 @@ const login = async (req, res) => {
   }
 };
 
+const googleLogin = async (req, res) => {
+  try {
+    const { idToken } = req.body;
+
+    const result = await authService.googleLoginUser(idToken);
+
+    return res.status(200).json({
+      success: true,
+      message: "Google login successful",
+      data: result,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 const getProfile = async (req, res) => {
   return res.status(200).json({
     success: true,
@@ -45,5 +64,6 @@ const getProfile = async (req, res) => {
 module.exports = {
   register,
   login,
+  googleLogin,
   getProfile,
 };

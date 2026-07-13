@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: true,
       select: false,
+      default: null,
     },
 
     role: {
@@ -38,6 +38,22 @@ const userSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+
+    googleId: {
+      type: String,
+      default: null,
+    },
+
+    authProvider: {
+      type: String,
+      enum: ["LOCAL", "GOOGLE"],
+      default: "LOCAL",
+    },
+
+    profilePicture: {
+      type: String,
+      default: "",
     },
   },
   {
