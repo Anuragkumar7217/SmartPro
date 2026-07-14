@@ -51,6 +51,7 @@ function GoogleSignInButton({
         onSuccess={handleGoogleSuccess}
         onError={handleGoogleError}
         useOneTap={false}
+        width="100%"
       />
 
       <Typography
@@ -64,8 +65,8 @@ function GoogleSignInButton({
           to={to}
           sx={{
             display: {
-                xs: "block",
-                sm: "inline",
+              xs: "block",
+              sm: "inline",
             },
             textDecoration: "none",
             fontWeight: 600,

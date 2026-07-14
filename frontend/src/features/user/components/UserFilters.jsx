@@ -61,7 +61,10 @@ function UserFilters({
           onRoleChange(event.target.value)
         }
         sx={{
-          width: 220,
+  width: {
+    xs: "calc(50% - 8px)",
+    sm: 220,
+  },
 
           "& .MuiOutlinedInput-root": {
             bgcolor: "background.paper",
@@ -112,7 +115,10 @@ function UserFilters({
           onStatusChange(event.target.value)
         }
         sx={{
-          width: 220,
+  width: {
+    xs: "calc(50% - 8px)",
+    sm: 220,
+  },
 
           "& .MuiOutlinedInput-root": {
             bgcolor: "background.paper",
