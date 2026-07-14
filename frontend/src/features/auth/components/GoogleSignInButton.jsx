@@ -51,7 +51,7 @@ function GoogleSignInButton({
         onSuccess={handleGoogleSuccess}
         onError={handleGoogleError}
         useOneTap={false}
-        size="large"
+        size="medium"
       />
 
       <Typography
