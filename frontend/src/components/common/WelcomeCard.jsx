@@ -47,10 +47,7 @@ function WelcomeCard() {
         borderRadius: 5,
         border: "1px solid",
         borderColor: "divider",
-        background: (theme) =>
-          theme.palette.mode === "dark"
-            ? "linear-gradient(135deg,#1E293B 0%,#0F172A 100%)"
-            : "linear-gradient(135deg,#FFFFFF 0%,#F8FAFC 100%)",
+        background: (theme) => theme.palette.background.cardGradient,
         boxShadow: (theme) => theme.shadows[1],
       }}
     >

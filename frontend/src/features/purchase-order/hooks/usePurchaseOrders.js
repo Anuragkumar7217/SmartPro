@@ -53,16 +53,16 @@ function usePurchaseOrders() {
     } catch (error) {
       showError(
         error.response?.data?.message ||
-          "Failed to load Purchase Orders."
+        "Failed to load Purchase Orders."
       );
     } finally {
       setLoading(false);
     }
   }, [showError]);
 
-//   -------------------------------------------------
-//   Load Selected Quotations
-//   -------------------------------------------------
+  //   -------------------------------------------------
+  //   Load Selected Quotations
+  //   -------------------------------------------------
 
   const loadSelectedQuotations =
     useCallback(async () => {
@@ -87,36 +87,36 @@ function usePurchaseOrders() {
 
 
         const comparisons = await Promise.all(
-        closedRFQs.map(async (rfq) => ({
+          closedRFQs.map(async (rfq) => ({
             rfq,
             comparison:
-            await purchaseOrderService.getQuotationComparison(
+              await purchaseOrderService.getQuotationComparison(
                 rfq._id
-            ),
-        }))
+              ),
+          }))
         );
 
         const selected = [];
 
         for (const { rfq, comparison } of comparisons) {
-            console.log("RFQ:", rfq._id);
-            console.log("Comparison:", comparison);
-            const safeComparison = comparison?.quotations || [];
+          console.log("RFQ:", rfq._id);
+          console.log("Comparison:", comparison);
+          const safeComparison = comparison?.quotations || [];
 
-            const quotation = safeComparison.find(
-  (item) => item.status === "SELECTED"
-);
+          const quotation = safeComparison.find(
+            (item) => item.status === "SELECTED"
+          );
 
-if (!quotation) {
-  continue;
-}
+          if (!quotation) {
+            continue;
+          }
 
           const alreadyCreated =
             purchaseOrders.some((po) => {
-                return (
+              return (
                 po.quotation?._id === quotation.quotationId ||
                 po.quotation === quotation.quotationId
-                );
+              );
             });
 
           if (alreadyCreated) {
@@ -149,14 +149,14 @@ if (!quotation) {
 
         setSelectedQuotations(selected);
       } catch (error) {
-  console.error("FULL ERROR:", error);
-  console.error("STACK:", error?.stack);
-  console.error("RESPONSE:", error?.response);
-            showError(
-                error.response?.data?.message ||
-                "Failed to load selected quotations."
-            );
-        }
+        console.error("FULL ERROR:", error);
+        console.error("STACK:", error?.stack);
+        console.error("RESPONSE:", error?.response);
+        showError(
+          error.response?.data?.message ||
+          "Failed to load selected quotations."
+        );
+      }
     }, [purchaseOrders, showError]);
 
   //-------------------------------------------------
@@ -177,7 +177,7 @@ if (!quotation) {
       } catch (error) {
         showError(
           error.response?.data?.message ||
-            "Failed to load Purchase Order."
+          "Failed to load Purchase Order."
         );
       } finally {
         setDetailLoading(false);
@@ -205,7 +205,7 @@ if (!quotation) {
 
           showSuccess(
             result.message ||
-              "Purchase Order Created Successfully."
+            "Purchase Order Created Successfully."
           );
 
           setDrawerOpen(false);
@@ -214,7 +214,7 @@ if (!quotation) {
         } catch (error) {
           showError(
             error.response?.data?.message ||
-              "Failed to create Purchase Order."
+            "Failed to create Purchase Order."
           );
         } finally {
           setCreatingQuotationId(
@@ -256,7 +256,7 @@ if (!quotation) {
       } catch (error) {
         showError(
           error.response?.data?.message ||
-            "Failed to issue Purchase Order."
+          "Failed to issue Purchase Order."
         );
       } finally {
         setActionLoading(false);
@@ -296,7 +296,7 @@ if (!quotation) {
       } catch (error) {
         showError(
           error.response?.data?.message ||
-            "Failed to cancel Purchase Order."
+          "Failed to cancel Purchase Order."
         );
       } finally {
         setActionLoading(false);
@@ -341,11 +341,11 @@ if (!quotation) {
   }, [loadPurchaseOrders]);
 
   useEffect(() => {
-    if (purchaseOrders.length >= 0) {
+    if (!loading) {
       loadSelectedQuotations();
     }
   }, [
-    purchaseOrders,
+    loading,
     loadSelectedQuotations,
   ]);
 

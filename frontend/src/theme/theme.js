@@ -33,8 +33,14 @@ const getCustomTheme = (mode) => {
       },
 
       background: {
-        default: isDark ? "#0F172A" : "#F8FAFC",
-        paper: isDark ? "#1E293B" : "#FFFFFF",
+        default: isDark ? "#121212" : "#F8FAFC",
+        paper: isDark ? "#1E1E1E" : "#FFFFFF",
+        gradient: isDark
+          ? "linear-gradient(135deg, #121212 0%, #1A1A1A 100%)"
+          : "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
+        cardGradient: isDark
+          ? "linear-gradient(135deg,#1E1E1E 0%,#121212 100%)"
+          : "linear-gradient(135deg,#FFFFFF 0%,#F8FAFC 100%)",
       },
 
       text: {
@@ -127,7 +133,7 @@ const getCustomTheme = (mode) => {
         styleOverrides: {
           body: {
             background: isDark
-              ? "linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #311042 100%)"
+              ? "linear-gradient(135deg, #121212 0%, #1A1A1A 100%)"
               : "linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 50%,#F5F3FF 100%)",
             minHeight: "100vh",
             transition: "background 0.3s ease, color 0.3s ease",
@@ -142,7 +148,7 @@ const getCustomTheme = (mode) => {
 
         styleOverrides: {
           root: {
-            background: isDark ? "#1E293B" : "#FFFFFF",
+            background: isDark ? "#1E1E1E" : "#FFFFFF",
             border: isDark ? "1px solid #334155" : "1px solid #E5E7EB",
             borderRadius: 20,
             boxShadow: isDark ? "0 8px 30px rgba(0,0,0,.2)" : "0 8px 30px rgba(15,23,42,.05)",
@@ -221,7 +227,7 @@ const getCustomTheme = (mode) => {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            background: isDark ? "#0F172A" : "#F9FAFB",
+            background: isDark ? "#121212" : "#F9FAFB",
             borderRadius: 12,
             transition: "background-color 0.3s ease, border-color 0.3s ease",
 
@@ -252,7 +258,7 @@ const getCustomTheme = (mode) => {
             borderRadius: 20,
             border: isDark ? "1px solid #334155" : "1px solid #E5E7EB",
             overflowX: "auto",
-            background: isDark ? "#1E293B" : "#FFFFFF",
+            background: isDark ? "#1E1E1E" : "#FFFFFF",
           },
         },
       },
@@ -260,7 +266,7 @@ const getCustomTheme = (mode) => {
       MuiTableHead: {
         styleOverrides: {
           root: {
-            background: isDark ? "#0F172A" : "#F9FAFB",
+            background: isDark ? "#121212" : "#F9FAFB",
           },
         },
       },
