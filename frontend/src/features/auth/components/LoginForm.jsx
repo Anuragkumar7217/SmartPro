@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { GoogleLogin } from "@react-oauth/google";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 import {
   Alert,
@@ -9,7 +9,6 @@ import {
   Paper,
   Stack,
   Typography,
-  Divider,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
@@ -17,6 +16,7 @@ import {
 import TextInput from "./forms/TextInput";
 import PasswordInput from "./forms/PasswordInput";
 import SubmitButton from "./forms/SubmitButton";
+import { PackageCheck } from "lucide-react";
 
 import { useAuthStore } from "../../../store/authStore";
 
@@ -35,7 +35,6 @@ function LoginForm() {
 
   const {
   login,
-  googleLogin,
   loading,
   error,
   clearError,
@@ -68,22 +67,6 @@ function LoginForm() {
     }
   };
 
-  const handleGoogleSuccess = async (credentialResponse) => {
-  try {
-    await googleLogin(
-      credentialResponse.credential
-    );
-
-    navigate("/dashboard");
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-  const handleGoogleError = () => {
-    console.log("Google Login Failed");
-  };
-
   return (
     <Paper
       elevation={0}
@@ -108,22 +91,47 @@ function LoginForm() {
         onSubmit={handleSubmit}
       >
         {/* Heading */}
+      
+      <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            mb: 3,
+          }}
+        >
+          <Box
+            sx={{
+              width: 42,
+              height: 42,
+              borderRadius: 3,
+              background:
+                "linear-gradient(135deg,#2563EB,#7C3AED)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+            }}
+          >
+            <PackageCheck size={28} />
+          </Box>
 
-        <Box>
+        <Box align="center">
           <Typography
-            variant="h4"
+            variant="h5"
             fontWeight={700}
           >
             Welcome Back 👋
           </Typography>
 
           <Typography
+            variant="body2"
             color="text.secondary"
-            mt={1}
           >
             Sign in to continue to SmartPro.
           </Typography>
         </Box>
+            </Box>
 
         {/* Inputs */}
 
@@ -184,49 +192,11 @@ function LoginForm() {
           Sign In
         </SubmitButton>
 
-        <Stack spacing={2}>
-  <Divider>
-    <Typography
-      variant="body2"
-      color="text.secondary"
-    >
-      OR
-    </Typography>
-  </Divider>
-
-  <GoogleLogin
-    onSuccess={handleGoogleSuccess}
-    onError={handleGoogleError}
-    useOneTap={false}
-  />
-</Stack>
-
-        {/* <Divider /> */}
-
-        {/* Register */}
-
-        <Stack alignItems="center">
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            Don't have an account?
-          </Typography>
-
-          <Link
-            to="/register"
-            style={{
-              textDecoration: "none",
-              width: "100%",
-            }}
-          >
-            <SubmitButton
-              variant="outlined"
-            >
-              Create Account
-            </SubmitButton>
-          </Link>
-        </Stack>
+        <GoogleSignInButton
+          text="Don't have an account?"
+          linkText="Create an account"
+          to="/register"
+        />
       </Stack>
     </Paper>
   );

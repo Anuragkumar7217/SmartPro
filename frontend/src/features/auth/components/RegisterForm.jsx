@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Alert,
@@ -7,12 +7,15 @@ import {
   Paper,
   Stack,
   Typography,
-  Divider,
 } from "@mui/material";
+
+
+import { PackageCheck,} from "lucide-react";
 
 import TextInput from "./forms/TextInput";
 import PasswordInput from "./forms/PasswordInput";
 import SubmitButton from "./forms/SubmitButton";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 import { authService } from "../services/authService";
 
@@ -83,8 +86,6 @@ function RegisterForm() {
         bgcolor: "rgba(255,255,255,.82)",
         backdropFilter: "blur(18px)",
         border: "1px solid rgba(255,255,255,.7)",
-        boxShadow:
-          "0 20px 50px rgba(0,0,0,.08)",
       }}
     >
       <Stack
@@ -94,20 +95,47 @@ function RegisterForm() {
       >
         {/* Heading */}
 
-        <Box>
+      <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            mb: 3,
+          }}
+        >
+          <Box
+            sx={{
+              width: 42,
+              height: 42,
+              borderRadius: 3,
+              background:
+                "linear-gradient(135deg,#2563EB,#7C3AED)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+              boxShadow:
+                "0 12px 30px rgba(79,70,229,.25)",
+            }}
+          >
+            <PackageCheck size={28} />
+          </Box>
+
+        <Box align="center">
           <Typography
-            variant="h4"
+            variant="h5"
             fontWeight={700}
           >
             Create Account 🚀
           </Typography>
 
           <Typography
+            variant="body2"
             color="text.secondary"
-            mt={1}
           >
             Register to start using SmartPro.
           </Typography>
+        </Box>
         </Box>
 
         {/* Inputs */}
@@ -166,30 +194,12 @@ function RegisterForm() {
           Create Account
         </SubmitButton>
 
-        <Divider />
+        <GoogleSignInButton
+          text="Already have an account?"
+          linkText="Sign In"
+          to="/login"
+        />
 
-        {/* Login */}
-
-        <Stack alignItems="center">
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            Already have an account?
-          </Typography>
-
-          <Link
-            to="/login"
-            style={{
-              textDecoration: "none",
-              width: "100%",
-            }}
-          >
-            <SubmitButton variant="outlined">
-              Sign In
-            </SubmitButton>
-          </Link>
-        </Stack>
       </Stack>
     </Paper>
   );
