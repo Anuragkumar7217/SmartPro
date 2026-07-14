@@ -47,14 +47,12 @@ function GoogleSignInButton({
         </Typography>
       </Divider>
 
-      <div style={{ width: "100%" }}>
-        <GoogleLogin
-          onSuccess={handleGoogleSuccess}
-          onError={handleGoogleError}
-          useOneTap={false}
-          width="100%"
-        />
-      </div>
+      <GoogleLogin
+        onSuccess={handleGoogleSuccess}
+        onError={handleGoogleError}
+        useOneTap={false}
+        size="large"
+      />
 
       <Typography
         variant="body2"
