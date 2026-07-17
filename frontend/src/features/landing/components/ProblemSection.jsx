@@ -1,30 +1,21 @@
-import { Box, Card, Container, Grid, Stack, Typography, useTheme } from "@mui/material";
-import { FileSpreadsheet, ShieldAlert, MailWarning } from "lucide-react";
+import { Box, Container, Grid, Stack, Typography, Card, useTheme } from "@mui/material";
+import { AlertCircle } from "lucide-react";
 
 function ProblemSection() {
   const theme = useTheme();
 
-  const problems = [
+  const painCards = [
     {
-      icon: FileSpreadsheet,
-      title: "Manual Spreadsheet Chaos",
-      description: "Submitting request sheets and tracking confirmations via chaotic email threads is slow, frustrating, and prone to items getting lost in transit.",
-      color: "#EF4444",
-      bgColor: "rgba(239, 68, 68, 0.08)",
+      title: "Manual approvals",
+      desc: "Requests move through emails and spreadsheets, causing delays and lost records.",
     },
     {
-      icon: ShieldAlert,
-      title: "Maverick Spend & Leakage",
-      description: "Without pre-approved budget controls and structured limits, unauthorized purchases go unnoticed until it's too late, draining company capital.",
-      color: "#F59E0B",
-      bgColor: "rgba(245, 158, 11, 0.08)",
+      title: "Poor vendor visibility",
+      desc: "Teams struggle to compare quotations and track vendor bids in one place.",
     },
     {
-      icon: MailWarning,
-      title: "Slow Vendor Communication",
-      description: "Manually drafting RFQs, emailing multiple suppliers, and comparing different PDF quotes by hand creates weeks of delay in critical ordering.",
-      color: "#EF4444",
-      bgColor: "rgba(239, 68, 68, 0.08)",
+      title: "Lack of tracking",
+      desc: "Management has no real-time visibility into procurement status and budget spending.",
     },
   ];
 
@@ -32,97 +23,74 @@ function ProblemSection() {
     <Box
       id="problem"
       sx={{
-        py: { xs: 10, md: 14 },
-        bgcolor: theme.palette.mode === "dark" ? "rgba(255,255,255,0.02)" : "rgba(248, 250, 252, 0.5)",
-        borderTop: `1px solid ${theme.palette.divider}`,
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        py: { xs: 6, md: 8 },
+        bgcolor: theme.palette.mode === "dark" ? "rgba(255,255,255,0.02)" : "rgba(255, 255, 255, 0.4)",
       }}
     >
       <Container maxWidth="lg">
-        <Stack spacing={6} alignItems="center">
-          {/* Section Header */}
-          <Stack spacing={2} alignItems="center" textAlign="center" sx={{ maxWidth: 700 }}>
-            <Typography
-              variant="caption"
-              sx={{
-                color: "error.main",
-                fontWeight: 700,
-                letterSpacing: "1px",
-                textTransform: "uppercase",
-              }}
-            >
-              The Problem
+        <Stack spacing={5} alignItems="center">
+          {/* Header */}
+          <Stack spacing={1.5} alignItems="center" textAlign="center" sx={{ maxWidth: 600 }}>
+            <Typography variant="caption" sx={{ color: "error.main", fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase" }}>
+              The Pain
             </Typography>
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: "2rem", md: "2.75rem" },
-                fontWeight: 800,
-                letterSpacing: "-0.5px",
-              }}
-            >
-              Why manual procurement hurts your business
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem" }}>
-              Old procurement methods slow down operations, lead to budget overruns, and limit your view of company expenses.
+            <Typography variant="h2" sx={{ fontSize: { xs: "1.75rem", md: "2.25rem" }, fontWeight: 800 }}>
+              Procurement is often fragmented and slow
             </Typography>
           </Stack>
 
-          {/* Cards Grid */}
-          <Grid container spacing={4}>
-            {problems.map((prob) => {
-              const Icon = prob.icon;
-              return (
-                <Grid item xs={12} md={4} key={prob.title}>
-                  <Card
-                    sx={{
-                      p: 4,
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      transition: "all 0.3s ease",
-                      border: `1px solid ${theme.palette.divider}`,
-                      boxShadow: theme.shadows[1],
-                      "&:hover": {
-                        transform: "translateY(-6px)",
-                        boxShadow: "0 12px 30px rgba(0,0,0,0.05)",
-                        borderColor: prob.color,
-                      },
-                    }}
-                  >
-                    <Stack spacing={3}>
-                      {/* Icon */}
-                      <Box
-                        sx={{
-                          width: 50,
-                          height: 50,
-                          borderRadius: 2.5,
-                          bgcolor: prob.bgColor,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: prob.color,
-                        }}
-                      >
-                        <Icon size={24} />
-                      </Box>
+          {/* Pain Cards Grid */}
+          {/* Pain Cards Grid */}
+          <Grid container spacing={3}>
+            {painCards.map((card) => (
+              <Grid
+                key={card.title}
+                size={{ xs: 12, md: 4 }}
+              >
+                <Card
+                  sx={{
+                    p: 4,
+                    height: "100%",
+                    bgcolor:
+                      theme.palette.mode === "dark"
+                        ? "rgba(239, 68, 68, 0.05)"
+                        : "rgba(239, 68, 68, 0.02)",
+                    border: "1px solid rgba(239, 68, 68, 0.12)",
+                  }}
+                >
+                  <Stack spacing={2}>
+                    <Box
+                      sx={{
+                        color: "error.main",
+                        display: "flex",
+                      }}
+                    >
+                      <AlertCircle size={24} />
+                    </Box>
 
-                      {/* Content */}
-                      <Stack spacing={1.5}>
-                        <Typography variant="h5" fontWeight={700} color="text.primary">
-                          {prob.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                          {prob.description}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </Card>
-                </Grid>
-              );
-            })}
+                    <Typography
+                      variant="h6"
+                      fontWeight={700}
+                    >
+                      {card.title}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      {card.desc}
+                    </Typography>
+                  </Stack>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
+
+          {/* Transition text */}
+          <Typography variant="subtitle1" fontWeight={600} color="text.primary" textAlign="center" sx={{ pt: 2 }}>
+            SmartPro replaces disconnected tools with a single digital procurement workflow.
+          </Typography>
         </Stack>
       </Container>
     </Box>

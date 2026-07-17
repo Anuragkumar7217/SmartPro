@@ -11,8 +11,8 @@ const startServer = async () => {
   await connectDB();
 
   // Start listening only after DB is connected
-  app.listen(PORT, "0.0.0.0", () => {
-    // app.listen(PORT, () => {
+  // app.listen(PORT, "0.0.0.0", () => {
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 };

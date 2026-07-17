@@ -38,13 +38,10 @@ function AuthModal({ mode }) {
             position: "absolute",
             right: 16,
             top: 16,
-            color: "text.secondary",
+            color: "black",
             zIndex: 10,
-            bgcolor: "rgba(255, 255, 255, 0.8)",
-            backdropFilter: "blur(4px)",
             "&:hover": {
-              bgcolor: "rgba(255, 255, 255, 0.95)",
-              color: "text.primary",
+              color: "grey",
             },
           }}
         >
