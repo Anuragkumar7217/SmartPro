@@ -172,7 +172,7 @@ APPROVED or REJECTED
   
 
 Purpose:Employee requests goods/services. 
- Example: 
+Example: 
 
 2 Laptops 
 5 Mouse 
@@ -184,7 +184,7 @@ Performed By: MANAGER
   
 
 Actions: Approve or Reject 
- Manager adds: managerComment 
+Manager adds: managerComment 
   
 
 Step 3 — Vendor Management 
@@ -357,7 +357,7 @@ Only one quotation can be selected.
 6. PURCHASE ORDER 
 
 Created By: PURCHASE_TEAM 
- Source: SELECTED QUOTATION 
+Source: SELECTED QUOTATION 
   
 
 Business Rules: 
@@ -482,34 +482,43 @@ How I Would Build SmartPro:
 Phase 1 
 ✓ MongoDB 
 ✓ User Model 
+ 
 Phase 2 
 ✓ Authentication 
 ✓ Register 
 ✓ Login 
 ✓ JWT 
 ✓ Auth Middleware 
+ 
 Phase 3 
 ✓ Authorization 
 ✓ Role Middleware 
 ✓ Protected APIs 
+ 
 Phase 4 
 ✓ User Management 
+ 
 Phase 5 
 ✓ Purchase Request 
+ 
 Phase 6 
 ✓ Approval 
+ 
 Phase 7 
 ✓ Vendor Management 
+ 
 Phase 8 
 ✓ RFQ Management 
+ 
 Phase 9 
 ✓ Quotation Module 
+ 
 Phase 10 
 ✓ Quotation Comparison 
+ 
 Phase 11 
 ✓ Vendor Selection 
+ 
 Phase 12 
 ✓ Purchase Order Management 
-  
-
  

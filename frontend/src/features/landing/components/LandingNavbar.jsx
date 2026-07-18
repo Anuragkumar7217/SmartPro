@@ -61,7 +61,7 @@ function LandingNavbar() {
           textDecoration: "none",
           color: "inherit",
           cursor: "pointer",
-          height: 38,
+          alignSelf: "center",
           flexWrap: "nowrap", // Strictly prevent wrapping
         }}
       >

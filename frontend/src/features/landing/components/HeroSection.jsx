@@ -1,7 +1,14 @@
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { keyframes } from "@mui/system";
 import { Link as RouterLink } from "react-router-dom";
 import { ArrowRight, LayoutDashboard, Check } from "lucide-react";
 import illustration from "../../../assets/procurement-illustration.png";
+
+const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+`;
 
 function HeroSection() {
   const checklists = [
@@ -103,6 +110,7 @@ function HeroSection() {
             width: "100%",
             display: "flex",
             justifyContent: "center",
+            animation: `${float} 6s ease-in-out infinite`,
           }}
         >
           <Box
@@ -114,6 +122,16 @@ function HeroSection() {
               maxWidth: 480,
               height: "auto",
               objectFit: "contain",
+              transition: "all 0.4s ease-in-out",
+              filter: (theme) => theme.palette.mode === 'dark'
+                ? 'drop-shadow(0px 15px 30px rgba(0, 0, 0, 0.4))'
+                : 'drop-shadow(0px 15px 30px rgba(79, 70, 229, 0.15))',
+              "&:hover": {
+                transform: "translateY(-8px) scale(1.03)",
+                filter: (theme) => theme.palette.mode === 'dark'
+                  ? 'drop-shadow(0px 25px 45px rgba(0, 0, 0, 0.65))'
+                  : 'drop-shadow(0px 25px 45px rgba(79, 70, 229, 0.3))',
+              }
             }}
           />
         </Box>
