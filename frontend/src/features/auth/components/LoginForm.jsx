@@ -34,11 +34,11 @@ function LoginForm() {
   }, [searchParams, setSearchParams]);
 
   const {
-  login,
-  loading,
-  error,
-  clearError,
-} = useAuthStore();
+    login,
+    loading,
+    error,
+    clearError,
+  } = useAuthStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -91,8 +91,8 @@ function LoginForm() {
         onSubmit={handleSubmit}
       >
         {/* Heading */}
-      
-      <Box
+
+        <Box
           sx={{
             display: "flex",
             alignItems: "center",
@@ -116,22 +116,22 @@ function LoginForm() {
             <PackageCheck size={28} />
           </Box>
 
-        <Box align="center">
-          <Typography
-            variant="h5"
-            fontWeight={700}
-          >
-            Welcome Back 👋
-          </Typography>
+          <Box align="center">
+            <Typography
+              variant="h5"
+              fontWeight={700}
+            >
+              Welcome Back 👋
+            </Typography>
 
-          <Typography
-            variant="body2"
-            color="text.secondary"
-          >
-            Sign in to continue to SmartPro.
-          </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+            >
+              Sign in to continue to SmartPro.
+            </Typography>
+          </Box>
         </Box>
-            </Box>
 
         {/* Inputs */}
 

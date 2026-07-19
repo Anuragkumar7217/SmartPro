@@ -65,7 +65,7 @@ function UserRoleCard({
             Current Role
           </Typography>
 
-          <Box mt={0.5} mb={3}>
+          <Box mt={0.5} mb={2}>
             <Chip
               size="small"
               color="primary"
@@ -78,15 +78,16 @@ function UserRoleCard({
           </Box>
 
           <Typography
-            variant="caption"
+            variant="body2"
             color="text.secondary"
+            sx={{ mt: 2, mb: 0.5 }}
           >
             Select New Role
           </Typography>
 
           <FormControl
             fullWidth
-            sx={{ mt: 1 }}
+            sx={{ mt: 0 }}
           >
             <RadioGroup
               value={selectedRole}

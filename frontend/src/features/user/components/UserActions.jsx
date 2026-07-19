@@ -1,19 +1,15 @@
 import { useState } from "react";
 
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Card,
   CardContent,
+  Collapse,
   Divider,
   Stack,
   Typography,
 } from "@mui/material";
-
-import { ChevronDown } from "lucide-react";
 
 import ConfirmationDialog from "../../../components/common/ConfirmationDialog";
 import StatusChip from "../../../components/common/StatusChip";
@@ -45,7 +41,8 @@ function UserActions({
   return (
     <>
       <Card elevation={0}>
-        <CardContent sx={{ pb: 0 }}>
+        <CardContent>
+          {/* Header */}
           <Typography
             variant="h6"
             fontWeight={700}
@@ -56,73 +53,65 @@ function UserActions({
 
           <Divider sx={{ mb: 3 }} />
 
-          <Typography
-            variant="caption"
-            color="text.secondary"
-          >
-            Current Status
-          </Typography>
+          {/* Current Status & Action Layout */}
+          <Stack spacing={1.5} sx={{ mb: expanded ? 1 : 2 }}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={2}
+            >
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                fontWeight={600}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
+                Current Status
+              </Typography>
 
-          <Box mt={0.5} mb={3}>
-            <StatusChip
-              status={
-                isActive
-                  ? "ACTIVE"
-                  : "INACTIVE"
-              }
-            />
-          </Box>
-        </CardContent>
+              <StatusChip
+                status={
+                  isActive
+                    ? "ACTIVE"
+                    : "INACTIVE"
+                }
+              />
+            </Stack>
 
-        <Accordion
-          elevation={0}
-          expanded={expanded}
-          onChange={(_, value) =>
-            setExpanded(value)
-          }
-          sx={{
-            "&::before": {
-              display: "none",
-            },
-            boxShadow: "none",
-            borderTop: "1px solid",
-            borderColor: "divider",
-            borderBottomLeftRadius: 12,
-            borderBottomRightRadius: 12,
-          }}
-        >
-          <AccordionSummary
-            expandIcon={
-              <ChevronDown size={18} />
-            }
-          >
+            {/* Toggle Action Link */}
             <Typography
-              fontWeight={600}
-              color={
-                isActive
-                  ? "error.main"
-                  : "success.main"
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                cursor: "pointer",
+                fontWeight: 600,
+                alignSelf: "flex-start",
+                "&:hover": {
+                  color: isActive
+                    ? "error.main"
+                    : "success.main",
+                },
+              }}
+              onClick={() =>
+                setExpanded((prev) => !prev)
               }
             >
               {isActive
                 ? "Want to deactivate this account?"
                 : "Want to activate this account?"}
             </Typography>
-          </AccordionSummary>
+          </Stack>
 
-          <AccordionDetails>
-            <Stack spacing={2}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-              >
-                {isActive
-                  ? "The user will no longer be able to log in until the account is activated again."
-                  : "The user will be able to log in and access the system again."}
-              </Typography>
-
+          {/* Action Button */}
+          <Collapse in={expanded}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                mt: 1,
+              }}
+            >
               <Button
-                fullWidth
                 variant="contained"
                 color={
                   isActive
@@ -133,19 +122,17 @@ function UserActions({
                 onClick={() =>
                   setDialogOpen(true)
                 }
-                sx={{
-                  height: 46,
-                }}
               >
                 {isActive
-                  ? "Deactivate User"
-                  : "Activate User"}
+                  ? "Deactivate Account"
+                  : "Activate Account"}
               </Button>
-            </Stack>
-          </AccordionDetails>
-        </Accordion>
+            </Box>
+          </Collapse>
+        </CardContent>
       </Card>
 
+      {/* Confirmation Dialog */}
       <ConfirmationDialog
         open={dialogOpen}
         title={
