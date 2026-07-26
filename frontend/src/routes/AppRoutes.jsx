@@ -26,6 +26,8 @@ import UserManagementPage from "../features/user/pages/UserManagementPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
+import RoleGuard from "./RoleGuard";
+import { ROLES } from "../utils/roles";
 
 import NotFound from "../components/common/NotFound";
 
@@ -65,50 +67,61 @@ function AppRoutes() {
             element={<DashboardPage />}
           />
 
-          <Route
-            path="/purchase-requests/create"
-            element={<CreateRequestPage />}
-          />
+          {/* Employee Routes */}
+          <Route element={<RoleGuard allowedRoles={[ROLES.EMPLOYEE]} />}>
+            <Route
+              path="/purchase-requests/create"
+              element={<CreateRequestPage />}
+            />
+            <Route
+              path="/purchase-requests/my"
+              element={<MyRequestsPage />}
+            />
+          </Route>
 
-          <Route
-            path="/purchase-requests/my"
-            element={<MyRequestsPage />}
-          />
+          {/* Manager Routes */}
+          <Route element={<RoleGuard allowedRoles={[ROLES.MANAGER]} />}>
+            <Route
+              path="/purchase-requests/pending"
+              element={<PendingRequestsPage />}
+            />
+          </Route>
 
-          <Route
-            path="/purchase-requests/pending"
-            element={<PendingRequestsPage />}
-          />
+          {/* Purchase Team Routes */}
+          <Route element={<RoleGuard allowedRoles={[ROLES.PURCHASE_TEAM]} />}>
+            <Route
+              path="/purchase-requests/approved"
+              element={<ApprovedRequestsPage />}
+            />
+            <Route
+              path="/vendors"
+              element={<VendorsPage />}
+            />
+          </Route>
 
-          <Route
-            path="/purchase-requests/approved"
-            element={<ApprovedRequestsPage />}
-          />
+          {/* Shared Admin and Purchase Team Routes */}
+          <Route element={<RoleGuard allowedRoles={[ROLES.ADMIN, ROLES.PURCHASE_TEAM]} />}>
+            <Route
+              path="/rfqs"
+              element={<RFQManagementPage />}
+            />
+            <Route
+              path="/quotations"
+              element={<QuotationManagementPage />}
+            />
+            <Route
+              path="/purchase-orders"
+              element={<PurchaseOrderPage />}
+            />
+          </Route>
 
-          <Route
-            path="/vendors"
-            element={<VendorsPage />}
-          />
-
-          <Route
-            path="/rfqs"
-            element={<RFQManagementPage />}
-          />
-
-          <Route
-            path="/quotations"
-            element={<QuotationManagementPage />}
-          />
-
-          <Route
-            path="/purchase-orders"
-            element={<PurchaseOrderPage />}
-          />
-
-          <Route
-            path="/UserManagement"
-            element={<UserManagementPage />}
-          />
+          {/* Admin Routes */}
+          <Route element={<RoleGuard allowedRoles={[ROLES.ADMIN]} />}>
+            <Route
+              path="/UserManagement"
+              element={<UserManagementPage />}
+            />
+          </Route>
         </Route>
 
         {/* 404 */}
